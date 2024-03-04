@@ -4,6 +4,7 @@ const app = express();
 app.use(express.static('public'))
 app.use('/css', express.static('public/css'))
 app.use('/js', express.static('public/js'))
+app.use('/images', express.static('public/images'))
 app.set('views', './views')
 app.set('view engine', 'ejs')
 
