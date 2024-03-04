@@ -12,9 +12,11 @@
     <div class="outer-container">
         <div class="inner-container">
             <div class="header">
-                <h1>
-                    <%-linkResult%>
-                </h1>
+                <h1><%-input%></h1>
+                <form>
+                    <input placeholder="Enter Anything" id="inputBox">
+                    <button class="button" role="button" type="button" onclick=callServer()>Submit</button>
+                </form>
             </div>
         </div>
     </div>
