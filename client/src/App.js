@@ -1,23 +1,27 @@
-import Header from './Header';
-import Footer from './Footer';
-import Home from './Home';
+import Header from './pages/Header.js';
+import Footer from './pages/Footer.js';
+import Home from './pages/Home.js';
+import Login from './pages/Login.js';
 
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <Router>
+    <div className="App">
       <div className="header">
         <Header />
       </div>
       <div className="content">
-        <Switch>
-          <Route path="/"><Home /></Route>
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
       </div>
       <div className="footer">
         <Footer />
       </div>
-    </Router>
+    </div>
   );
 }
+
+export default App;
