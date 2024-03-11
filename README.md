@@ -2,7 +2,9 @@
 
 How to use:
 
-1. clone the project
-2. ```npm i```
-3. ```node app.js```
-4. In browser: ```localhost:3000```
+1. Clone the project
+2. New terminal > ```cd client``` then ```npm i```
+3. New terminal > ```cd server``` then ```npm i```
+4. ```npm start``` for client
+5. ```npm run dev``` for server
+6. In browser: ```localhost:3000```
