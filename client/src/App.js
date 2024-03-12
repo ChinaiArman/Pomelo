@@ -1,5 +1,6 @@
-import Header from './pages/Header.js';
-import Footer from './pages/Footer.js';
+import Header from './templates/Header.js';
+import Footer from './templates/Footer.js';
+import Nav from './templates/Nav.js';
 import Home from './pages/Home.js';
 import Login from './pages/Login.js';
 
@@ -10,6 +11,9 @@ function App() {
     <div className="App">
       <div className="header">
         <Header />
+      </div>
+      <div className="header">
+        <Nav />
       </div>
       <div className="content">
         <Routes>
