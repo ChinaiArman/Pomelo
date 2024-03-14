@@ -8,8 +8,8 @@ const { config, DynamoDB } = pkg
 let awsConfig = {
     "region": "us-west-2",
     "endpoint": "http://dynamodb.us-west-2.amazonaws.com",
-    "accessKeyId": "AKIAYS2NQCN5SZ6GXDHH",
-    "secretAccessKey": "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"
+    "accessKeyId": "",
+    "secretAccessKey": ""
 }
 config.update(awsConfig)
 const TABLENAME = "TeamSpaces"
