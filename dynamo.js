@@ -1,7 +1,7 @@
-require('dotenv').config()
+import dotenv from "dotenv"
 
-var crypto = require("crypto");
-const pkg = require('aws-sdk')
+import crypto from "crypto"
+import pkg from 'aws-sdk'
 const { config, DynamoDB } = pkg
 
 
@@ -16,7 +16,7 @@ const TABLENAME = "TeamSpaces"
 let dynamoDB = new DynamoDB.DocumentClient();
 
 
-let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUserID, teamSpaceUserName) {
+export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUserID, teamSpaceUserName) {
     let input = {
         "teamSpaceID": "T" + crypto.randomBytes(4).toString('hex'),
         "teamSpaceName": teamSpaceName,
@@ -45,5 +45,3 @@ let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUserID, t
         })
     })
 }
-
-module.exports = { createNewTeamSpace } 

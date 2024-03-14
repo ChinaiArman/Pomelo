@@ -1,16 +1,12 @@
-require('dotenv').config()
-const { createNewTeamSpace } = require('./dynamo.js');
+import dotenv from "dotenv"
+import { createNewTeamSpace } from './dynamo.js';
 
-
-const express = require('express');
+import express from "express"
 const app = express();
 
-const bodyParser = require('body-parser')
+import bodyParser from "body-parser"
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
-
-
 
 
 const PORT = process.env.PORT || 5000;

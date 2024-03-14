@@ -2,6 +2,7 @@
   "name": "comp3962-term-project",
   "author": "arman-chinai",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "server.js",
   "scripts": {
