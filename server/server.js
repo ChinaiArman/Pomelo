@@ -1,7 +1,10 @@
 import dotenv from "dotenv"
 dotenv.config()
 
-import { createNewTeamSpace } from './dynamo.js';
+import { 
+  createNewTeamSpace, 
+  getAllTeamSpaces,
+} from './dynamo.js';
 
 import express from "express"
 const app = express();
@@ -16,6 +19,11 @@ const PORT = 5000;
 
 app.get('/', (req, res) => {
   res.send('Hello World');
+});
+
+app.get("/getAllTeamSpaces", async (req, res) => {
+  let teamSpaces = await getAllTeamSpaces();
+  res.send(teamSpaces);
 });
 
 app.post("/createTeamSpace", (req, res) => {

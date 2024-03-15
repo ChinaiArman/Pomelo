@@ -17,6 +17,22 @@ const TABLENAME = "TeamSpaces"
 let dynamoDB = new DynamoDB.DocumentClient();
 
 
+export let getAllTeamSpaces = async function () {
+    let params = {
+        TableName: TABLENAME
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(params, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(data.Items)
+            }
+        })
+    })
+}
+
+
 export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUserID, teamSpaceUserName) {
     let input = {
         "teamSpaceID": "T" + crypto.randomBytes(4).toString('hex'),
