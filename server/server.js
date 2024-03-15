@@ -4,7 +4,8 @@ dotenv.config()
 import { 
   createNewTeamSpace, 
   getAllTeamSpaces,
-  getAllTransactions
+  getAllTransactions,
+  getTransactionsByCategory
 } from './dynamo.js';
 
 import express from "express"
@@ -29,6 +30,11 @@ app.get("/getAllTeamSpaces", async (req, res) => {
 
 app.get("/getAllTransactions", async (req, res) => {
   let transactions = await getAllTransactions(req.body.teamSpaceID)
+  res.send(transactions);
+});
+
+app.get("/getTransactionsByCategory" , async (req, res) => {
+  let transactions = await getTransactionsByCategory(req.body.teamSpaceID, req.body.spendingCategoryID)
   res.send(transactions);
 });
 
