@@ -11,11 +11,12 @@ import {
   getTeamSpaceLeader,
   getTeamSpaceByUserID,
   getTransactionsByUserID,
+  getJoinCode,
+  getTeamSpaceByID,
   createNewTeamSpace, 
   createNewSpendingCategory,
   createNewTransaction,
   addUserToTeamSpace,
-  getJoinCode
 } from './dynamo.js';
 
 import express from "express"
@@ -81,6 +82,11 @@ app.get("/getTransactionsByUserID", async (req, res) => {
 app.get("/getJoinCode", async (req, res) => {
   let joinCode = await getJoinCode(req.body.teamSpaceID)
   res.send(joinCode);
+});
+
+app.get("/getTeamSpaceByID", async (req, res) => {
+  let teamSpace = await getTeamSpaceByID(req.body.teamSpaceID)
+  res.send(teamSpace);
 });
 
 

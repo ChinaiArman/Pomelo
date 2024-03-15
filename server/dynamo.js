@@ -399,3 +399,22 @@ export let getJoinCode = async function (teamSpaceID) {
         })
     })
 }
+
+export let getTeamSpaceByID = async function (teamSpaceID) {
+    let params = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceID = :teamSpaceID",
+        ExpressionAttributeValues: {
+            ":teamSpaceID": teamSpaceID
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(params, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(data.Items[0])
+            }
+        })
+    })
+}
