@@ -380,3 +380,22 @@ export let addUserToTeamSpace = async function (teamSpaceJoinCode, userID, userN
         })
     })
 }
+
+export let getJoinCode = async function (teamSpaceID) {
+    let params = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceID = :teamSpaceID",
+        ExpressionAttributeValues: {
+            ":teamSpaceID": teamSpaceID
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(params, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(data.Items[0].teamSpaceJoinCode)
+            }
+        })
+    })
+}
