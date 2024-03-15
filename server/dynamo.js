@@ -314,7 +314,24 @@ export let createNewTransaction = async function (teamSpaceID, spendingCategoryI
                             if (err) {
                                 reject(err)
                             } else {
-                                resolve(input)
+                                let paramsThree = {
+                                    TableName: TABLENAME,
+                                    Key: {
+                                        "teamSpaceID": teamSpaceID
+                                    },
+                                    UpdateExpression: "SET spendingCategories[" + i + "].amountUsed = spendingCategories[" + i + "].amountUsed + :transactionAmount",
+                                    ExpressionAttributeValues: {
+                                        ":transactionAmount": transactionAmount
+                                    }
+                                }
+                                console.log("here")
+                                dynamoDB.update(paramsThree, (err, data) => {
+                                    if (err) {
+                                        reject(err)
+                                    } else {
+                                        resolve(input)
+                                    }
+                                })
                             }
                         })
                     }
