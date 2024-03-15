@@ -99,6 +99,30 @@ export let getAllSpendingCategories = async function(teamSpaceID) {
     })
 }
 
+export let getSpendingCategoryByID = async function(teamSpaceID, spendingCategoryID) {
+    let params = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceID = :teamSpaceID",
+        ExpressionAttributeValues: {
+            ":teamSpaceID": teamSpaceID
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(params, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                let spendingCategories = data.Items[0].spendingCategories
+                for (let i = 0; i < spendingCategories.length; i++) {
+                    if (spendingCategories[i].categoryID === spendingCategoryID) {
+                        resolve(spendingCategories[i])
+                    }
+                }
+            }
+        })
+    })
+}
+
 export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUserID, teamSpaceUserName) {
     let input = {
         "teamSpaceID": "T" + crypto.randomBytes(4).toString('hex'),

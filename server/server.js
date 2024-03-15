@@ -6,7 +6,8 @@ import {
   getAllTeamSpaces,
   getAllTransactions,
   getTransactionsBySpendingCategory,
-  getAllSpendingCategories
+  getAllSpendingCategories,
+  getSpendingCategoryByID
 } from './dynamo.js';
 
 import express from "express"
@@ -42,6 +43,11 @@ app.get("/getTransactionsBySpendingCategory" , async (req, res) => {
 app.get("/getAllSpendingCategories" , async (req, res) => {
   let spendingCategories = await getAllSpendingCategories(req.body.teamSpaceID)
   res.send(spendingCategories);
+});
+
+app.get("/getSpendingCategoryByID" , async (req, res) => {
+  let spendingCategory = await getSpendingCategoryByID(req.body.teamSpaceID, req.body.spendingCategoryID)
+  res.send(spendingCategory);
 });
 
 app.post("/createTeamSpace", (req, res) => {
