@@ -55,7 +55,7 @@ export let getAllTransactions = async function(teamSpaceID) {
     })
 }
 
-export let getTransactionsBySpendingCategory = async function(teamSpaceID, categoryID) {
+export let getTransactionsBySpendingCategory = async function(teamSpaceID, spendingCategoryID) {
     let params = {
         TableName: TABLENAME,
         FilterExpression: "teamSpaceID = :teamSpaceID",
@@ -70,7 +70,7 @@ export let getTransactionsBySpendingCategory = async function(teamSpaceID, categ
             } else {
                 let transactions = []
                 for (let i = 0; i < data.Items[0].spendingCategories.length; i++) {
-                    if (data.Items[0].spendingCategories[i].categoryID === categoryID) {
+                    if (data.Items[0].spendingCategories[i].spendingCategoryID === spendingCategoryID) {
                         transactions = data.Items[0].spendingCategories[i].transactions
                     }
                 }
@@ -114,7 +114,7 @@ export let getSpendingCategoryByID = async function(teamSpaceID, spendingCategor
             } else {
                 let spendingCategories = data.Items[0].spendingCategories
                 for (let i = 0; i < spendingCategories.length; i++) {
-                    if (spendingCategories[i].categoryID === spendingCategoryID) {
+                    if (spendingCategories[i].spendingCategoryID === spendingCategoryID) {
                         resolve(spendingCategories[i])
                     }
                 }
@@ -246,10 +246,10 @@ export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUs
     })
 }
 
-export let createNewSpendingCategory = async function (teamSpaceID, categoryName, budgetLimit) {
+export let createNewSpendingCategory = async function (teamSpaceID, spendingCategoryName, budgetLimit) {
     let input = {
-        "categoryID": "C" + crypto.randomBytes(4).toString('hex'),
-        "categoryName": categoryName,
+        "spendingCategoryID": "C" + crypto.randomBytes(4).toString('hex'),
+        "spendingCategoryName": spendingCategoryName,
         "amountUsed": 0,
         "budgetLimit": budgetLimit,
         "transactions": []
@@ -270,6 +270,58 @@ export let createNewSpendingCategory = async function (teamSpaceID, categoryName
                 reject(err)
             } else {
                 resolve(input)
+            }
+        })
+    })
+}
+
+export let createNewTransaction = async function (teamSpaceID, spendingCategoryID, userID, transactionName, transactionAmount) {
+    let paramsOne = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceID = :teamSpaceID",
+        ExpressionAttributeValues: {
+            ":teamSpaceID": teamSpaceID
+        }
+    }
+    
+    let input = {
+        "transactionDate": new Date().toDateString(),
+        "transactionName": transactionName,
+        "userID": userID,
+        "spendingCategoryID": spendingCategoryID,
+        "transactionID": "T" + crypto.randomBytes(4).toString('hex'),
+        "transactionAmount": transactionAmount,
+    }
+
+    await new Promise((resolve, reject) => {
+        dynamoDB.scan(paramsOne, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                let spendingCategories = data.Items[0].spendingCategories
+                for (let i = 0; i < spendingCategories.length; i++) {
+                    if (spendingCategories[i].spendingCategoryID === spendingCategoryID) {
+                        let paramsTwo = {
+                            TableName: TABLENAME,
+                            Key: {
+                                "teamSpaceID": teamSpaceID
+                            },
+                            UpdateExpression: "SET spendingCategories[" + i + "].transactions = list_append(spendingCategories[" + i + "].transactions, :transaction)",
+                            ExpressionAttributeValues: {
+                                ":transaction": [input]
+                            }
+                        }
+                        return new Promise((resolve, reject) => {
+                            dynamoDB.update(paramsTwo, (err, data) => {
+                                if (err) {
+                                    reject(err)
+                                } else {
+                                    resolve(input)
+                                }
+                            })
+                        })
+                    }
+                }
             }
         })
     })
