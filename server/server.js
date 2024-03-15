@@ -7,7 +7,7 @@ import {
   getTransactionsBySpendingCategory,
   getAllSpendingCategories,
   getSpendingCategoryByID,
-  getTeamSpaceUsers,
+  getAllTeamSpaceUsers,
   getTeamSpaceLeader,
   getTeamSpaceByUserID,
   getTransactionsByUserID,
@@ -63,8 +63,8 @@ app.get("/getSpendingCategoryByID" , async (req, res) => {
   res.send(spendingCategory);
 });
 
-app.get("/getTeamSpaceUsers" , async (req, res) => {
-  let teamSpaceUsers = await getTeamSpaceUsers(req.body.teamSpaceID)
+app.get("/getAllTeamSpaceUsers" , async (req, res) => {
+  let teamSpaceUsers = await getAllTeamSpaceUsers(req.body.teamSpaceID)
   res.send(teamSpaceUsers);
 });
 
@@ -96,11 +96,6 @@ app.get("/getTeamSpaceByID", async (req, res) => {
 app.get("/getUserByID", async (req, res) => {
   let user = await getUserByID(req.body.userID)
   res.send(user);
-});
-
-app.get("/getAllUsersByTeamSpaceID", async (req, res) => {
-  let teamSpaceUsers = await getTeamSpaceUsers(req.body.teamSpaceID)
-  res.send(teamSpaceUsers);
 });
 
 

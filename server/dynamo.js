@@ -123,7 +123,7 @@ export let getSpendingCategoryByID = async function(teamSpaceID, spendingCategor
     })
 }
 
-export let getTeamSpaceUsers = async function(teamSpaceID) {
+export let getAllTeamSpaceUsers = async function(teamSpaceID) {
     let params = {
         TableName: TABLENAME,
         FilterExpression: "teamSpaceID = :teamSpaceID",
@@ -555,25 +555,6 @@ export let generateNewTeamSpaceJoinCode = async function (teamSpaceID) {
                 reject(err)
             } else {
                 resolve(input)
-            }
-        })
-    })
-}
-
-export let getAllUsersByTeamSpaceID = async function (teamSpaceID) {
-    let params = {
-        TableName: TABLENAME,
-        FilterExpression: "teamSpaceID = :teamSpaceID",
-        ExpressionAttributeValues: {
-            ":teamSpaceID": teamSpaceID
-        }
-    }
-    return new Promise((resolve, reject) => {
-        dynamoDB.scan(params, (err, data) => {
-            if (err) {
-                reject(err)
-            } else {
-                resolve(data.Items[0].userList)
             }
         })
     })
