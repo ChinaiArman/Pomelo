@@ -140,7 +140,30 @@ export let getTeamSpaceUsers = async function(teamSpaceID) {
             }
         })
     })
+}
 
+export let getTeamSpaceLeader = async function(teamSpaceID) {
+    let params = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceID = :teamSpaceID",
+        ExpressionAttributeValues: {
+            ":teamSpaceID": teamSpaceID
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(params, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                let users = data.Items[0].users
+                for (let i = 0; i < users.length; i++) {
+                    if (users[i].isTeamLeader) {
+                        resolve(users[i])
+                    }
+                }
+            }
+        })
+    })
 }
 
 export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUserID, teamSpaceUserName) {
