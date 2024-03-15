@@ -559,3 +559,40 @@ export let generateNewTeamSpaceJoinCode = async function (teamSpaceID) {
         })
     })
 }
+
+export let deleteCategory = async function (teamSpaceID, spendingCategoryID) {
+    let paramsOne = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceID = :teamSpaceID",
+        ExpressionAttributeValues: {
+            ":teamSpaceID": teamSpaceID
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(paramsOne, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                let spendingCategories = data.Items[0].spendingCategories
+                for (let i = 0; i < spendingCategories.length; i++) {
+                    if (spendingCategories[i].spendingCategoryID === spendingCategoryID) {
+                        let paramsTwo = {
+                            TableName: TABLENAME,
+                            Key: {
+                                "teamSpaceID": teamSpaceID
+                            },
+                            UpdateExpression: "REMOVE spendingCategories[" + i + "]"
+                        }
+                        dynamoDB.update(paramsTwo, (err, data) => {
+                            if (err) {
+                                reject(err)
+                            } else {
+                                resolve(spendingCategories[i])
+                            }
+                        })
+                    }
+                }
+            }
+        })
+    })
+}

@@ -20,7 +20,8 @@ import {
   addUserToTeamSpace,
   deleteTransaction,
   removeUserFromTeamSpaceByID,
-  generateNewTeamSpaceJoinCode
+  generateNewTeamSpaceJoinCode,
+  deleteCategory
 } from './dynamo.js';
 
 import express from "express"
@@ -130,8 +131,13 @@ app.post("/removeUserFromTeamSpaceByID", (req, res) => {
 });
 
 app.post("/generateNewTeamSpaceJoinCode", async (req, res) => {
-  let joinCode = await generateNewTeamSpaceJoinCode(req.body.teamSpaceID)
-  res.send(joinCode);
+  generateNewTeamSpaceJoinCode(req.body.teamSpaceID)
+  res.send("Success");
+});
+
+app.post("/deleteCategory", async (req, res) => {
+  deleteCategory(req.body.teamSpaceID, req.body.spendingCategoryID)
+  res.send("Success");
 });
 
 
