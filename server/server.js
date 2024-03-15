@@ -9,7 +9,8 @@ import {
   getAllSpendingCategories,
   getSpendingCategoryByID,
   getTeamSpaceUsers,
-  getTeamSpaceLeader
+  getTeamSpaceLeader,
+  getTeamSpaceByUserID
 } from './dynamo.js';
 
 import express from "express"
@@ -60,6 +61,11 @@ app.get("/getTeamSpaceUsers" , async (req, res) => {
 app.get("/getTeamSpaceLeader" , async (req, res) => {
   let teamSpaceLeader = await getTeamSpaceLeader(req.body.teamSpaceID)
   res.send(teamSpaceLeader);
+});
+
+app.get("/getTeamSpaceByUserID" , async (req, res) => {
+  let teamSpace = await getTeamSpaceByUserID(req.body.userID)
+  res.send(teamSpace);
 });
 
 app.post("/createTeamSpace", (req, res) => {
