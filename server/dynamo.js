@@ -189,6 +189,33 @@ export let getTeamSpaceByUserID = async function(userID) {
     })
 }
 
+export let getTransactionsByUserID = async function(userID) {
+    let params = {
+        TableName: TABLENAME
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(params, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                let teamSpaces = data.Items
+                let transactions = []
+                for (let i = 0; i < teamSpaces.length; i++) {
+                    let users = teamSpaces[i].users
+                    for (let j = 0; j < users.length; j++) {
+                        if (users[j].userID === userID) {
+                            for (let k = 0; k < teamSpaces[i].spendingCategories.length; k++) {
+                                transactions = transactions.concat(teamSpaces[i].spendingCategories[k].transactions)
+                            }
+                        }
+                    }
+                }
+                resolve(transactions)
+            }
+        })
+    })
+}
+
 export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUserID, teamSpaceUserName) {
     let input = {
         "teamSpaceID": "T" + crypto.randomBytes(4).toString('hex'),
