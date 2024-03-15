@@ -1,10 +1,10 @@
-import Header from './templates/Header.js';
-import Footer from './templates/Footer.js';
-import Nav from './templates/Nav.js';
-import Home from './pages/Home.js';
-import Login from './pages/Login.js';
+import Header from "./components/Header.js";
+import Footer from "./components/Footer.js";
+import Nav from "./components/Nav.js";
+import Home from "./pages/Home.js";
+import Login from "./pages/Login.js";
 
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
