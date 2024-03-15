@@ -13,7 +13,8 @@ import {
   getTransactionsByUserID,
   createNewTeamSpace, 
   createNewSpendingCategory,
-  createNewTransaction
+  createNewTransaction,
+  addUserToTeamSpace
 } from './dynamo.js';
 
 import express from "express"
@@ -89,6 +90,11 @@ app.post("/createSpendingCategory", (req, res) => {
 
 app.post("/createTransaction", (req, res) => {
   createNewTransaction(req.body.teamSpaceID, req.body.spendingCategoryID, req.body.userID, req.body.transactionName, req.body.transactionAmount);
+  res.send("Success");
+});
+
+app.post("/addUserToTeamSpace", (req, res) => {
+  addUserToTeamSpace(req.body.teamSpaceJoinCode, req.body.userID, req.body.userName);
   res.send("Success");
 });
 

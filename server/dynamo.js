@@ -136,7 +136,7 @@ export let getTeamSpaceUsers = async function(teamSpaceID) {
             if (err) {
                 reject(err)
             } else {
-                resolve(data.Items[0].users)
+                resolve(data.Items[0].userList)
             }
         })
     })
@@ -155,10 +155,10 @@ export let getTeamSpaceLeader = async function(teamSpaceID) {
             if (err) {
                 reject(err)
             } else {
-                let users = data.Items[0].users
-                for (let i = 0; i < users.length; i++) {
-                    if (users[i].isTeamLeader) {
-                        resolve(users[i])
+                let userList = data.Items[0].userList
+                for (let i = 0; i < userList.length; i++) {
+                    if (userList[i].isTeamLeader) {
+                        resolve(userList[i])
                     }
                 }
             }
@@ -177,9 +177,9 @@ export let getTeamSpaceByUserID = async function(userID) {
             } else {
                 let teamSpaces = data.Items
                 for (let i = 0; i < teamSpaces.length; i++) {
-                    let users = teamSpaces[i].users
-                    for (let j = 0; j < users.length; j++) {
-                        if (users[j].userID === userID) {
+                    let userList = teamSpaces[i].userList
+                    for (let j = 0; j < userList.length; j++) {
+                        if (userList[j].userID === userID) {
                             resolve(teamSpaces[i])
                         }
                     }
@@ -201,9 +201,9 @@ export let getTransactionsByUserID = async function(userID) {
                 let teamSpaces = data.Items
                 let transactions = []
                 for (let i = 0; i < teamSpaces.length; i++) {
-                    let users = teamSpaces[i].users
-                    for (let j = 0; j < users.length; j++) {
-                        if (users[j].userID === userID) {
+                    let userList = teamSpaces[i].userList
+                    for (let j = 0; j < userList.length; j++) {
+                        if (userList[j].userID === userID) {
                             for (let k = 0; k < teamSpaces[i].spendingCategories.length; k++) {
                                 transactions = transactions.concat(teamSpaces[i].spendingCategories[k].transactions)
                             }
@@ -222,7 +222,7 @@ export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUs
         "teamSpaceName": teamSpaceName,
         "teamSpaceLeaderUserID": teamSpaceLeaderUserID,
         "teamSpaceJoinCode": crypto.randomBytes(5).toString('hex'),
-        "users": [
+        "userList": [
             {
                 "userID": teamSpaceLeaderUserID,
                 "userName": teamSpaceUserName,
@@ -292,8 +292,7 @@ export let createNewTransaction = async function (teamSpaceID, spendingCategoryI
         "transactionID": "T" + crypto.randomBytes(4).toString('hex'),
         "transactionAmount": transactionAmount,
     }
-
-    await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         dynamoDB.scan(paramsOne, (err, data) => {
             if (err) {
                 reject(err)
@@ -311,17 +310,55 @@ export let createNewTransaction = async function (teamSpaceID, spendingCategoryI
                                 ":transaction": [input]
                             }
                         }
-                        return new Promise((resolve, reject) => {
-                            dynamoDB.update(paramsTwo, (err, data) => {
-                                if (err) {
-                                    reject(err)
-                                } else {
-                                    resolve(input)
-                                }
-                            })
+                        dynamoDB.update(paramsTwo, (err, data) => {
+                            if (err) {
+                                reject(err)
+                            } else {
+                                resolve(input)
+                            }
                         })
                     }
                 }
+            }
+        })
+    })
+}
+
+export let addUserToTeamSpace = async function (teamSpaceJoinCode, userID, userName) {
+    let input = {
+        "userID": userID,
+        "userName": userName,
+        "isTeamLeader": false
+    }
+    let params = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceJoinCode = :teamSpaceJoinCode",
+        ExpressionAttributeValues: {
+            ":teamSpaceJoinCode": teamSpaceJoinCode
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(params, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                let paramsTwo = {
+                    TableName: TABLENAME,
+                    Key: {
+                        "teamSpaceID": data.Items[0].teamSpaceID
+                    },
+                    UpdateExpression: "SET userList = list_append(userList, :userList)",
+                    ExpressionAttributeValues: {
+                        ":userList": [input]
+                    }
+                }
+                dynamoDB.update(paramsTwo, (err, data) => {
+                    if (err) {
+                        reject(err)
+                    } else {
+                        resolve(input)
+                    }
+                })
             }
         })
     })
