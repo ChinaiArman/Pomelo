@@ -98,6 +98,11 @@ app.get("/getUserByID", async (req, res) => {
   res.send(user);
 });
 
+app.get("/getAllUsersByTeamSpaceID", async (req, res) => {
+  let teamSpaceUsers = await getTeamSpaceUsers(req.body.teamSpaceID)
+  res.send(teamSpaceUsers);
+});
+
 
 app.post("/createTeamSpace", (req, res) => {
   createNewTeamSpace(req.body.teamSpaceName, req.body.teamSpaceLeaderUserID, req.body.teamSpaceUserName);
