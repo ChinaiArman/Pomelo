@@ -534,3 +534,28 @@ export let removeUserFromTeamSpaceByID = async function (teamSpaceID, userID) {
         })
     })
 }
+
+export let generateNewTeamSpaceJoinCode = async function (teamSpaceID) {
+    let input = {
+        "teamSpaceJoinCode": crypto.randomBytes(5).toString('hex')
+    }
+    let params = {
+        TableName: TABLENAME,
+        Key: {
+            "teamSpaceID": teamSpaceID
+        },
+        UpdateExpression: "SET teamSpaceJoinCode = :teamSpaceJoinCode",
+        ExpressionAttributeValues: {
+            ":teamSpaceJoinCode": input.teamSpaceJoinCode
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.update(params, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(input)
+            }
+        })
+    })
+}
