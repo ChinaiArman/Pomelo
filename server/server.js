@@ -21,7 +21,8 @@ import {
   deleteTransaction,
   removeUserFromTeamSpaceByID,
   generateNewTeamSpaceJoinCode,
-  deleteCategory
+  deleteCategory,
+  changeBudgetLimit
 } from './dynamo.js';
 
 import express from "express"
@@ -137,6 +138,11 @@ app.post("/generateNewTeamSpaceJoinCode", async (req, res) => {
 
 app.post("/deleteCategory", async (req, res) => {
   deleteCategory(req.body.teamSpaceID, req.body.spendingCategoryID)
+  res.send("Success");
+});
+
+app.post("/changeBudgetLimit", async (req, res) => {
+  changeBudgetLimit(req.body.teamSpaceID, req.body.spendingCategoryID, req.body.budgetLimit)
   res.send("Success");
 });
 
