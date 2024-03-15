@@ -55,7 +55,7 @@ export let getAllTransactions = async function(teamSpaceID) {
     })
 }
 
-export let getTransactionsByCategory = async function(teamSpaceID, categoryID) {
+export let getTransactionsBySpendingCategory = async function(teamSpaceID, categoryID) {
     let params = {
         TableName: TABLENAME,
         FilterExpression: "teamSpaceID = :teamSpaceID",
@@ -75,6 +75,25 @@ export let getTransactionsByCategory = async function(teamSpaceID, categoryID) {
                     }
                 }
                 resolve(transactions)
+            }
+        })
+    })
+}
+
+export let getAllSpendingCategories = async function(teamSpaceID) {
+    let params = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceID = :teamSpaceID",
+        ExpressionAttributeValues: {
+            ":teamSpaceID": teamSpaceID
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(params, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(data.Items[0].spendingCategories)
             }
         })
     })
