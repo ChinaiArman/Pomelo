@@ -245,3 +245,32 @@ export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUs
         })
     })
 }
+
+export let createNewSpendingCategory = async function (teamSpaceID, categoryName, budgetLimit) {
+    let input = {
+        "categoryID": "C" + crypto.randomBytes(4).toString('hex'),
+        "categoryName": categoryName,
+        "amountUsed": 0,
+        "budgetLimit": budgetLimit,
+        "transactions": []
+    }
+    let params = {
+        TableName: TABLENAME,
+        Key: {
+            "teamSpaceID": teamSpaceID
+        },
+        UpdateExpression: "SET spendingCategories = list_append(spendingCategories, :category)",
+        ExpressionAttributeValues: {
+            ":category": [input]
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.update(params, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(input)
+            }
+        })
+    })
+}

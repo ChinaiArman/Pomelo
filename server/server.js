@@ -2,7 +2,6 @@ import dotenv from "dotenv"
 dotenv.config()
 
 import { 
-  createNewTeamSpace, 
   getAllTeamSpaces,
   getAllTransactions,
   getTransactionsBySpendingCategory,
@@ -11,7 +10,9 @@ import {
   getTeamSpaceUsers,
   getTeamSpaceLeader,
   getTeamSpaceByUserID,
-  getTransactionsByUserID
+  getTransactionsByUserID,
+  createNewTeamSpace, 
+  createNewSpendingCategory
 } from './dynamo.js';
 
 import express from "express"
@@ -78,5 +79,11 @@ app.post("/createTeamSpace", (req, res) => {
   createNewTeamSpace(req.body.teamSpaceName, req.body.teamSpaceLeaderUserID, req.body.teamSpaceUserName);
   res.send("Success");
 });
+
+app.post("/createSpendingCategory", (req, res) => {
+  createNewSpendingCategory(req.body.teamSpaceID, req.body.spendingCategoryName, req.body.budgetLimit);
+  res.send("Success");
+});
+
 
 app.listen(PORT, () => console.info(`App listening on port ${PORT}`))
