@@ -13,6 +13,7 @@ import {
   getTransactionsByUserID,
   getJoinCode,
   getTeamSpaceByID,
+  getUserByID,
   createNewTeamSpace, 
   createNewSpendingCategory,
   createNewTransaction,
@@ -88,6 +89,11 @@ app.get("/getJoinCode", async (req, res) => {
 app.get("/getTeamSpaceByID", async (req, res) => {
   let teamSpace = await getTeamSpaceByID(req.body.teamSpaceID)
   res.send(teamSpace);
+});
+
+app.get("/getUserByID", async (req, res) => {
+  let user = await getUserByID(req.body.userID)
+  res.send(user);
 });
 
 

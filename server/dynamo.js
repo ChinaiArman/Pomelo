@@ -474,3 +474,26 @@ export let deleteTransaction = async function (teamSpaceID, transactionID) {
         })
     })
 }
+
+export let getUserByID = async function (userID) {
+    let params = {
+        TableName: TABLENAME,
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(params, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                let teamSpaces = data.Items
+                for (let i = 0; i < teamSpaces.length; i++) {
+                    let userList = teamSpaces[i].userList
+                    for (let j = 0; j < userList.length; j++) {
+                        if (userList[j].userID === userID) {
+                            resolve(userList[j])
+                        }
+                    }
+                }
+            }
+        })
+    })
+}
