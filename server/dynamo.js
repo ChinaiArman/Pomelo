@@ -324,7 +324,6 @@ export let createNewTransaction = async function (teamSpaceID, spendingCategoryI
                                         ":transactionAmount": transactionAmount
                                     }
                                 }
-                                console.log("here")
                                 dynamoDB.update(paramsThree, (err, data) => {
                                     if (err) {
                                         reject(err)
