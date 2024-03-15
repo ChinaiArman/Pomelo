@@ -497,3 +497,40 @@ export let getUserByID = async function (userID) {
         })
     })
 }
+
+export let removeUserFromTeamSpaceByID = async function (teamSpaceID, userID) {
+    let paramsOne = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceID = :teamSpaceID",
+        ExpressionAttributeValues: {
+            ":teamSpaceID": teamSpaceID
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(paramsOne, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                let userList = data.Items[0].userList
+                for (let i = 0; i < userList.length; i++) {
+                    if (userList[i].userID === userID) {
+                        let paramsTwo = {
+                            TableName: TABLENAME,
+                            Key: {
+                                "teamSpaceID": teamSpaceID
+                            },
+                            UpdateExpression: "REMOVE userList[" + i + "]"
+                        }
+                        dynamoDB.update(paramsTwo, (err, data) => {
+                            if (err) {
+                                reject(err)
+                            } else {
+                                resolve(userList[i])
+                            }
+                        })
+                    }
+                }
+            }
+        })
+    })
+}

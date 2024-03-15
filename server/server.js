@@ -19,6 +19,7 @@ import {
   createNewTransaction,
   addUserToTeamSpace,
   deleteTransaction,
+  removeUserFromTeamSpaceByID
 } from './dynamo.js';
 
 import express from "express"
@@ -121,6 +122,11 @@ app.post("/deleteTransaction", (req, res) => {
   deleteTransaction(req.body.teamSpaceID, req.body.transactionID);
   res.send("Success");
 });
+
+app.post("/removeUserFromTeamSpaceByID", (req, res) => {
+  removeUserFromTeamSpaceByID(req.body.teamSpaceID, req.body.userID);
+  res.send("Success");
+})
 
 
 app.listen(PORT, () => console.info(`App listening on port ${PORT}`))
