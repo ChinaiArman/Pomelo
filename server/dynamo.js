@@ -418,3 +418,59 @@ export let getTeamSpaceByID = async function (teamSpaceID) {
         })
     })
 }
+
+export let deleteTransaction = async function (teamSpaceID, transactionID) {
+    let paramsOne = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceID = :teamSpaceID",
+        ExpressionAttributeValues: {
+            ":teamSpaceID": teamSpaceID
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(paramsOne, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                let spendingCategories = data.Items[0].spendingCategories
+                for (let i = 0; i < spendingCategories.length; i++) {
+                    let transactions = spendingCategories[i].transactions
+                    for (let j = 0; j < transactions.length; j++) {
+                        if (transactions[j].transactionID === transactionID) {
+                            let paramsTwo = {
+                                TableName: TABLENAME,
+                                Key: {
+                                    "teamSpaceID": teamSpaceID
+                                },
+                                UpdateExpression: "REMOVE spendingCategories[" + i + "].transactions[" + j + "]"
+                            }
+                            dynamoDB.update(paramsTwo, (err, data) => {
+                                if (err) {
+                                    reject(err)
+                                } else {
+                                    let paramsThree = {
+                                        TableName: TABLENAME,
+                                        Key: {
+                                            "teamSpaceID": teamSpaceID
+                                        },
+                                        UpdateExpression: "SET spendingCategories[" + i + "].amountUsed = spendingCategories[" + i + "].amountUsed - :transactionAmount",
+                                        ExpressionAttributeValues: {
+                                            ":transactionAmount": transactions[j].transactionAmount
+                                        }
+                                    }
+                                    dynamoDB.update(paramsThree, (err, data) => {
+                                        if (err) {
+                                            reject(err)
+                                        } else {
+                                            resolve(transactions[j])
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    }
+                }
+            }
+        })
+    })
+}
