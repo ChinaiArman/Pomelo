@@ -845,7 +845,7 @@ export let getUserStyleObject = async function (userID) {
     })
 }
 
-export let editSpendingCategory = async function (teamSpaceID, spendingCategoryID, newName, newBudgetLimit) {
+export let editSpendingCategory = async function (teamSpaceID, spendingCategoryID, newSpendingCategoryName, newSpendingCategoryBudgetLimit) {
     let paramsOne = {
         TableName: TABLENAME,
         FilterExpression: "teamSpaceID = :teamSpaceID",
@@ -872,8 +872,8 @@ export let editSpendingCategory = async function (teamSpaceID, spendingCategoryI
                             },
                             UpdateExpression: "SET spendingCategories[" + i + "].budgetLimit = :newBudgetLimit, spendingCategories[" + i + "].spendingCategoryName = :newName",
                             ExpressionAttributeValues: {
-                                ":newBudgetLimit": newBudgetLimit,
-                                ":newName": newName
+                                ":newBudgetLimit": newSpendingCategoryBudgetLimit,
+                                ":newName": newSpendingCategoryName
                             }
                         }
                         dynamoDB.update(paramsTwo, (err, data) => {
@@ -891,6 +891,83 @@ export let editSpendingCategory = async function (teamSpaceID, spendingCategoryI
                                 resolve(response)
                             }
                         })
+                    }
+                }
+            }
+        })
+    })
+}
+
+export let editTransaction = async function (teamSpaceID, transactionID, newtransactionName, newtransactionAmount) {
+    let paramsOne = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceID = :teamSpaceID",
+        ExpressionAttributeValues: {
+            ":teamSpaceID": teamSpaceID
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(paramsOne, (err, data) => {
+            if (err) {
+                let response = {
+                    "code": 400,
+                    "message": err.message
+                }
+                resolve(response)
+            } else {
+                let spendingCategories = data.Items[0].spendingCategories
+                for (let i = 0; i < spendingCategories.length; i++) {
+                    let transactions = spendingCategories[i].transactions
+                    for (let j = 0; j < transactions.length; j++) {
+                        if (transactions[j].transactionID === transactionID) {
+                            let costDifference = transactions[j].transactionAmount - newtransactionAmount
+                            let paramsTwo = {
+                                TableName: TABLENAME,
+                                Key: {
+                                    "teamSpaceID": teamSpaceID
+                                },
+                                UpdateExpression: "SET spendingCategories[" + i + "].transactions[" + j + "].transactionName = :newtransactionName, spendingCategories[" + i + "].transactions[" + j + "].transactionAmount = :newtransactionAmount",
+                                ExpressionAttributeValues: {
+                                    ":newtransactionName": newtransactionName,
+                                    ":newtransactionAmount": newtransactionAmount
+                                }
+                            }
+                            dynamoDB.update(paramsTwo, (err, data) => {
+                                if (err) {
+                                    let response = {
+                                        "code": 400,
+                                        "message": err.message
+                                    }
+                                    resolve(response)
+                                } else {
+                                    let paramsThree = {
+                                        TableName: TABLENAME,
+                                        Key: {
+                                            "teamSpaceID": teamSpaceID
+                                        },
+                                        UpdateExpression: "SET spendingCategories[" + i + "].amountUsed = spendingCategories[" + i + "].amountUsed - :costDifference",
+                                        ExpressionAttributeValues: {
+                                            ":costDifference": costDifference,
+                                        }
+                                    }
+                                    dynamoDB.update(paramsThree, (err, data) => {
+                                        if (err) {
+                                            let response = {
+                                                "code": 400,
+                                                "message": err.message
+                                            }
+                                            resolve(response)
+                                        } else {
+                                            let response = {
+                                                "code": 200,
+                                                "message": "Success"
+                                            }
+                                            resolve(response)
+                                        }
+                                    })
+                                }
+                            })
+                        }
                     }
                 }
             }

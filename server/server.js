@@ -27,7 +27,8 @@ import {
   generateNewTeamSpaceJoinCode,
   deleteCategory,
   changeBudgetLimit,
-  editSpendingCategory
+  editSpendingCategory,
+  editTransaction
 } from './dynamo.js';
 
 import {
@@ -179,7 +180,12 @@ app.post("/changeBudgetLimit", async (req, res) => {
 });
 
 app.post("/editSpendingCategory", async (req, res) => {
-  let response = await editSpendingCategory(req.body.teamSpaceID, req.body.spendingCategoryID, req.body.newName, req.body.newBudgetLimit)
+  let response = await editSpendingCategory(req.body.teamSpaceID, req.body.spendingCategoryID, req.body.newSpendingCategoryName, req.body.newSpendingCategoryBudgetLimit)
+  res.send(response);
+});
+
+app.post("/editTransaction", async (req, res) => {
+  let response = await editTransaction(req.body.teamSpaceID, req.body.transactionID, req.body.newTransactionName, req.body.newTransactionAmount)
   res.send(response);
 });
 
