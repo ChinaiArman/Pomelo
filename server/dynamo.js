@@ -791,3 +791,30 @@ export let getSpendingCategoryStyleObject = async function (teamSpaceID, spendin
         })
     })
 }
+
+export let getTransactionStyleObject = async function (teamSpaceID, transactionID) {
+    let params = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceID = :teamSpaceID",
+        ExpressionAttributeValues: {
+            ":teamSpaceID": teamSpaceID
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(params, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                let spendingCategories = data.Items[0].spendingCategories
+                for (let i = 0; i < spendingCategories.length; i++) {
+                    let transactions = spendingCategories[i].transactions
+                    for (let j = 0; j < transactions.length; j++) {
+                        if (transactions[j].transactionID === transactionID) {
+                            resolve(transactions[j].styles)
+                        }
+                    }
+                }
+            }
+        })
+    })
+}

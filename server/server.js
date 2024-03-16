@@ -16,6 +16,7 @@ import {
   getUserByID,
   getTeamSpaceStyleObject,
   getSpendingCategoryStyleObject,
+  getTransactionStyleObject,
   createNewTeamSpace, 
   createNewSpendingCategory,
   createNewTransaction,
@@ -117,6 +118,11 @@ app.get("/getTeamSpaceStyleObject", async (req, res) => {
 app.get("/getSpendingCategoryStyleObject", async (req, res) => {
   let styleObject = await getSpendingCategoryStyleObject(req.body.teamSpaceID, req.body.spendingCategoryID)
   res.send(styleObject);
+});
+
+app.get("/getTransactionStyleObject", async (req, res) => {
+  let styleObject = await getTransactionStyleObject(req.body.teamSpaceID, req.body.transactionID)
+  res.send(styleObject)
 });
 
 // Dynamo POSTs
