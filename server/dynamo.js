@@ -226,7 +226,8 @@ export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUs
             {
                 "userID": teamSpaceLeaderUserID,
                 "username": teamSpaceLeaderUsername,
-                "isTeamLeader": true
+                "isTeamLeader": true,
+                "styles": {}
             }
         ],
         "spendingCategories": [],
@@ -382,7 +383,8 @@ export let addUserToTeamSpace = async function (teamSpaceJoinCode, userID, usern
     let input = {
         "userID": userID,
         "username": username,
-        "isTeamLeader": false
+        "isTeamLeader": false,
+        "styles": {}
     }
     let params = {
         TableName: TABLENAME,
@@ -811,6 +813,29 @@ export let getTransactionStyleObject = async function (teamSpaceID, transactionI
                     for (let j = 0; j < transactions.length; j++) {
                         if (transactions[j].transactionID === transactionID) {
                             resolve(transactions[j].styles)
+                        }
+                    }
+                }
+            }
+        })
+    })
+}
+
+export let getUserStyleObject = async function (userID) {
+    let params = {
+        TableName: TABLENAME,
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(params, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                let teamSpaces = data.Items
+                for (let i = 0; i < teamSpaces.length; i++) {
+                    let userList = teamSpaces[i].userList
+                    for (let j = 0; j < userList.length; j++) {
+                        if (userList[j].userID === userID) {
+                            resolve(userList[j].styles)
                         }
                     }
                 }
