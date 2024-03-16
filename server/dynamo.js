@@ -216,7 +216,7 @@ export let getTransactionsByUserID = async function(userID) {
     })
 }
 
-export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUserID, teamSpaceUserName) {
+export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUserID, teamSpaceLeaderUsername) {
     let input = {
         "teamSpaceID": "T" + crypto.randomBytes(4).toString('hex'),
         "teamSpaceName": teamSpaceName,
@@ -225,7 +225,7 @@ export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUs
         "userList": [
             {
                 "userID": teamSpaceLeaderUserID,
-                "userName": teamSpaceUserName,
+                "username": teamSpaceLeaderUsername,
                 "isTeamLeader": true
             }
         ],
@@ -378,10 +378,10 @@ export let createNewTransaction = async function (teamSpaceID, spendingCategoryI
     })
 }
 
-export let addUserToTeamSpace = async function (teamSpaceJoinCode, userID, userName) {
+export let addUserToTeamSpace = async function (teamSpaceJoinCode, userID, username) {
     let input = {
         "userID": userID,
-        "userName": userName,
+        "username": username,
         "isTeamLeader": false
     }
     let params = {

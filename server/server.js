@@ -127,7 +127,7 @@ app.get("/getTransactionStyleObject", async (req, res) => {
 
 // Dynamo POSTs
 app.post("/createTeamSpace", async (req, res) => {
-  let response = await createNewTeamSpace(req.body.teamSpaceName, req.body.teamSpaceLeaderUserID, req.body.teamSpaceUserName);
+  let response = await createNewTeamSpace(req.body.teamSpaceName, req.body.teamSpaceLeaderUserID, req.body.teamSpaceLeaderUsername);
   res.send(response);
 });
 
@@ -142,7 +142,7 @@ app.post("/createTransaction", async (req, res) => {
 });
 
 app.post("/addUserToTeamSpace", async (req, res) => {
-  let response = await addUserToTeamSpace(req.body.teamSpaceJoinCode, req.body.userID, req.body.userName);
+  let response = await addUserToTeamSpace(req.body.teamSpaceJoinCode, req.body.userID, req.body.username);
   res.send(response);
 });
 
