@@ -108,65 +108,65 @@ app.get("/getUserByID", async (req, res) => {
 });
 
 // Dynamo POSTs
-app.post("/createTeamSpace", (req, res) => {
-  createNewTeamSpace(req.body.teamSpaceName, req.body.teamSpaceLeaderUserID, req.body.teamSpaceUserName);
-  res.send("Success");
+app.post("/createTeamSpace", async (req, res) => {
+  let response = await createNewTeamSpace(req.body.teamSpaceName, req.body.teamSpaceLeaderUserID, req.body.teamSpaceUserName);
+  res.send(response);
 });
 
-app.post("/createSpendingCategory", (req, res) => {
-  createNewSpendingCategory(req.body.teamSpaceID, req.body.spendingCategoryName, req.body.budgetLimit);
-  res.send("Success");
+app.post("/createSpendingCategory", async (req, res) => {
+  let response = await createNewSpendingCategory(req.body.teamSpaceID, req.body.spendingCategoryName, req.body.budgetLimit);
+  res.send(response);
 });
 
-app.post("/createTransaction", (req, res) => {
-  createNewTransaction(req.body.teamSpaceID, req.body.spendingCategoryID, req.body.userID, req.body.transactionName, req.body.transactionAmount);
-  res.send("Success");
+app.post("/createTransaction", async (req, res) => {
+  let response = await createNewTransaction(req.body.teamSpaceID, req.body.spendingCategoryID, req.body.userID, req.body.transactionName, req.body.transactionAmount);
+  res.send(response);
 });
 
-app.post("/addUserToTeamSpace", (req, res) => {
-  addUserToTeamSpace(req.body.teamSpaceJoinCode, req.body.userID, req.body.userName);
-  res.send("Success");
+app.post("/addUserToTeamSpace", async (req, res) => {
+  let response = await addUserToTeamSpace(req.body.teamSpaceJoinCode, req.body.userID, req.body.userName);
+  res.send(response);
 });
 
-app.post("/deleteTransaction", (req, res) => {
-  deleteTransaction(req.body.teamSpaceID, req.body.transactionID);
-  res.send("Success");
+app.post("/deleteTransaction", async (req, res) => {
+  let response = await deleteTransaction(req.body.teamSpaceID, req.body.transactionID);
+  res.send(response);
 });
 
-app.post("/removeUserFromTeamSpaceByID", (req, res) => {
-  removeUserFromTeamSpaceByID(req.body.teamSpaceID, req.body.userID);
-  res.send("Success");
+app.post("/removeUserFromTeamSpaceByID", async (req, res) => {
+  let response = await removeUserFromTeamSpaceByID(req.body.teamSpaceID, req.body.userID);
+  res.send(response);
 });
 
 app.post("/generateNewTeamSpaceJoinCode", async (req, res) => {
-  generateNewTeamSpaceJoinCode(req.body.teamSpaceID)
-  res.send("Success");
+  let response = await generateNewTeamSpaceJoinCode(req.body.teamSpaceID)
+  res.send(response);
 });
 
 app.post("/deleteCategory", async (req, res) => {
-  deleteCategory(req.body.teamSpaceID, req.body.spendingCategoryID)
-  res.send("Success");
+  let response = await deleteCategory(req.body.teamSpaceID, req.body.spendingCategoryID)
+  res.send(response);
 });
 
 app.post("/changeBudgetLimit", async (req, res) => {
-  changeBudgetLimit(req.body.teamSpaceID, req.body.spendingCategoryID, req.body.budgetLimit)
-  res.send("Success");
+  let response = await changeBudgetLimit(req.body.teamSpaceID, req.body.spendingCategoryID, req.body.budgetLimit)
+  res.send(response);
 });
 
 // Cognito
 app.post("/login", async (req, res) => {
-  let result = await login(req.body.username, req.body.password)
-  res.send(result)
+  let response = await login(req.body.username, req.body.password)
+  res.send(response)
 });
 
 app.post("/signup", async (req, res) => {
-  let result = await signup(req.body.username, req.body.email, req.body.password)
-  res.send(result)
+  let response = await signup(req.body.username, req.body.email, req.body.password)
+  res.send(response)
 });
 
 app.post("/verify", async (req, res) => {
-  let result = await verify(req.body.username, req.body.code)
-  res.send(result)
+  let response = await verify(req.body.username, req.body.code)
+  res.send(response)
 });
 
 
