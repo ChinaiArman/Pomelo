@@ -15,6 +15,7 @@ import {
   getTeamSpaceByID,
   getUserByID,
   getTeamSpaceStyleObject,
+  getSpendingCategoryStyleObject,
   createNewTeamSpace, 
   createNewSpendingCategory,
   createNewTransaction,
@@ -110,6 +111,11 @@ app.get("/getUserByID", async (req, res) => {
 
 app.get("/getTeamSpaceStyleObject", async (req, res) => {
   let styleObject = await getTeamSpaceStyleObject(req.body.teamSpaceID)
+  res.send(styleObject);
+});
+
+app.get("/getSpendingCategoryStyleObject", async (req, res) => {
+  let styleObject = await getSpendingCategoryStyleObject(req.body.teamSpaceID, req.body.spendingCategoryID)
   res.send(styleObject);
 });
 
