@@ -2,7 +2,6 @@ import dotenv from "dotenv"
 dotenv.config()
 
 import { CognitoUserPool, AuthenticationDetails, CognitoUser, CognitoUserAttribute } from 'amazon-cognito-identity-js';
-import crypto from "crypto"
 
 
 const poolData = {    
@@ -64,9 +63,19 @@ export let signup = async function (username, email, password) {
     return new Promise((resolve, reject) => {
         userPool.signUp(username, password, attributeList, null, function(err, result){
             if (err) {
-                resolve(err)
+                let response = {
+                    "code": 400,
+                    "message": err.message
+                }
+                resolve(response)
+                
+            } else {
+                let response = {
+                    "code": 200,
+                    "message": result.message
+                }
+                resolve(response)
             }
-            resolve(result)
         });
     })
 }
@@ -80,9 +89,18 @@ export let verify = async function (username, code) {
     return new Promise((resolve, reject) => {
         cognitoUser.confirmRegistration(code, true, function(err, result){
             if (err) {
-                resolve(err)
+                let response = {
+                    "code": 400,
+                    "message": err.message
+                }
+                resolve(response)
+            } else {
+                let response = {
+                    "code": 200,
+                    "message": result.message
+                }
+                resolve(response)
             }
-            resolve(result)
         });
     })
 }
