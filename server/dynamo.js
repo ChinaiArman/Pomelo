@@ -296,7 +296,7 @@ export let createNewSpendingCategory = async function (teamSpaceID, spendingCate
     })
 }
 
-export let createNewTransaction = async function (teamSpaceID, spendingCategoryID, userID, transactionName, transactionAmount) {
+export let createNewTransaction = async function (teamSpaceID, spendingCategoryID, userID, username, transactionName, transactionAmount) {
     let paramsOne = {
         TableName: TABLENAME,
         FilterExpression: "teamSpaceID = :teamSpaceID",
@@ -309,6 +309,7 @@ export let createNewTransaction = async function (teamSpaceID, spendingCategoryI
         "transactionDate": new Date().toDateString(),
         "transactionName": transactionName,
         "userID": userID,
+        "username": username,
         "spendingCategoryID": spendingCategoryID,
         "transactionID": "T" + crypto.randomBytes(4).toString('hex'),
         "transactionAmount": transactionAmount,

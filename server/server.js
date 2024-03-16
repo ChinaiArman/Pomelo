@@ -143,7 +143,7 @@ app.post("/createSpendingCategory", async (req, res) => {
 });
 
 app.post("/createTransaction", async (req, res) => {
-  let response = await createNewTransaction(req.body.teamSpaceID, req.body.spendingCategoryID, req.body.userID, req.body.transactionName, req.body.transactionAmount);
+  let response = await createNewTransaction(req.body.teamSpaceID, req.body.spendingCategoryID, req.body.userID, req.body.username, req.body.transactionName, req.body.transactionAmount);
   res.send(response);
 });
 
