@@ -13,7 +13,7 @@ const pool_region = 'us-west-2'
 const userPool = new CognitoUserPool(poolData);
 
 
-export let usernameLogin = async function (username, password) {
+export let login = async function (username, password) {
     const authenticationData = {
         Username : username,
         Password : password,

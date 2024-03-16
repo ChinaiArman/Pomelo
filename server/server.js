@@ -26,7 +26,7 @@ import {
 } from './dynamo.js';
 
 import {
-  usernameLogin,
+  login,
 } from './cognito.js'
 
 import express from "express"
@@ -152,8 +152,8 @@ app.post("/changeBudgetLimit", async (req, res) => {
 });
 
 // Cognito
-app.post("/usernameLogin", async (req, res) => {
-  let result = await usernameLogin(req.body.username, req.body.password)
+app.post("/login", async (req, res) => {
+  let result = await login(req.body.username, req.body.password)
   res.send(result)
 });
 
