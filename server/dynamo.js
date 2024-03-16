@@ -1028,3 +1028,30 @@ export let getTeamSpaceTotalBudget = async function(teamSpaceID) {
         })
     })
 }
+
+export let getTeamSpaceTotalAmountUsed = async function(teamSpaceID) {
+    let params = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceID = :teamSpaceID",
+        ExpressionAttributeValues: {
+            ":teamSpaceID": teamSpaceID
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(params, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                let spendingCategories = data.Items[0].spendingCategories
+                let totalAmountUsed = 0
+                for (let i = 0; i < spendingCategories.length; i++) {
+                    totalAmountUsed += spendingCategories[i].amountUsed
+                }
+                let response = {
+                    "totalAmountUsed": totalAmountUsed
+                }
+                resolve(response)
+            }
+        })
+    })
+}
