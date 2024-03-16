@@ -229,7 +229,8 @@ export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUs
                 "isTeamLeader": true
             }
         ],
-        "spendingCategories": []
+        "spendingCategories": [],
+        "styles": {}
     }
     let params = {
         TableName: TABLENAME,
@@ -261,7 +262,8 @@ export let createNewSpendingCategory = async function (teamSpaceID, spendingCate
         "spendingCategoryName": spendingCategoryName,
         "amountUsed": 0,
         "budgetLimit": budgetLimit,
-        "transactions": []
+        "transactions": [],
+        "styles": {}
     }
     let params = {
         TableName: TABLENAME,
@@ -309,6 +311,7 @@ export let createNewTransaction = async function (teamSpaceID, spendingCategoryI
         "spendingCategoryID": spendingCategoryID,
         "transactionID": "T" + crypto.randomBytes(4).toString('hex'),
         "transactionAmount": transactionAmount,
+        "styles": {}
     }
     return new Promise((resolve, reject) => {
         dynamoDB.scan(paramsOne, (err, data) => {
@@ -741,6 +744,25 @@ export let changeBudgetLimit = async function (teamSpaceID, spendingCategoryID, 
                         })
                     }
                 }
+            }
+        })
+    })
+}
+
+export let getTeamSpaceStyleObject = async function (teamSpaceID) {
+    let params = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceID = :teamSpaceID",
+        ExpressionAttributeValues: {
+            ":teamSpaceID": teamSpaceID
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(params, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(data.Items[0].styles)
             }
         })
     })
