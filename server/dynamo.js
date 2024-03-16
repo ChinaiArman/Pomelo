@@ -222,6 +222,7 @@ export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUs
         "teamSpaceName": teamSpaceName,
         "teamSpaceLeaderUserID": teamSpaceLeaderUserID,
         "teamSpaceJoinCode": crypto.randomBytes(5).toString('hex'),
+        "totalBudget": 0,
         "userList": [
             {
                 "userID": teamSpaceLeaderUserID,
@@ -975,15 +976,16 @@ export let editTransaction = async function (teamSpaceID, transactionID, newtran
     })
 }
 
-export let editTeamSpace = async function(teamSpaceID, newTeamSpaceName) {
+export let editTeamSpace = async function(teamSpaceID, newTeamSpaceName, newTotalBudget) {
     let params = {
         TableName: TABLENAME,
         Key: {
             "teamSpaceID": teamSpaceID
         },
-        UpdateExpression: "SET teamSpaceName = :newTeamSpaceName",
+        UpdateExpression: "SET teamSpaceName = :newTeamSpaceName, totalBudget = :newTotalBudget",
         ExpressionAttributeValues: {
-            ":newTeamSpaceName": newTeamSpaceName
+            ":newTeamSpaceName": newTeamSpaceName,
+            ":newTotalBudget": newTotalBudget
         }
     }
     return new Promise((resolve, reject) => {
@@ -998,6 +1000,28 @@ export let editTeamSpace = async function(teamSpaceID, newTeamSpaceName) {
                 let response = {
                     "code": 200,
                     "message": "Success"
+                }
+                resolve(response)
+            }
+        })
+    })
+}
+
+export let getTeamSpaceTotalBudget = async function(teamSpaceID) {
+    let params = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceID = :teamSpaceID",
+        ExpressionAttributeValues: {
+            ":teamSpaceID": teamSpaceID
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(params, (err, data) => {
+            if (err) {
+                reject(err)
+            } else {
+                let response = {
+                    "totalBudget": data.Items[0].totalBudget
                 }
                 resolve(response)
             }

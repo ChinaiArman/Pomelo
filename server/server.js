@@ -18,6 +18,7 @@ import {
   getSpendingCategoryStyleObject,
   getTransactionStyleObject,
   getUserStyleObject,
+  getTeamSpaceTotalBudget,
   createNewTeamSpace, 
   createNewSpendingCategory,
   createNewTransaction,
@@ -134,6 +135,11 @@ app.get("/getUserStyleObject", async (req, res) => {
   res.send(styleObject)
 });
 
+app.get("/getTeamSpaceTotalBudget", async (req, res) => {
+  let totalBudget = await getTeamSpaceTotalBudget(req.body.teamSpaceID)
+  res.send(totalBudget)
+});
+
 // Dynamo POSTs
 app.post("/createTeamSpace", async (req, res) => {
   let response = await createNewTeamSpace(req.body.teamSpaceName, req.body.teamSpaceLeaderUserID, req.body.teamSpaceLeaderUsername);
@@ -181,7 +187,7 @@ app.post("/changeBudgetLimit", async (req, res) => {
 });
 
 app.post("/editTeamSpace", async (req, res) => {
-  let response = await editTeamSpace(req.body.teamSpaceID, req.body.newTeamSpaceName)
+  let response = await editTeamSpace(req.body.teamSpaceID, req.body.newTeamSpaceName, req.body.newTotalBudget)
   res.send(response);
 });
 
