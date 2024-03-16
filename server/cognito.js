@@ -27,7 +27,7 @@ export let login = async function (username, password) {
         cognitoUser.authenticateUser(authenticationDetails, {
             onSuccess: function (result) {
                 let response = {
-                    "id": result.idToken.payload.sub,
+                    "userID": result.idToken.payload.sub,
                     "username": result.accessToken.payload.username,
                     "code": 200,
                 }
@@ -35,7 +35,7 @@ export let login = async function (username, password) {
             },
             onFailure: function(err) {
                 let response = {
-                    "id": null,
+                    "userID": null,
                     "username": null,
                     "code": 401
                 }
