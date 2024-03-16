@@ -25,6 +25,10 @@ import {
   changeBudgetLimit
 } from './dynamo.js';
 
+import {
+  usernameLogin,
+} from './cognito.js'
+
 import express from "express"
 const app = express();
 
@@ -36,6 +40,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 const PORT = 5000;
 
 
+// Dynamo GETs
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
@@ -100,7 +105,7 @@ app.get("/getUserByID", async (req, res) => {
   res.send(user);
 });
 
-
+// Dynamo POSTs
 app.post("/createTeamSpace", (req, res) => {
   createNewTeamSpace(req.body.teamSpaceName, req.body.teamSpaceLeaderUserID, req.body.teamSpaceUserName);
   res.send("Success");
@@ -144,6 +149,12 @@ app.post("/deleteCategory", async (req, res) => {
 app.post("/changeBudgetLimit", async (req, res) => {
   changeBudgetLimit(req.body.teamSpaceID, req.body.spendingCategoryID, req.body.budgetLimit)
   res.send("Success");
+});
+
+// Cognito
+app.post("/usernameLogin", async (req, res) => {
+  let result = await usernameLogin(req.body.username, req.body.password)
+  res.send(result)
 });
 
 
