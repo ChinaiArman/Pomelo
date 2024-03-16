@@ -651,7 +651,7 @@ export let generateNewTeamSpaceJoinCode = async function (teamSpaceID) {
     })
 }
 
-export let deleteCategory = async function (teamSpaceID, spendingCategoryID) {
+export let deleteSpendingCategory = async function (teamSpaceID, spendingCategoryID) {
     let paramsOne = {
         TableName: TABLENAME,
         FilterExpression: "teamSpaceID = :teamSpaceID",
@@ -970,6 +970,36 @@ export let editTransaction = async function (teamSpaceID, transactionID, newtran
                         }
                     }
                 }
+            }
+        })
+    })
+}
+
+export let editTeamSpace = async function(teamSpaceID, newTeamSpaceName) {
+    let params = {
+        TableName: TABLENAME,
+        Key: {
+            "teamSpaceID": teamSpaceID
+        },
+        UpdateExpression: "SET teamSpaceName = :newTeamSpaceName",
+        ExpressionAttributeValues: {
+            ":newTeamSpaceName": newTeamSpaceName
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.update(params, (err, data) => {
+            if (err) {
+                let response = {
+                    "code": 400,
+                    "message": err.message
+                }
+                resolve(response)
+            } else {
+                let response = {
+                    "code": 200,
+                    "message": "Success"
+                }
+                resolve(response)
             }
         })
     })
