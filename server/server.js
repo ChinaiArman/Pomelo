@@ -27,6 +27,8 @@ import {
 
 import {
   login,
+  signup,
+  verify
 } from './cognito.js'
 
 import express from "express"
@@ -154,6 +156,16 @@ app.post("/changeBudgetLimit", async (req, res) => {
 // Cognito
 app.post("/login", async (req, res) => {
   let result = await login(req.body.username, req.body.password)
+  res.send(result)
+});
+
+app.post("/signup", async (req, res) => {
+  let result = await signup(req.body.username, req.body.email, req.body.password)
+  res.send(result)
+});
+
+app.post("/verify", async (req, res) => {
+  let result = await verify(req.body.username, req.body.code)
   res.send(result)
 });
 
