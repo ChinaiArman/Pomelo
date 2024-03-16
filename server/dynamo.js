@@ -844,3 +844,56 @@ export let getUserStyleObject = async function (userID) {
         })
     })
 }
+
+export let editSpendingCategory = async function (teamSpaceID, spendingCategoryID, newName, newBudgetLimit) {
+    let paramsOne = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceID = :teamSpaceID",
+        ExpressionAttributeValues: {
+            ":teamSpaceID": teamSpaceID
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(paramsOne, (err, data) => {
+            if (err) {
+                let response = {
+                    "code": 400,
+                    "message": err.message
+                }
+                resolve(response)
+            } else {
+                let spendingCategories = data.Items[0].spendingCategories
+                for (let i = 0; i < spendingCategories.length; i++) {
+                    if (spendingCategories[i].spendingCategoryID === spendingCategoryID) {
+                        let paramsTwo = {
+                            TableName: TABLENAME,
+                            Key: {
+                                "teamSpaceID": teamSpaceID
+                            },
+                            UpdateExpression: "SET spendingCategories[" + i + "].budgetLimit = :newBudgetLimit, spendingCategories[" + i + "].spendingCategoryName = :newName",
+                            ExpressionAttributeValues: {
+                                ":newBudgetLimit": newBudgetLimit,
+                                ":newName": newName
+                            }
+                        }
+                        dynamoDB.update(paramsTwo, (err, data) => {
+                            if (err) {
+                                let response = {
+                                    "code": 400,
+                                    "message": err.message
+                                }
+                                resolve(response)
+                            } else {
+                                let response = {
+                                    "code": 200,
+                                    "message": "Success"
+                                }
+                                resolve(response)
+                            }
+                        })
+                    }
+                }
+            }
+        })
+    })
+}
