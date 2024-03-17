@@ -24,9 +24,19 @@ export let getAllTeamSpaces = async function () {
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
-                resolve(data.Items)
+                let response = {
+                    "status": 201,
+                    "message": "Success",
+                    "data": data.Items
+                }
+                resolve(response)
             }
         })
     })
@@ -43,13 +53,23 @@ export let getAllTransactions = async function(teamSpaceID) {
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
                 let transactions = []
                 for (let i = 0; i < data.Items[0].spendingCategories.length; i++) {
                     transactions = transactions.concat(data.Items[0].spendingCategories[i].transactions)
                 }
-                resolve(transactions)
+                let response = {
+                    "status": 201,
+                    "message": "Success",
+                    "data": transactions
+                }
+                resolve(response)
             }
         })
     })
@@ -66,7 +86,12 @@ export let getTransactionsBySpendingCategory = async function(teamSpaceID, spend
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
                 let transactions = []
                 for (let i = 0; i < data.Items[0].spendingCategories.length; i++) {
@@ -74,7 +99,12 @@ export let getTransactionsBySpendingCategory = async function(teamSpaceID, spend
                         transactions = data.Items[0].spendingCategories[i].transactions
                     }
                 }
-                resolve(transactions)
+                let response = {
+                    "status": 201,
+                    "message": "Success",
+                    "data": transactions
+                }
+                resolve(response)
             }
         })
     })
@@ -91,9 +121,19 @@ export let getAllSpendingCategories = async function(teamSpaceID) {
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
-                resolve(data.Items[0].spendingCategories)
+                let response = {
+                    "status": 201,
+                    "message": "Success",
+                    "data": data.Items[0].spendingCategories
+                }
+                resolve(response)
             }
         })
     })
@@ -110,14 +150,30 @@ export let getSpendingCategoryByID = async function(teamSpaceID, spendingCategor
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
                 let spendingCategories = data.Items[0].spendingCategories
                 for (let i = 0; i < spendingCategories.length; i++) {
                     if (spendingCategories[i].spendingCategoryID === spendingCategoryID) {
-                        resolve(spendingCategories[i])
+                        let response = {
+                            "status": 201,
+                            "message": "Success",
+                            "data": spendingCategories[i]
+                        }
+                        resolve(response)
                     }
                 }
+                let response = {
+                    "status": 401,
+                    "message": "Invalid spendingCategoryID",
+                    "data": null
+                }
+                resolve(response)
             }
         })
     })
@@ -134,9 +190,19 @@ export let getAllTeamSpaceUsers = async function(teamSpaceID) {
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
-                resolve(data.Items[0].userList)
+                let response = {
+                    "status": 201,
+                    "message": "Success",
+                    "data": data.Items[0].userList
+                }
+                resolve(response)
             }
         })
     })
@@ -153,14 +219,30 @@ export let getTeamSpaceLeader = async function(teamSpaceID) {
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
                 let userList = data.Items[0].userList
                 for (let i = 0; i < userList.length; i++) {
                     if (userList[i].isTeamLeader) {
-                        resolve(userList[i])
+                        let response = {
+                            "status": 201,
+                            "message": "Success",
+                            "data": userList[i]
+                        }
+                        resolve(response)
                     }
                 }
+                let response = {
+                    "status": 401,
+                    "message": "No user present with isTeamSpaceLeader TRUE",
+                    "data": null
+                }
+                resolve(response)
             }
         })
     })
@@ -173,17 +255,33 @@ export let getTeamSpaceByUserID = async function(userID) {
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
                 let teamSpaces = data.Items
                 for (let i = 0; i < teamSpaces.length; i++) {
                     let userList = teamSpaces[i].userList
                     for (let j = 0; j < userList.length; j++) {
                         if (userList[j].userID === userID) {
-                            resolve(teamSpaces[i])
+                            let response = {
+                                "status": 201,
+                                "message": "Success",
+                                "data": teamSpaces[i]
+                            }
+                            resolve(response)
                         }
                     }
                 }
+                let response = {
+                    "status": 401,
+                    "message": "No user found with UserID",
+                    "data": null
+                }
+                resolve(response)
             }
         })
     })
@@ -196,7 +294,12 @@ export let getTransactionsByUserID = async function(userID) {
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
                 let teamSpaces = data.Items
                 let transactions = []
@@ -210,7 +313,12 @@ export let getTransactionsByUserID = async function(userID) {
                         }
                     }
                 }
-                resolve(transactions)
+                let response = {
+                    "status": 201,
+                    "message": "Success",
+                    "data": transactions
+                }
+                resolve(response)
             }
         })
     })
@@ -242,15 +350,18 @@ export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUs
         dynamoDB.put(params, (err, data) => {
             if (err) {
                let response = {
-                    "code": 400,
-                    "message": err.message
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
                }
                resolve(response)
             } else {
                 let response = {
-                    "code": 200,
-                    "teamSpaceID": input.teamSpaceID,
-                    "message": "Success"
+                    "status": 201,
+                    "message": "Success",
+                    "data": {
+                        "teamSpaceID": input.teamSpaceID,
+                    }
                 }
                 resolve(response)
             }
@@ -281,15 +392,18 @@ export let createNewSpendingCategory = async function (teamSpaceID, spendingCate
         dynamoDB.update(params, (err, data) => {
             if (err) {
                 let response = {
-                    "code": 400,
-                    "message": err.message
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
                 }
                 resolve(response)
             } else {
                 let response = {
-                    "code": 200,
-                    "spendingCategoryID": input.spendingCategoryID,
-                    "message": "Success"
+                    "status": 201,
+                    "message": "Success",
+                    "data": {
+                        "spendingCategoryID": input.spendingCategoryID,
+                    }
                 }
                 resolve(response)
             }
@@ -320,8 +434,9 @@ export let createNewTransaction = async function (teamSpaceID, spendingCategoryI
         dynamoDB.scan(paramsOne, (err, data) => {
             if (err) {
                 let response = {
-                    "code": 400,
-                    "message": err.message
+                    "status": 401,
+                    "message": err.message,
+                    "data": null,
                 }
                 resolve(response)
             } else {
@@ -341,8 +456,9 @@ export let createNewTransaction = async function (teamSpaceID, spendingCategoryI
                         dynamoDB.update(paramsTwo, (err, data) => {
                             if (err) {
                                 let response = {
-                                    "code": 400,
-                                    "message": err.message
+                                    "status": 401,
+                                    "message": err.message,
+                                    "data": null
                                 }
                                 resolve(response)
                             } else {
@@ -359,15 +475,18 @@ export let createNewTransaction = async function (teamSpaceID, spendingCategoryI
                                 dynamoDB.update(paramsThree, (err, data) => {
                                     if (err) {
                                         let response = {
-                                            "code": 400,
-                                            "message": err.message
+                                            "status": 401,
+                                            "message": err.message,
+                                            "data": null
                                         }
                                         resolve(response)
                                     } else {
                                         let response = {
-                                            "code": 200,
-                                            "transactionID": input.transactionID,
-                                            "message": "Success"
+                                            "status": 201,
+                                            "message": "Success",
+                                            "data": {
+                                                "transactionID": input.transactionID,
+                                            }
                                         }
                                         resolve(response)
                                     }
@@ -376,6 +495,12 @@ export let createNewTransaction = async function (teamSpaceID, spendingCategoryI
                         })
                     }
                 }
+                let response = {
+                    "status": 402,
+                    "message": "An unexpected error occurred.",
+                    "data": null
+                }
+                resolve(response)
             }
         })
     })
@@ -399,8 +524,9 @@ export let addUserToTeamSpace = async function (teamSpaceJoinCode, userID, usern
         dynamoDB.scan(params, (err, data) => {
             if (err) {
                 let response = {
-                    "code": 400,
-                    "message": err.message
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
                 }
                 resolve(response)
             } else {
@@ -417,14 +543,16 @@ export let addUserToTeamSpace = async function (teamSpaceJoinCode, userID, usern
                 dynamoDB.update(paramsTwo, (err, data) => {
                     if (err) {
                         let response = {
-                            "code": 400,
-                            "message": err.message
+                            "status": 401,
+                            "message": err.message,
+                            "data": null
                         }
                         resolve(response)
                     } else {
                         let response = {
-                            "code": 200,
-                            "message": "Success"
+                            "status": 202,
+                            "message": "Success",
+                            "data": null
                         }
                         resolve(response)
                     }
@@ -445,9 +573,19 @@ export let getJoinCode = async function (teamSpaceID) {
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
-                resolve(data.Items[0].teamSpaceJoinCode)
+                let response = {
+                    "status": 201,
+                    "message": "Success",
+                    "data": data.Items[0].teamSpaceJoinCode
+                }
+                resolve(response)
             }
         })
     })
@@ -464,9 +602,19 @@ export let getTeamSpaceByID = async function (teamSpaceID) {
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
-                resolve(data.Items[0])
+                let response = {
+                    "status": 201,
+                    "message": "Success",
+                    "data": data.Items[0]
+                }
+                resolve(response)
             }
         })
     })
@@ -484,8 +632,9 @@ export let deleteTransaction = async function (teamSpaceID, transactionID) {
         dynamoDB.scan(paramsOne, (err, data) => {
             if (err) {
                 let response = {
-                    "code": 400,
-                    "message": err.message
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
                 }
                 resolve(response)
             } else {
@@ -504,8 +653,9 @@ export let deleteTransaction = async function (teamSpaceID, transactionID) {
                             dynamoDB.update(paramsTwo, (err, data) => {
                                 if (err) {
                                     let response = {
-                                        "code": 400,
-                                        "message": err.message
+                                        "status": 401,
+                                        "message": err.message,
+                                        "data": null
                                     }
                                     resolve(response)
                                 } else {
@@ -522,15 +672,18 @@ export let deleteTransaction = async function (teamSpaceID, transactionID) {
                                     dynamoDB.update(paramsThree, (err, data) => {
                                         if (err) {
                                             let response = {
-                                                "code": 400,
-                                                "message": err.message
+                                                "status": 401,
+                                                "message": err.message,
+                                                "data": null
                                             }
                                             resolve(response)
                                         } else {
                                             let response = {
-                                                "code": 200,
-                                                "transaction": transactions[j],
-                                                "message": "Success"
+                                                "status": 201,
+                                                "message": "Success",
+                                                "data": {
+                                                    "transaction": transactions[j],
+                                                }
                                             }
                                             resolve(response)
                                         }
@@ -540,6 +693,12 @@ export let deleteTransaction = async function (teamSpaceID, transactionID) {
                         }
                     }
                 }
+                let response = {
+                    "status": 402,
+                    "message": "An unexpected error occurred.",
+                    "data": null
+                }
+                resolve(response)
             }
         })
     })
@@ -552,17 +711,33 @@ export let getUserByID = async function (userID) {
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
                 let teamSpaces = data.Items
                 for (let i = 0; i < teamSpaces.length; i++) {
                     let userList = teamSpaces[i].userList
                     for (let j = 0; j < userList.length; j++) {
                         if (userList[j].userID === userID) {
-                            resolve(userList[j])
+                            let response = {
+                                "status": 201,
+                                "message": "Success",
+                                "data": userList[j]
+                            }
+                            resolve(response)
                         }
                     }
                 }
+                let response = {
+                    "status": 402,
+                    "message": "An unexpected error occurred.",
+                    "data": null
+                }
+                resolve(response)
             }
         })
     })
@@ -580,8 +755,9 @@ export let removeUserFromTeamSpaceByID = async function (teamSpaceID, userID) {
         dynamoDB.scan(paramsOne, (err, data) => {
             if (err) {
                 let response = {
-                    "code": 400,
-                    "message": err.message
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
                 }
                 resolve(response)
             } else {
@@ -598,21 +774,30 @@ export let removeUserFromTeamSpaceByID = async function (teamSpaceID, userID) {
                         dynamoDB.update(paramsTwo, (err, data) => {
                             if (err) {
                                 let response = {
-                                    "code": 400,
-                                    "message": err.message
+                                    "status": 401,
+                                    "message": err.message,
+                                    "data": null,
                                 }
                                 resolve(response)
                             } else {
                                 let response = {
-                                    "code": 200,
+                                    "status": 201,
                                     "message": "Success",
-                                    "user": userList[i]
+                                    "data": {
+                                        "user": userList[i]
+                                    }
                                 }
                                 resolve(response)
                             }
                         })
                     }
                 }
+                let response = {
+                    "status": 402,
+                    "message": "An unexpected error occurred.",
+                    "data": null
+                }
+                resolve(response)
             }
         })
     })
@@ -636,15 +821,18 @@ export let generateNewTeamSpaceJoinCode = async function (teamSpaceID) {
         dynamoDB.update(params, (err, data) => {
             if (err) {
                 let response = {
-                    "code": 400,
-                    "message": err.message
+                    "status": 401,
+                    "message": err.message,
+                    "data": null,
                 }
                 resolve(response)
             } else {
                 let response = {
-                    "code": 200,
+                    "status": 201,
                     "message": "Success",
-                    "joinCode": input.teamSpaceJoinCode
+                    "data": {
+                        "joinCode": input.teamSpaceJoinCode
+                    }
                 }
                 resolve(response)
             }
@@ -664,8 +852,9 @@ export let deleteSpendingCategory = async function (teamSpaceID, spendingCategor
         dynamoDB.scan(paramsOne, (err, data) => {
             if (err) {
                 let response = {
-                    "code": 400,
-                    "message": err.message
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
                 }
                 resolve(response)
             } else {
@@ -682,20 +871,28 @@ export let deleteSpendingCategory = async function (teamSpaceID, spendingCategor
                         dynamoDB.update(paramsTwo, (err, data) => {
                             if (err) {
                                 let response = {
-                                    "code": 400,
-                                    "message": err.message
+                                    "status": 401,
+                                    "message": err.message,
+                                    "data": null
                                 }
                                 resolve(response)
                             } else {
                                 let response = {
-                                    "code": 200,
+                                    "status": 202,
                                     "message": "Success",
+                                    "data": null
                                 }
                                 resolve(response)
                             }
                         })
                     }
                 }
+                let response = {
+                    "status": 402,
+                    "message": "An unexpected error occurred.",
+                    "data": null
+                }
+                resolve(response)
             }
         })
     })
@@ -713,8 +910,9 @@ export let changeBudgetLimit = async function (teamSpaceID, spendingCategoryID, 
         dynamoDB.scan(paramsOne, (err, data) => {
             if (err) {
                 let response = {
-                    "code": 400,
-                    "message": err.message
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
                 }
                 resolve(response)
             } else {
@@ -734,20 +932,28 @@ export let changeBudgetLimit = async function (teamSpaceID, spendingCategoryID, 
                         dynamoDB.update(paramsTwo, (err, data) => {
                             if (err) {
                                 let response = {
-                                    "code": 400,
-                                    "message": err.message
+                                    "status": 401,
+                                    "message": err.message,
+                                    "data": null
                                 }
                                 resolve(response)
                             } else {
                                 let response = {
-                                    "code": 200,
-                                    "message": "Success"
+                                    "status": 202,
+                                    "message": "Success",
+                                    "data": null
                                 }
                                 resolve(response)
                             }
                         })
                     }
                 }
+                let response = {
+                    "status": 402,
+                    "message": "An unexpected error occurred.",
+                    "data": null
+                }
+                resolve(response)
             }
         })
     })
@@ -764,9 +970,19 @@ export let getTeamSpaceStyleObject = async function (teamSpaceID) {
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
-                resolve(data.Items[0].styles)
+                let response = {
+                    "status": 201,
+                    "message": "Success",
+                    "data": data.Items[0].styles
+                }
+                resolve(response)
             }
         })
     })
@@ -783,14 +999,30 @@ export let getSpendingCategoryStyleObject = async function (teamSpaceID, spendin
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
                 let spendingCategories = data.Items[0].spendingCategories
                 for (let i = 0; i < spendingCategories.length; i++) {
                     if (spendingCategories[i].spendingCategoryID === spendingCategoryID) {
-                        resolve(spendingCategories[i].styles)
+                        let response = {
+                            "status": 201,
+                            "message": "Success",
+                            "data": spendingCategories[i].styles
+                        }
+                        resolve(response)
                     }
                 }
+                let response = {
+                    "status": 402,
+                    "message": "An unexpected error occurred.",
+                    "data": null
+                }
+                resolve(response)
             }
         })
     })
@@ -807,17 +1039,33 @@ export let getTransactionStyleObject = async function (teamSpaceID, transactionI
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
                 let spendingCategories = data.Items[0].spendingCategories
                 for (let i = 0; i < spendingCategories.length; i++) {
                     let transactions = spendingCategories[i].transactions
                     for (let j = 0; j < transactions.length; j++) {
                         if (transactions[j].transactionID === transactionID) {
-                            resolve(transactions[j].styles)
+                            let response = {
+                                "status": 201,
+                                "message": "Success",
+                                "data": transactions[j].styles
+                            }
+                            resolve(response)
                         }
                     }
                 }
+                let response = {
+                    "status": 402,
+                    "message": "An unexpected error occurred.",
+                    "data": null
+                }
+                resolve(response)
             }
         })
     })
@@ -830,17 +1078,33 @@ export let getUserStyleObject = async function (userID) {
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
                 let teamSpaces = data.Items
                 for (let i = 0; i < teamSpaces.length; i++) {
                     let userList = teamSpaces[i].userList
                     for (let j = 0; j < userList.length; j++) {
                         if (userList[j].userID === userID) {
-                            resolve(userList[j].styles)
+                            let response = {
+                                "status": 201,
+                                "message": "Success",
+                                "data": userList[j].styles
+                            }
+                            resolve(response)
                         }
                     }
                 }
+                let response = {
+                    "status": 402,
+                    "message": "An unexpected error occurred.",
+                    "data": null
+                }
+                resolve(response)
             }
         })
     })
@@ -858,8 +1122,9 @@ export let editSpendingCategory = async function (teamSpaceID, spendingCategoryI
         dynamoDB.scan(paramsOne, (err, data) => {
             if (err) {
                 let response = {
-                    "code": 400,
-                    "message": err.message
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
                 }
                 resolve(response)
             } else {
@@ -880,20 +1145,28 @@ export let editSpendingCategory = async function (teamSpaceID, spendingCategoryI
                         dynamoDB.update(paramsTwo, (err, data) => {
                             if (err) {
                                 let response = {
-                                    "code": 400,
-                                    "message": err.message
+                                    "status": 401,
+                                    "message": err.message,
+                                    "data": null
                                 }
                                 resolve(response)
                             } else {
                                 let response = {
-                                    "code": 200,
-                                    "message": "Success"
+                                    "status": 202,
+                                    "message": "Success",
+                                    "data": null
                                 }
                                 resolve(response)
                             }
                         })
                     }
                 }
+                let response = {
+                    "status": 402,
+                    "message": "An unexpected error occurred.",
+                    "data": null
+                }
+                resolve(response)
             }
         })
     })
@@ -911,8 +1184,9 @@ export let editTransaction = async function (teamSpaceID, transactionID, newtran
         dynamoDB.scan(paramsOne, (err, data) => {
             if (err) {
                 let response = {
-                    "code": 400,
-                    "message": err.message
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
                 }
                 resolve(response)
             } else {
@@ -936,8 +1210,9 @@ export let editTransaction = async function (teamSpaceID, transactionID, newtran
                             dynamoDB.update(paramsTwo, (err, data) => {
                                 if (err) {
                                     let response = {
-                                        "code": 400,
-                                        "message": err.message
+                                        "status": 401,
+                                        "message": err.message,
+                                        "data": null
                                     }
                                     resolve(response)
                                 } else {
@@ -954,14 +1229,16 @@ export let editTransaction = async function (teamSpaceID, transactionID, newtran
                                     dynamoDB.update(paramsThree, (err, data) => {
                                         if (err) {
                                             let response = {
-                                                "code": 400,
-                                                "message": err.message
+                                                "status": 401,
+                                                "message": err.message,
+                                                "data": null
                                             }
                                             resolve(response)
                                         } else {
                                             let response = {
-                                                "code": 200,
-                                                "message": "Success"
+                                                "status": 202,
+                                                "message": "Success",
+                                                "data": null
                                             }
                                             resolve(response)
                                         }
@@ -971,6 +1248,12 @@ export let editTransaction = async function (teamSpaceID, transactionID, newtran
                         }
                     }
                 }
+                let response = {
+                    "status": 402,
+                    "message": "An unexpected error occurred.",
+                    "data": null
+                }
+                resolve(response)
             }
         })
     })
@@ -992,14 +1275,16 @@ export let editTeamSpace = async function(teamSpaceID, newTeamSpaceName, newTota
         dynamoDB.update(params, (err, data) => {
             if (err) {
                 let response = {
-                    "code": 400,
-                    "message": err.message
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
                 }
                 resolve(response)
             } else {
                 let response = {
-                    "code": 200,
-                    "message": "Success"
+                    "status": 202,
+                    "message": "Success",
+                    "data": null
                 }
                 resolve(response)
             }
@@ -1018,10 +1303,19 @@ export let getTeamSpaceTotalBudget = async function(teamSpaceID) {
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
                 let response = {
-                    "totalBudget": data.Items[0].totalBudget
+                    "status": 201,
+                    "message": "Success",
+                    "data": {
+                        "totalBudget": data.Items[0].totalBudget
+                    }
                 }
                 resolve(response)
             }
@@ -1040,7 +1334,12 @@ export let getTeamSpaceTotalAmountUsed = async function(teamSpaceID) {
     return new Promise((resolve, reject) => {
         dynamoDB.scan(params, (err, data) => {
             if (err) {
-                reject(err)
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
             } else {
                 let spendingCategories = data.Items[0].spendingCategories
                 let totalAmountUsed = 0
@@ -1048,7 +1347,11 @@ export let getTeamSpaceTotalAmountUsed = async function(teamSpaceID) {
                     totalAmountUsed += spendingCategories[i].amountUsed
                 }
                 let response = {
-                    "totalAmountUsed": totalAmountUsed
+                    "status": 201,
+                    "message": "Success",
+                    "data": {
+                        "totalAmountUsed": totalAmountUsed
+                    }
                 }
                 resolve(response)
             }

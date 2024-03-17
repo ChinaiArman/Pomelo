@@ -27,17 +27,23 @@ export let login = async function (username, password) {
         cognitoUser.authenticateUser(authenticationDetails, {
             onSuccess: function (result) {
                 let response = {
-                    "userID": result.idToken.payload.sub,
-                    "username": result.accessToken.payload.username,
-                    "code": 200,
+                    "status": 201,
+                    "message": "Success",
+                    "data": {
+                        "userID": result.idToken.payload.sub,
+                        "username": result.accessToken.payload.username
+                    }
                 }
                 resolve(response)
             },
             onFailure: function(err) {
                 let response = {
-                    "userID": null,
-                    "username": null,
-                    "code": 401
+                    "status": 401,
+                    "message": err.message,
+                    "data": {
+                        "userID": null,
+                        "username": null
+                    }
                 }
                 resolve(response)
             },
@@ -64,15 +70,17 @@ export let signup = async function (username, email, password) {
         userPool.signUp(username, password, attributeList, null, function(err, result){
             if (err) {
                 let response = {
-                    "code": 400,
-                    "message": err.message
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
                 }
                 resolve(response)
                 
             } else {
                 let response = {
-                    "code": 200,
-                    "message": result.message
+                    "status": 202,
+                    "message": result.message,
+                    "data": null
                 }
                 resolve(response)
             }
@@ -90,14 +98,16 @@ export let verify = async function (username, code) {
         cognitoUser.confirmRegistration(code, true, function(err, result){
             if (err) {
                 let response = {
-                    "code": 400,
-                    "message": err.message
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
                 }
                 resolve(response)
             } else {
                 let response = {
-                    "code": 200,
-                    "message": result.message
+                    "status": 202,
+                    "message": result.message,
+                    "data": null
                 }
                 resolve(response)
             }
