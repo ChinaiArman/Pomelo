@@ -7,7 +7,13 @@ const Login = () => {
 
     let handleSubmit = async function (event) {
         event.preventDefault();
-        await axios.post('http://localhost:5000/login', {username, password}).then(response => {console.log(response.data)}).catch(error => {console.log(error)});
+        await axios.post('http://localhost:5000/login', { username, password })
+            .then(response => {
+                console.log(response.data.data.userID)
+                window.localStorage.setItem("userID", response.data.data.userID)
+                console.log(window.localStorage.getItem("userID"))
+            })
+            .catch(error => { console.log(error) });
     }
 
     return (
@@ -17,7 +23,7 @@ const Login = () => {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label>Username</label>
-                        <input type="text" placeholder="Enter Username" onChange={e => setUsername(e.target.value)}required />
+                        <input type="text" placeholder="Enter Username" onChange={e => setUsername(e.target.value)} required />
                     </div>
                     <div>
                         <label>Password</label>
