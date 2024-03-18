@@ -25,7 +25,7 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-    loader: () => (userID ? window.location.href = '/' : null),
+    loader: () => (!userID ? null : window.location.href = '/'),
   },
 ])
 
