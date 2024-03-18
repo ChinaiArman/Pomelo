@@ -11,7 +11,9 @@ import Footer from "./components/Footer"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 
+
 var loggedIn = window.localStorage.getItem("userID")
+
 
 const router = createBrowserRouter([
   {
