@@ -12,19 +12,20 @@ import Home from "./pages/Home"
 import Login from "./pages/Login"
 
 
-var loggedIn = window.localStorage.getItem("userID")
+var userID = window.localStorage.getItem("userID")
+var teamSpaceID = window.localStorage.getItem("teamSpaceID")
 
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-    loader: () => (!loggedIn ? window.location.href = '/login' : null),
+    loader: () => (!userID ? window.location.href = '/login' : null),
   },
   {
     path: "/login",
     element: <Login />,
-    loader: () => (loggedIn ? window.location.href = '/' : null),
+    loader: () => (userID ? window.location.href = '/' : null),
   },
 ])
 
