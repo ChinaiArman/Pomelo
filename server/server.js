@@ -65,88 +65,87 @@ app.get("/getAllTeamSpaces", async (req, res) => {
 });
 
 app.get("/getAllTransactions", async (req, res) => {
-  let transactions = await getAllTransactions(req.body.teamSpaceID)
+  let transactions = await getAllTransactions(req.query.teamSpaceID)
   res.send(transactions);
 });
 
 app.get("/getTransactionsBySpendingCategory", async (req, res) => {
-  let transactions = await getTransactionsBySpendingCategory(req.body.teamSpaceID, req.body.spendingCategoryID)
+  let transactions = await getTransactionsBySpendingCategory(req.query.teamSpaceID, req.query.spendingCategoryID)
   res.send(transactions);
 });
 
 app.get("/getAllSpendingCategories", async (req, res) => {
-  let spendingCategories = await getAllSpendingCategories(req.body.teamSpaceID)
+  let spendingCategories = await getAllSpendingCategories(req.query.teamSpaceID)
   res.send(spendingCategories);
 });
 
 app.get("/getSpendingCategoryByID", async (req, res) => {
-  let spendingCategory = await getSpendingCategoryByID(req.body.teamSpaceID, req.body.spendingCategoryID)
+  let spendingCategory = await getSpendingCategoryByID(req.query.teamSpaceID, req.query.spendingCategoryID)
   res.send(spendingCategory);
 });
 
 app.get("/getAllTeamSpaceUsers", async (req, res) => {
-  let teamSpaceUsers = await getAllTeamSpaceUsers(req.body.teamSpaceID)
+  let teamSpaceUsers = await getAllTeamSpaceUsers(req.query.teamSpaceID)
   res.send(teamSpaceUsers);
 });
 
 app.get("/getTeamSpaceLeader", async (req, res) => {
-  let teamSpaceLeader = await getTeamSpaceLeader(req.body.teamSpaceID)
+  let teamSpaceLeader = await getTeamSpaceLeader(req.query.teamSpaceID)
   res.send(teamSpaceLeader);
 });
 
 app.get("/getTeamSpaceByUserID", async (req, res) => {
-  console.log(req.query)
   let teamSpace = await getTeamSpaceByUserID(req.query.userID)
   res.send(teamSpace);
 });
 
 app.get("/getTransactionsByUserID", async (req, res) => {
-  let transactions = await getTransactionsByUserID(req.body.userID)
+  let transactions = await getTransactionsByUserID(req.query.userID)
   res.send(transactions);
 });
 
 app.get("/getJoinCode", async (req, res) => {
-  let joinCode = await getJoinCode(req.body.teamSpaceID)
+  let joinCode = await getJoinCode(req.query.teamSpaceID)
   res.send(joinCode);
 });
 
 app.get("/getTeamSpaceByID", async (req, res) => {
-  let teamSpace = await getTeamSpaceByID(req.body.teamSpaceID)
+  let teamSpace = await getTeamSpaceByID(req.query.teamSpaceID)
   res.send(teamSpace);
 });
 
 app.get("/getUserByID", async (req, res) => {
-  let user = await getUserByID(req.body.userID)
+  let user = await getUserByID(req.query.userID)
   res.send(user);
 });
 
 app.get("/getTeamSpaceStyleObject", async (req, res) => {
-  let styleObject = await getTeamSpaceStyleObject(req.body.teamSpaceID)
+  let styleObject = await getTeamSpaceStyleObject(req.query.teamSpaceID)
   res.send(styleObject);
 });
 
 app.get("/getSpendingCategoryStyleObject", async (req, res) => {
-  let styleObject = await getSpendingCategoryStyleObject(req.body.teamSpaceID, req.body.spendingCategoryID)
+  let styleObject = await getSpendingCategoryStyleObject(req.query.teamSpaceID, req.query.spendingCategoryID)
   res.send(styleObject);
 });
 
 app.get("/getTransactionStyleObject", async (req, res) => {
-  let styleObject = await getTransactionStyleObject(req.body.teamSpaceID, req.body.transactionID)
+  let styleObject = await getTransactionStyleObject(req.query.teamSpaceID, req.query.transactionID)
   res.send(styleObject)
 });
 
 app.get("/getUserStyleObject", async (req, res) => {
-  let styleObject = await getUserStyleObject(req.body.userID)
+  let styleObject = await getUserStyleObject(req.query.userID)
   res.send(styleObject)
 });
 
 app.get("/getTeamSpaceTotalBudget", async (req, res) => {
-  let totalBudget = await getTeamSpaceTotalBudget(req.body.teamSpaceID)
+  let totalBudget = await getTeamSpaceTotalBudget(req.query.teamSpaceID)
   res.send(totalBudget)
 });
 
 app.get("/getTeamSpaceTotalAmountUsed", async (req, res) => {
-  let totalAmountUsed = await getTeamSpaceTotalAmountUsed(req.body.teamSpaceID)
+  let totalAmountUsed = await getTeamSpaceTotalAmountUsed(req.query.teamSpaceID)
   res.send(totalAmountUsed)
 });
 
