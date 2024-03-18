@@ -42,7 +42,7 @@ export let getAllTeamSpaces = async function () {
     })
 }
 
-export let getAllTransactions = async function(teamSpaceID) {
+export let getAllTransactions = async function (teamSpaceID) {
     let params = {
         TableName: TABLENAME,
         FilterExpression: "teamSpaceID = :teamSpaceID",
@@ -75,7 +75,7 @@ export let getAllTransactions = async function(teamSpaceID) {
     })
 }
 
-export let getTransactionsBySpendingCategory = async function(teamSpaceID, spendingCategoryID) {
+export let getTransactionsBySpendingCategory = async function (teamSpaceID, spendingCategoryID) {
     let params = {
         TableName: TABLENAME,
         FilterExpression: "teamSpaceID = :teamSpaceID",
@@ -110,7 +110,7 @@ export let getTransactionsBySpendingCategory = async function(teamSpaceID, spend
     })
 }
 
-export let getAllSpendingCategories = async function(teamSpaceID) {
+export let getAllSpendingCategories = async function (teamSpaceID) {
     let params = {
         TableName: TABLENAME,
         FilterExpression: "teamSpaceID = :teamSpaceID",
@@ -139,7 +139,7 @@ export let getAllSpendingCategories = async function(teamSpaceID) {
     })
 }
 
-export let getSpendingCategoryByID = async function(teamSpaceID, spendingCategoryID) {
+export let getSpendingCategoryByID = async function (teamSpaceID, spendingCategoryID) {
     let params = {
         TableName: TABLENAME,
         FilterExpression: "teamSpaceID = :teamSpaceID",
@@ -179,7 +179,7 @@ export let getSpendingCategoryByID = async function(teamSpaceID, spendingCategor
     })
 }
 
-export let getAllTeamSpaceUsers = async function(teamSpaceID) {
+export let getAllTeamSpaceUsers = async function (teamSpaceID) {
     let params = {
         TableName: TABLENAME,
         FilterExpression: "teamSpaceID = :teamSpaceID",
@@ -208,7 +208,7 @@ export let getAllTeamSpaceUsers = async function(teamSpaceID) {
     })
 }
 
-export let getTeamSpaceLeader = async function(teamSpaceID) {
+export let getTeamSpaceLeader = async function (teamSpaceID) {
     let params = {
         TableName: TABLENAME,
         FilterExpression: "teamSpaceID = :teamSpaceID",
@@ -248,7 +248,7 @@ export let getTeamSpaceLeader = async function(teamSpaceID) {
     })
 }
 
-export let getTeamSpaceByUserID = async function(userID) {
+export let getTeamSpaceByUserID = async function (userID) {
     let params = {
         TableName: TABLENAME
     }
@@ -287,7 +287,7 @@ export let getTeamSpaceByUserID = async function(userID) {
     })
 }
 
-export let getTransactionsByUserID = async function(userID) {
+export let getTransactionsByUserID = async function (userID) {
     let params = {
         TableName: TABLENAME
     }
@@ -349,12 +349,12 @@ export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUs
     return new Promise((resolve, reject) => {
         dynamoDB.put(params, (err, data) => {
             if (err) {
-               let response = {
+                let response = {
                     "status": 401,
                     "message": err.message,
                     "data": null
-               }
-               resolve(response)
+                }
+                resolve(response)
             } else {
                 let response = {
                     "status": 201,
@@ -419,7 +419,7 @@ export let createNewTransaction = async function (teamSpaceID, spendingCategoryI
             ":teamSpaceID": teamSpaceID
         }
     }
-    
+
     let input = {
         "transactionDate": new Date().toDateString(),
         "transactionName": transactionName,
@@ -1259,7 +1259,7 @@ export let editTransaction = async function (teamSpaceID, transactionID, newtran
     })
 }
 
-export let editTeamSpace = async function(teamSpaceID, newTeamSpaceName, newTotalBudget) {
+export let editTeamSpace = async function (teamSpaceID, newTeamSpaceName, newTotalBudget) {
     let params = {
         TableName: TABLENAME,
         Key: {
@@ -1292,7 +1292,7 @@ export let editTeamSpace = async function(teamSpaceID, newTeamSpaceName, newTota
     })
 }
 
-export let getTeamSpaceTotalBudget = async function(teamSpaceID) {
+export let getTeamSpaceTotalBudget = async function (teamSpaceID) {
     let params = {
         TableName: TABLENAME,
         FilterExpression: "teamSpaceID = :teamSpaceID",
@@ -1323,7 +1323,7 @@ export let getTeamSpaceTotalBudget = async function(teamSpaceID) {
     })
 }
 
-export let getTeamSpaceTotalAmountUsed = async function(teamSpaceID) {
+export let getTeamSpaceTotalAmountUsed = async function (teamSpaceID) {
     let params = {
         TableName: TABLENAME,
         FilterExpression: "teamSpaceID = :teamSpaceID",
