@@ -27,6 +27,7 @@ const Login = () => {
                 if (response.data.status == 201) {
                     console.log(window.localStorage.getItem("teamSpaceID"))
                     console.log("Success!")
+                    window.location.replace('/')
                 } else {
                     console.log("no team space attached to user.")
                 }
