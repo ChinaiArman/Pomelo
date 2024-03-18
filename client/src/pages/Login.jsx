@@ -1,11 +1,31 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Login = () => {
-    // const { data: users, isPending, error } = useFetch('/api');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    let handleSubmit = async function (event) {
+        event.preventDefault();
+        await axios.post('http://localhost:5000/login', {username, password}).then(response => {console.log(response.data)}).catch(error => {console.log(error)});
+    }
 
     return (
         <div className="login">
-            <p>Login</p>
+            <div>
+                <h1>Login</h1>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label>Username</label>
+                        <input type="text" placeholder="Enter Username" onChange={e => setUsername(e.target.value)}required />
+                    </div>
+                    <div>
+                        <label>Password</label>
+                        <input type="password" placeholder="Enter Passowrd" onChange={e => setPassword(e.target.value)} required />
+                    </div>
+                    <button>Login</button>
+                </form>
+            </div>
         </div>
     );
 }
