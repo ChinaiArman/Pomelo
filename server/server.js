@@ -1,7 +1,7 @@
 import dotenv from "dotenv"
 dotenv.config()
 
-import { 
+import {
   getAllTeamSpaces,
   getAllTransactions,
   getTransactionsBySpendingCategory,
@@ -20,7 +20,7 @@ import {
   getUserStyleObject,
   getTeamSpaceTotalBudget,
   getTeamSpaceTotalAmountUsed,
-  createNewTeamSpace, 
+  createNewTeamSpace,
   createNewSpendingCategory,
   createNewTransaction,
   addUserToTeamSpace,
@@ -69,33 +69,34 @@ app.get("/getAllTransactions", async (req, res) => {
   res.send(transactions);
 });
 
-app.get("/getTransactionsBySpendingCategory" , async (req, res) => {
+app.get("/getTransactionsBySpendingCategory", async (req, res) => {
   let transactions = await getTransactionsBySpendingCategory(req.body.teamSpaceID, req.body.spendingCategoryID)
   res.send(transactions);
 });
 
-app.get("/getAllSpendingCategories" , async (req, res) => {
+app.get("/getAllSpendingCategories", async (req, res) => {
   let spendingCategories = await getAllSpendingCategories(req.body.teamSpaceID)
   res.send(spendingCategories);
 });
 
-app.get("/getSpendingCategoryByID" , async (req, res) => {
+app.get("/getSpendingCategoryByID", async (req, res) => {
   let spendingCategory = await getSpendingCategoryByID(req.body.teamSpaceID, req.body.spendingCategoryID)
   res.send(spendingCategory);
 });
 
-app.get("/getAllTeamSpaceUsers" , async (req, res) => {
+app.get("/getAllTeamSpaceUsers", async (req, res) => {
   let teamSpaceUsers = await getAllTeamSpaceUsers(req.body.teamSpaceID)
   res.send(teamSpaceUsers);
 });
 
-app.get("/getTeamSpaceLeader" , async (req, res) => {
+app.get("/getTeamSpaceLeader", async (req, res) => {
   let teamSpaceLeader = await getTeamSpaceLeader(req.body.teamSpaceID)
   res.send(teamSpaceLeader);
 });
 
-app.get("/getTeamSpaceByUserID" , async (req, res) => {
-  let teamSpace = await getTeamSpaceByUserID(req.body.userID)
+app.get("/getTeamSpaceByUserID", async (req, res) => {
+  console.log(req.query)
+  let teamSpace = await getTeamSpaceByUserID(req.query.userID)
   res.send(teamSpace);
 });
 
