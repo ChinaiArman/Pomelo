@@ -530,6 +530,7 @@ export let addUserToTeamSpace = async function (teamSpaceJoinCode, userID, usern
                 }
                 resolve(response)
             } else {
+                var teamSpaceID = data.Items[0].teamSpaceID
                 let paramsTwo = {
                     TableName: TABLENAME,
                     Key: {
@@ -550,9 +551,12 @@ export let addUserToTeamSpace = async function (teamSpaceJoinCode, userID, usern
                         resolve(response)
                     } else {
                         let response = {
-                            "status": 202,
+                            "status": 201,
                             "message": "Success",
-                            "data": null
+                            "data": {
+                                "teamSpaceID": teamSpaceID,
+                            
+                            }
                         }
                         resolve(response)
                     }
