@@ -27,7 +27,6 @@ let getTeamSpaceID = async function (userID) {
               window.localStorage.setItem("teamSpaceID", response.data.data.teamSpaceID)
               window.location.replace('/')
           } else {
-              window.localStorage.setItem("teamSpaceID", null)
               window.location.replace('/register')
           }
       }).catch(error => {

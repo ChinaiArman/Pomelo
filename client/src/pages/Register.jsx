@@ -46,7 +46,7 @@ const Register = () => {
             <br>
             </br>
             <div>
-                <h1>Create a team</h1> 
+                <h1>Join a team</h1> 
                 <form onSubmit={handleJoinTeamSpace}>
                     <div>
                         <label>Join Code</label>
