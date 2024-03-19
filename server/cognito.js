@@ -88,14 +88,14 @@ export let signup = async function (username, email, password) {
     })
 }
 
-export let verify = async function (username, code) {
+export let verify = async function (username, verificationCode) {
     const userData = {
         Username : username,
         Pool : userPool
     };
     const cognitoUser = new CognitoUser(userData);
     return new Promise((resolve, reject) => {
-        cognitoUser.confirmRegistration(code, true, function(err, result){
+        cognitoUser.confirmRegistration(verificationCode, true, function(err, result){
             if (err) {
                 let response = {
                     "status": 401,

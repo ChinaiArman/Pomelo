@@ -222,7 +222,7 @@ app.post("/signup", async (req, res) => {
 });
 
 app.post("/verify", async (req, res) => {
-  let response = await verify(req.body.username, req.body.code)
+  let response = await verify(req.body.username, req.body.verificationCode)
   res.send(response)
 });
 
