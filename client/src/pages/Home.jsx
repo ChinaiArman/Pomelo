@@ -57,11 +57,6 @@ const Home = () => {
             }).catch(error => {
                 console.log(error);
             });
-        setNewSpendingCategory('');
-        setNewSpendingCategoryBudgetLimit('');
-        setNewTransactionName('');
-        setNewTransactionAmount('');
-        setNewTransactionSpendingCategoryName('');
     };
 
     let createNewSpendingCategory = async function (event) {
