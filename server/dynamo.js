@@ -411,7 +411,7 @@ export let createNewSpendingCategory = async function (teamSpaceID, spendingCate
     })
 }
 
-export let createNewTransaction = async function (teamSpaceID, spendingCategoryID, userID, username, transactionName, transactionAmount) {
+export let createNewTransaction = async function (teamSpaceID, spendingCategoryID, spendingCategoryName, userID, username, transactionName, transactionAmount) {
     let paramsOne = {
         TableName: TABLENAME,
         FilterExpression: "teamSpaceID = :teamSpaceID",
@@ -426,6 +426,7 @@ export let createNewTransaction = async function (teamSpaceID, spendingCategoryI
         "userID": userID,
         "username": username,
         "spendingCategoryID": spendingCategoryID,
+        "spendingCategoryName": spendingCategoryName,
         "transactionID": "T" + crypto.randomBytes(4).toString('hex'),
         "transactionAmount": transactionAmount,
         "styles": {}
@@ -555,7 +556,7 @@ export let addUserToTeamSpace = async function (teamSpaceJoinCode, userID, usern
                             "message": "Success",
                             "data": {
                                 "teamSpaceID": teamSpaceID,
-                            
+
                             }
                         }
                         resolve(response)
