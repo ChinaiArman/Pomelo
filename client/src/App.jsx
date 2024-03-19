@@ -22,22 +22,22 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-    loader: () => (!userID ? window.location.href = '/login' : null),
+    loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? window.location.href = '/register' : null)),
   },
   {
     path: "/login",
     element: <Login />,
-    loader: () => (!userID ? null : window.location.href = '/'),
+    loader: () => (!userID ? null : (!teamSpaceID ? window.location.href = '/register' : window.location.href = '/')),
   },
   {
     path: "/signup",
     element: <SignUp />,
-    loader: () => (!userID ? null : window.location.href = '/'),
+    loader: () => (!userID ? null : (!teamSpaceID ? window.location.href = '/register' : window.location.href = '/')),
   },
   {
     path: "/register",
     element: <Register />,
-    loader: () => (!userID ? window.location.href = '/login' : null),
+    loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? null : window.location.href = '/')),
   },
 ])
 
