@@ -42,31 +42,23 @@ const Home = () => {
             });
     };
 
-    let createSpendingCategory = async function (event) {
+    let createNewSpendingCategory = async function (event) {
         event.preventDefault();
-        if (checkUserIsLeader()) {
-            await axios.post('http://localhost:5000/createSpendingCategory', {
-                "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
-                "spendingCategoryName": newSpendingCategory,
-                "budgetLimit": newSpendingCategoryBudgetLimit
-            }).then(response => {
-                console.log(response);
-                fetchData();
-            }).catch(error => {
-                console.log(error);
-            });
-        } else {
-            alert("You are not the leader of this team space");
-        }
-    }
-
-    let checkUserIsLeader = async function () {
         await axios.get('http://localhost:5000/getTeamSpaceByID', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
-            .then(response => {
+            .then(async response => {
                 if (response.data.data.teamSpaceLeaderUserID === window.localStorage.getItem("userID")) {
-                    return true;
+                    await axios.post('http://localhost:5000/createSpendingCategory', {
+                        "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
+                        "spendingCategoryName": newSpendingCategory,
+                        "budgetLimit": newSpendingCategoryBudgetLimit
+                    }).then(response => {
+                        console.log(response);
+                        fetchData();
+                    }).catch(error => {
+                        console.log(error);
+                    });
                 } else {
-                    return false;
+                    alert("You are not the leader of this team space")
                 }
             }).catch(error => {
                 console.log(error);
@@ -107,7 +99,7 @@ const Home = () => {
                 </ul>
                 <div>
                     <h1>Create Spending Category</h1>
-                    <form onSubmit={createSpendingCategory}>
+                    <form onSubmit={createNewSpendingCategory}>
                         <div>
                             <label>Name</label>
                             <input type="text" placeholder="Enter the name of the spending category" onChange={e => setNewSpendingCategory(e.target.value)} required />
