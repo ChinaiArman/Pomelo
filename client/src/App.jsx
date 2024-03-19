@@ -11,6 +11,7 @@ import Footer from "./components/Footer"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 import SignUp from "./pages/SignUp"
+import Register from "./pages/Register"
 
 
 var userID = window.localStorage.getItem("userID")
@@ -32,6 +33,11 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <SignUp />,
     loader: () => (!userID ? null : window.location.href = '/'),
+  },
+  {
+    path: "/register",
+    element: <Register />,
+    loader: () => (!userID ? window.location.href = '/login' : null),
   },
 ])
 
