@@ -7,6 +7,10 @@ const Home = () => {
     const [spendingCategories, setSpendingCategories] = useState([]);
     const [transactions, setTransactions] = useState([]);
 
+    const [newSpendingCategory, setNewSpendingCategory] = useState('');
+    const [newSpendingCategoryBudgetLimit, setNewSpendingCategoryBudgetLimit] = useState('');
+
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -37,6 +41,37 @@ const Home = () => {
                 console.log(error);
             });
     };
+
+    let createSpendingCategory = async function (event) {
+        event.preventDefault();
+        if (checkUserIsLeader()) {
+            await axios.post('http://localhost:5000/createSpendingCategory', {
+                "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
+                "spendingCategoryName": newSpendingCategory,
+                "budgetLimit": newSpendingCategoryBudgetLimit
+            }).then(response => {
+                console.log(response);
+                fetchData();
+            }).catch(error => {
+                console.log(error);
+            });
+        } else {
+            alert("You are not the leader of this team space");
+        }
+    }
+
+    let checkUserIsLeader = async function () {
+        await axios.get('http://localhost:5000/getTeamSpaceByID', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+            .then(response => {
+                if (response.data.data.teamSpaceLeaderUserID === window.localStorage.getItem("userID")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }).catch(error => {
+                console.log(error);
+            });
+    }
 
     return (
         <div className="home">
@@ -70,7 +105,20 @@ const Home = () => {
                         );
                     })}
                 </ul>
-                <button>Add Spending Category</button>
+                <div>
+                    <h1>Create Spending Category</h1>
+                    <form onSubmit={createSpendingCategory}>
+                        <div>
+                            <label>Name</label>
+                            <input type="text" placeholder="Enter the name of the spending category" onChange={e => setNewSpendingCategory(e.target.value)} required />
+                        </div>
+                        <div>
+                            <label>Budget Limt</label>
+                            <input type="text" placeholder="Enter a budget limit" onChange={e => setNewSpendingCategoryBudgetLimit(e.target.value)} required />
+                        </div>
+                        <button>Create Spending Category</button>
+                    </form>
+                </div>
             </div>
             <br>
             </br>
