@@ -17,7 +17,7 @@ const NavBar = () => {
   ];
 
   return (
-    <div className="bg-gray-50 flex justify-between items-center h-24 max-w-[1280px] mx-auto px-4 text-gray-800">
+    <div className="bg-gray-100 flex justify-between items-center h-24 w-full mx-auto px-4 text-gray-800">
       <ul className="flex">
         {navItems.slice(0, -1).map((item) => (
           <li
