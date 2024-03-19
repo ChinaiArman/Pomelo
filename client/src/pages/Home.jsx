@@ -10,6 +10,12 @@ const Home = () => {
     const [newSpendingCategory, setNewSpendingCategory] = useState('');
     const [newSpendingCategoryBudgetLimit, setNewSpendingCategoryBudgetLimit] = useState('');
 
+    const [newTransactionName, setNewTransactionName] = useState('');
+    const [newTransactionAmount, setNewTransactionAmount] = useState('');
+    const [newTransactionSpendingCategoryName, setNewTransactionSpendingCategoryName] = useState('');
+
+    const [isLeader, setIsLeader] = useState(false);
+
 
     useEffect(() => {
         fetchData();
@@ -40,6 +46,22 @@ const Home = () => {
             }).catch(error => {
                 console.log(error);
             });
+
+        await axios.get('http://localhost:5000/getTeamSpaceByID', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+            .then(response => {
+                if (response.data.data.teamSpaceLeaderUserID === window.localStorage.getItem("userID")) {
+                    setIsLeader(true);
+                } else {
+                    setIsLeader(false);
+                }
+            }).catch(error => {
+                console.log(error);
+            });
+        setNewSpendingCategory('');
+        setNewSpendingCategoryBudgetLimit('');
+        setNewTransactionName('');
+        setNewTransactionAmount('');
+        setNewTransactionSpendingCategoryName('');
     };
 
     let createNewSpendingCategory = async function (event) {
@@ -50,7 +72,7 @@ const Home = () => {
                     await axios.post('http://localhost:5000/createSpendingCategory', {
                         "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
                         "spendingCategoryName": newSpendingCategory,
-                        "budgetLimit": newSpendingCategoryBudgetLimit
+                        "budgetLimit": Number(newSpendingCategoryBudgetLimit)
                     }).then(response => {
                         console.log(response);
                         fetchData();
@@ -63,6 +85,29 @@ const Home = () => {
             }).catch(error => {
                 console.log(error);
             });
+    }
+
+    let createNewTransaction = async function (event) {
+        event.preventDefault();
+        for (let i = 0; i < spendingCategories.length; i++) {
+            if (newTransactionSpendingCategoryName === spendingCategories[i].spendingCategoryName) {
+                var newTransactionSpendingCategoryID = spendingCategories[i].spendingCategoryID;
+            }
+        }
+        await axios.post('http://localhost:5000/createTransaction', {
+            "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
+            "spendingCategoryID": newTransactionSpendingCategoryID,
+            "spendingCategoryName": newTransactionSpendingCategoryName,
+            "userID": window.localStorage.getItem("userID"),
+            "username": window.localStorage.getItem("username"),
+            "transactionName": newTransactionName,
+            "transactionAmount": Number(newTransactionAmount)
+        }).then(response => {
+            console.log(response);
+            fetchData();
+        }).catch(error => {
+            console.log(error);
+        })
     }
 
     return (
@@ -132,7 +177,24 @@ const Home = () => {
                         );
                     })}
                 </ul>
-                <button>Add transactions</button>
+                <div>
+                    <h1>Create Transaction</h1>
+                    <form onSubmit={createNewTransaction}>
+                        <div>
+                            <label>Spending Category</label>
+                            <input type="text" placeholder="Enter the name of the spending category" onChange={e => setNewTransactionSpendingCategoryName(e.target.value)} required />
+                        </div>
+                        <div>
+                            <label>Transaction Name</label>
+                            <input type="text" placeholder="Enter a transaction name" onChange={e => setNewTransactionName(e.target.value)} required />
+                        </div>
+                        <div>
+                            <label>Transaction Amount</label>
+                            <input type="text" placeholder="Enter an amount" onChange={e => setNewTransactionAmount(e.target.value)} required />
+                        </div>
+                        <button>Create Transaction</button>
+                    </form>
+                </div>
             </div>
         </div>
     );
