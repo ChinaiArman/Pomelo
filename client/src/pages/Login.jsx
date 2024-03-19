@@ -4,6 +4,7 @@ import axios from 'axios';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   let handleLogin = async function (event) {
     event.preventDefault();
@@ -14,7 +15,7 @@ const Login = () => {
             if (response.data.status == 201) {
                 await getTeamSpaceID(response.data.data.userID)
             } else {
-                console.log("Invalid login")
+                setErrorMessage('Invalid username or password. Please try again.');
             }
         })
         .catch(error => { console.log(error) });
@@ -50,6 +51,12 @@ let getTeamSpaceID = async function (userID) {
               <h2 className="text-l font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                 Login to your account
               </h2>
+              {errorMessage && (
+                <div className="bg-red-200 bg-opacity-75 text-red-900 p-3 mb-4 rounded-lg px-5 py-2.5">
+                  <p className="text-sm">{errorMessage}</p>
+                </div>
+              )}
+
               <form
                 className="space-y-4 md:space-y-6"
                 action="#"
