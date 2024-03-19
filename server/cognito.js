@@ -5,8 +5,8 @@ import { CognitoUserPool, AuthenticationDetails, CognitoUser, CognitoUserAttribu
 
 
 const poolData = {    
-    UserPoolId : "us-west-2_oiLAxsJnS",
-    ClientId : "449e43nk3p7f9rqr9gklf5ahdj"
+    UserPoolId : "us-west-2_Pz2g3MM6g",
+    ClientId : "3ouo9c109bpeahc1hdjkikosf"
     }; 
 const pool_region = 'us-west-2'
 const userPool = new CognitoUserPool(poolData);
