@@ -36,6 +36,7 @@ const SignUp = () => {
         await axios.post('http://localhost:5000/login', { username, password })
             .then(async response => {
                 window.localStorage.setItem("userID", response.data.data.userID)
+                window.localStorage.setItem("username", username)
                 console.log(window.localStorage.getItem("userID"))
                 if (response.data.status == 201) {
                     await getTeamSpaceID(response.data.data.userID)
