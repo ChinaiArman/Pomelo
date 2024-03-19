@@ -7,6 +7,7 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
     const [passwordReqMessage, setPasswordReqMessage] = useState("");
+    const [step, setStep] = useState(1);
 
     let handleSignUp = async function (event) {
         event.preventDefault();
@@ -20,6 +21,8 @@ const SignUp = () => {
                   setPasswordReqMessage(
                     "Password must contain a minimum of 8 letters, with at least 1 uppercase letter, 1 number, 1 symbol"
                   );
+                } else {
+                    setStep(2);
                 }
             })
             .catch(error => {
@@ -83,97 +86,101 @@ const SignUp = () => {
                 <h2 className="text-l font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                   Create an account
                 </h2>
-
-                <form
-                  className="space-y-4 md:space-y-6"
-                  action="#"
-                  onSubmit={handleSignUp}
-                >
-                  <div>
-                    <label
-                      htmlFor="username"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Username:
-                    </label>
-                    <input
-                      type="text"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="Enter your username"
-                      required
-                      onChange={(e) => setUsername(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Email:
-                    </label>
-                    <input
-                      type="email"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="Enter your email"
-                      required
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="password"
-                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      Password:
-                    </label>
-                    <input
-                      type="password"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="Enter a password"
-                      required
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                    {passwordReqMessage && (
-                      <div className="bg-red-200 bg-opacity-75 text-red-900 p-3 my-4 rounded-lg px-5 py-2.5">
-                        <p className="text-sm">{passwordReqMessage}</p>
-                      </div>
-                    )}
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full text-white bg-primary-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                {step === 1 && (
+                  <form
+                    className="space-y-4 md:space-y-6"
+                    action="#"
+                    onSubmit={handleSignUp}
                   >
-                    Sign Up
-                  </button>
-                </form>
-                <p>Step 2:</p>
-                <form
-                  className="space-y-4 md:space-y-6"
-                  onSubmit={handleVerify}
-                >
-                  <div>
-                    <label htmlFor="verificationCode">Verification Code</label>
-                    <input
-                      type="text"
-                      className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      placeholder="Enter Verification Code"
-                      onChange={(e) => setVerificationCode(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <button className="w-full text-white bg-primary-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                    Verify
-                  </button>
-                  <p className="text-sm font-light text-gray-600 dark:text-gray-400">
-                  Already have an account?{" "}
-                  <a
-                    href="/login"
-                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                    <div>
+                      <label
+                        htmlFor="username"
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        Username:
+                      </label>
+                      <input
+                        type="text"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Enter your username"
+                        required
+                        onChange={(e) => setUsername(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        Email:
+                      </label>
+                      <input
+                        type="email"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Enter your email"
+                        required
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="password"
+                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                      >
+                        Password:
+                      </label>
+                      <input
+                        type="password"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Enter a password"
+                        required
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      {passwordReqMessage && (
+                        <div className="bg-red-200 bg-opacity-75 text-red-900 p-3 my-4 rounded-lg px-5 py-2.5">
+                          <p className="text-sm">{passwordReqMessage}</p>
+                        </div>
+                      )}
+                    </div>
+                    <button
+                      type="submit"
+                      className="w-full text-white bg-primary-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    >
+                      Sign Up
+                    </button>
+                    <p className="text-sm font-light text-gray-600 dark:text-gray-400">
+                      Already have an account?{" "}
+                      <a
+                        href="/login"
+                        className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                      >
+                        Log in
+                      </a>
+                    </p>
+                  </form>
+                )}
+                {step === 2 && (
+                  <form
+                    className="space-y-4 md:space-y-6"
+                    onSubmit={handleVerify}
                   >
-                    Log in
-                  </a>
-                </p>
-                </form>
+                    <div>
+                      <label htmlFor="verificationCode">
+                        Verification Code
+                      </label>
+                      <input
+                        type="text"
+                        className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Enter Verification Code"
+                        onChange={(e) => setVerificationCode(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <button className="w-full text-white bg-primary-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                      Verify
+                    </button>
+                  </form>
+                )}
               </div>
             </div>
           </div>
