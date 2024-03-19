@@ -161,7 +161,7 @@ app.post("/createSpendingCategory", async (req, res) => {
 });
 
 app.post("/createTransaction", async (req, res) => {
-  let response = await createNewTransaction(req.body.teamSpaceID, req.body.spendingCategoryID, req.body.userID, req.body.username, req.body.transactionName, req.body.transactionAmount);
+  let response = await createNewTransaction(req.body.teamSpaceID, req.body.spendingCategoryID, req.body.spendingCategoryName, req.body.userID, req.body.username, req.body.transactionName, req.body.transactionAmount);
   res.send(response);
 });
 
@@ -218,6 +218,7 @@ app.post("/login", async (req, res) => {
 
 app.post("/signup", async (req, res) => {
   let response = await signup(req.body.username, req.body.email, req.body.password)
+  console.log(response)
   res.send(response)
 });
 
