@@ -54,8 +54,7 @@ const SignUp = () => {
                     window.localStorage.setItem("teamSpaceID", response.data.data.teamSpaceID)
                     window.location.replace('/')
                 } else {
-                    console.log("no team space attached to user.")
-                    window.location.replace('/')
+                    window.location.replace('/register')
                 }
             }).catch(error => {
                 console.log(error)
