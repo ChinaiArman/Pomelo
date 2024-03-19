@@ -52,10 +52,8 @@ const SignUp = () => {
             .then(response => {
                 if (response.data.status == 201 && response.data.data.teamSpaceID != null) {
                     window.localStorage.setItem("teamSpaceID", response.data.data.teamSpaceID)
-                    console.log(window.localStorage.getItem("teamSpaceID"))
                     window.location.replace('/')
                 } else {
-                    window.localStorage.setItem("teamSpaceID", null)
                     console.log("no team space attached to user.")
                     window.location.replace('/')
                 }
