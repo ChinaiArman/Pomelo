@@ -14,6 +14,7 @@ import SignUp from "./pages/SignUp"
 import Register from "./pages/Register"
 import Categories from './pages/Categories';
 import Transactions from './pages/Transactions';
+import PageNotFound from './pages/404';
 
 
 var userID = window.localStorage.getItem("userID")
@@ -50,6 +51,11 @@ const router = createBrowserRouter([
     path: "/transactions",
     element: <Transactions />,
     loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? window.location.href = '/register' : null)),
+  },
+  {
+    path: "*",
+    element: <PageNotFound />,
+    loader: () => null,
   },
   {
     path: "/logout",
