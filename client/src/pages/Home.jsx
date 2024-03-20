@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { VscDiffAdded } from "react-icons/vsc";
+
+
 import InfoCard from '../components/InfoCard';
 import CategoryCard from '../components/CategoryCard';
 import CreateCategoryModal from "../components/CreateCategoryModal";
@@ -49,7 +52,6 @@ const Home = () => {
             });
         await axios.get('http://localhost:5000/getRecentTransactions', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
             .then(response => {
-                console.log('transactions', response.data)
                 setTransactions(response.data.data.recentTransactions);
             }).catch(error => {
                 console.log(error);
@@ -140,20 +142,17 @@ const Home = () => {
           <InfoCard title="Total Budget" value={totalBudget} />
           <InfoCard title="Amount Used" value={totalSpent} />
         </div>
-        <div className="flex flex-wrap items-center justify-center">
+        <div className="flex flex-wrap items-center justify-center mt-5 mb-5">
           {spendingCategories.map((category, index) => (
             <CategoryCard key={index} category={category} />
           ))}
-        </div>
 
         {isLeader && (
-          <button
-            className="bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-            onClick={openCreateCategoryModal}
-          >
-            Create Spending Category
-          </button>
+            <div className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ml-5 mr-5 h-36 w-36 flex items-center justify-center cursor-pointer" onClick={openCreateCategoryModal}>
+                <VscDiffAdded  size={80}/>
+            </div>
         )}
+        </div>
 
         {isCreateCategoryModalOpen && (
           <CreateCategoryModal
