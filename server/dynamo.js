@@ -1405,6 +1405,9 @@ export let getRecentTransactions = async function (teamSpaceID) {
                             recentTransactions.push(transactions[j])
                         }
                     }
+                    recentTransactions.sort((a, b) => {
+                        return new Date(b.transactionDate) - new Date(a.transactionDate)
+                    })
                 }
                 let response = {
                     "status": 201,
