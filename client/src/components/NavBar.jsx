@@ -65,7 +65,7 @@ const NavBar = () => {
       <Dropdown label="Settings" inline>
         <Dropdown.Item onClick={() => handleLogout()}>Sign out</Dropdown.Item>
         {/* if is teamspace leader, show team space settings tab */}
-        {isLeader && <Dropdown.Item href="/settings">Team Space Settings</Dropdown.Item>}
+        {isLeader && <Dropdown.Item href="/teamSpaceSettings">Team Space Settings</Dropdown.Item>}
       </Dropdown>
     </div>
   );

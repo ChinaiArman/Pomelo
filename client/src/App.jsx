@@ -14,7 +14,7 @@ import SignUp from "./pages/SignUp"
 import Register from "./pages/Register"
 import Categories from './pages/Categories';
 import Transactions from './pages/Transactions';
-import Settings from './pages/Settings';
+import TeamSpaceSettings from './pages/TeamSpaceSettings';
 import PageNotFound from './pages/404';
 
 
@@ -54,8 +54,8 @@ const router = createBrowserRouter([
     loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? window.location.href = '/register' : null)),
   },
   {
-    path: "/settings",
-    element: <Settings />,
+    path: "/teamSpaceSettings",
+    element: <TeamSpaceSettings />,
     loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? window.location.href = '/register' : null)),
   },
   {
