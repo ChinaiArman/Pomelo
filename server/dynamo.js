@@ -64,6 +64,7 @@ export let getAllTransactions = async function (teamSpaceID) {
                 for (let i = 0; i < data.Items[0].spendingCategories.length; i++) {
                     transactions = transactions.concat(data.Items[0].spendingCategories[i].transactions)
                 }
+                transactions.sort((a, b) => new Date(b.transactionDate) - new Date(a.transactionDate))
                 let response = {
                     "status": 201,
                     "message": "Success",
@@ -99,6 +100,8 @@ export let getTransactionsBySpendingCategory = async function (teamSpaceID, spen
                         transactions = data.Items[0].spendingCategories[i].transactions
                     }
                 }
+                // sort transactions with latest ones appearing first in the list:
+                transactions.sort((a, b) => new Date(b.transactionDate) - new Date(a.transactionDate))
                 let response = {
                     "status": 201,
                     "message": "Success",
