@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import InfoCard from '../components/InfoCard';
+import CategoryCard from '../components/CategoryCard';
 
 const Home = () => {
     const [totalSpent, setTotalSpent] = useState('');
@@ -106,92 +108,103 @@ const Home = () => {
     }
 
     return (
-        <div className="home">
-            <div>
-                <h1>Hello {window.localStorage.getItem("username")}</h1>
-            </div>
-            <br>
-            </br>
-            <br>
-            </br>
-            <div>
-                <p>Total Budget: {totalBudget}</p>
-                <p>Amount Used: {totalSpent}</p>
-            </div>
-            <br>
-            </br>
-            <br>
-            </br>
-            <div>
-                <h2>Spending Categories</h2>
-                <ul>
-                    {spendingCategories.map((category, index) => {
-                        return (
-                            <li key={index}>
-                                <p>Spending Category: {category.spendingCategoryName}</p>
-                                <p>Budget Limit: {category.budgetLimit}</p>
-                                <p>Amount Used: {category.amountUsed}</p>
-                                <br>
-                                </br>
-                            </li>
-                        );
-                    })}
-                </ul>
-                <div>
-                    <h1>Create Spending Category</h1>
-                    <form onSubmit={createNewSpendingCategory}>
-                        <div>
-                            <label>Name</label>
-                            <input type="text" placeholder="Enter the name of the spending category" onChange={e => setNewSpendingCategory(e.target.value)} required />
-                        </div>
-                        <div>
-                            <label>Budget Limt</label>
-                            <input type="text" placeholder="Enter a budget limit" onChange={e => setNewSpendingCategoryBudgetLimit(e.target.value)} required />
-                        </div>
-                        <button>Create Spending Category</button>
-                    </form>
-                </div>
-            </div>
-            <br>
-            </br>
-            <br>
-            </br>
-            <div>
-                <h2>Transactions</h2>
-                <ul>
-                    {transactions.map((transaction, index) => {
-                        return (
-                            <li key={index}>
-                                <p>{transaction.transactionName}</p>
-                                <p>Amount: {transaction.transactionAmount}</p>
-                                <p>Spending Category: {transaction.spendingCategoryName}</p>
-                                <p>User: {transaction.username}</p>
-                                <br>
-                                </br>
-                            </li>
-                        );
-                    })}
-                </ul>
-                <div>
-                    <h1>Create Transaction</h1>
-                    <form onSubmit={createNewTransaction}>
-                        <div>
-                            <label>Spending Category</label>
-                            <input type="text" placeholder="Enter the name of the spending category" onChange={e => setNewTransactionSpendingCategoryName(e.target.value)} required />
-                        </div>
-                        <div>
-                            <label>Transaction Name</label>
-                            <input type="text" placeholder="Enter a transaction name" onChange={e => setNewTransactionName(e.target.value)} required />
-                        </div>
-                        <div>
-                            <label>Transaction Amount</label>
-                            <input type="text" placeholder="Enter an amount" onChange={e => setNewTransactionAmount(e.target.value)} required />
-                        </div>
-                        <button>Create Transaction</button>
-                    </form>
-                </div>
-            </div>
+      <div className="home flex flex-col items-center justify-center">
+        <div>
+          <h1>Hello {window.localStorage.getItem("username")}</h1>
         </div>
+        
+        <div className="flex">
+          <InfoCard title="Total Budget" value={totalBudget} />
+          <InfoCard title="Amount Used" value={totalSpent} />
+        </div>
+        <div className="flex flex-wrap">
+          {spendingCategories.map((category, index) => (
+            <CategoryCard key={index} category={category} />
+          ))}
+        </div>
+       
+          <div>
+          <div>
+            <h1>Create Spending Category</h1>
+            <form onSubmit={createNewSpendingCategory}>
+              <div>
+                <label>Name</label>
+                <input
+                  type="text"
+                  placeholder="Enter the name of the spending category"
+                  onChange={(e) => setNewSpendingCategory(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label>Budget Limt</label>
+                <input
+                  type="text"
+                  placeholder="Enter a budget limit"
+                  onChange={(e) =>
+                    setNewSpendingCategoryBudgetLimit(e.target.value)
+                  }
+                  required
+                />
+              </div>
+              <button>Create Spending Category</button>
+            </form>
+          </div>
+        </div>
+        <br></br>
+        <br></br>
+        <div>
+          <h2>Transactions</h2>
+          <ul>
+            {transactions.map((transaction, index) => {
+              return (
+                <li key={index}>
+                  <p>{transaction.transactionName}</p>
+                  <p>Amount: {transaction.transactionAmount}</p>
+                  <p>Spending Category: {transaction.spendingCategoryName}</p>
+                  <p>User: {transaction.username}</p>
+                  <br></br>
+                </li>
+              );
+            })}
+          </ul>
+          <div>
+            <h1>Create Transaction</h1>
+            <form onSubmit={createNewTransaction}>
+              <div>
+                <label>Spending Category</label>
+                <input
+                  type="text"
+                  placeholder="Enter the name of the spending category"
+                  onChange={(e) =>
+                    setNewTransactionSpendingCategoryName(e.target.value)
+                  }
+                  required
+                />
+              </div>
+              <div>
+                <label>Transaction Name</label>
+                <input
+                  type="text"
+                  placeholder="Enter a transaction name"
+                  onChange={(e) => setNewTransactionName(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label>Transaction Amount</label>
+                <input
+                  type="text"
+                  placeholder="Enter an amount"
+                  onChange={(e) => setNewTransactionAmount(e.target.value)}
+                  required
+                />
+              </div>
+              <button>Create Transaction</button>
+            </form>
+          </div>
+        </div>
+      </div>
     );
 }
 
