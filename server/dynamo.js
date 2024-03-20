@@ -531,7 +531,15 @@ export let addUserToTeamSpace = async function (teamSpaceJoinCode, userID, usern
                 }
                 resolve(response)
             } else {
-                var teamSpaceID = data.Items[0].teamSpaceID
+                if (data.Items[0] == null) {
+                    let response = {
+                        "status": 401,
+                        "message": "Invalid Join Code",
+                        "data": null
+                    }
+                    resolve(response)
+                } else {
+                    var teamSpaceID = data.Items[0].teamSpaceID
                 let paramsTwo = {
                     TableName: TABLENAME,
                     Key: {
@@ -562,6 +570,7 @@ export let addUserToTeamSpace = async function (teamSpaceJoinCode, userID, usern
                         resolve(response)
                     }
                 })
+                }
             }
         })
     })

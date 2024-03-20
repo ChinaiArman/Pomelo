@@ -21,8 +21,12 @@ const Register = () => {
         event.preventDefault();
         await axios.post('http://localhost:5000/addUserToTeamSpace', {teamSpaceJoinCode, userID: window.localStorage.getItem("userID"), username: window.localStorage.getItem("username")})
             .then(response => {
+              if (response.data.status == 201) {
                 window.localStorage.setItem("teamSpaceID", response.data.data.teamSpaceID)
                 window.location.replace('/')
+              } else {
+                console.log("INVALID TEAM JOIN CODE")
+              }
             })
             .catch(error => {
                 console.log(error)
