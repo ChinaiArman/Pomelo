@@ -1372,3 +1372,49 @@ export let getTeamSpaceTotalAmountUsed = async function (teamSpaceID) {
         })
     })
 }
+
+export let getRecentTransactions = async function (teamSpaceID) {
+    let params = {
+        TableName: TABLENAME,
+        FilterExpression: "teamSpaceID = :teamSpaceID",
+        ExpressionAttributeValues: {
+            ":teamSpaceID": teamSpaceID
+        }
+    }
+    return new Promise((resolve, reject) => {
+        dynamoDB.scan(params, (err, data) => {
+            if (err) {
+                let response = {
+                    "status": 401,
+                    "message": err.message,
+                    "data": null
+                }
+                resolve(response)
+            } else {
+                let spendingCategories = data.Items[0].spendingCategories
+                let recentTransactions = []
+                for (let i = 0; i < spendingCategories.length; i++) {
+                    let transactions = spendingCategories[i].transactions
+                    for (let j = 0; j < transactions.length; j++) {
+                        if (transactions[j].transactionDate === new Date().toDateString()) {
+                            recentTransactions.push(transactions[j])
+                        }
+                    }
+                    for (let j = 0; j < transactions.length; j++) {
+                        if (transactions[j].transactionDate === new Date(Date.now() - 864e5).toDateString()) {
+                            recentTransactions.push(transactions[j])
+                        }
+                    }
+                }
+                let response = {
+                    "status": 201,
+                    "message": "Success",
+                    "data": {
+                        "recentTransactions": recentTransactions,
+                    }
+                }
+                resolve(response)
+            }
+        })
+    })
+}

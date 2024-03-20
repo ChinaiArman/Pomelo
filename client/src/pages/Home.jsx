@@ -45,10 +45,10 @@ const Home = () => {
             }).catch(error => {
                 console.log(error);
             });
-        await axios.get('http://localhost:5000/getAllTransactions', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+        await axios.get('http://localhost:5000/getRecentTransactions', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
             .then(response => {
                 console.log('transactions', response.data)
-                setTransactions(response.data.data);
+                setTransactions(response.data.data.recentTransactions);
             }).catch(error => {
                 console.log(error);
             });

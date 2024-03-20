@@ -20,6 +20,7 @@ import {
   getUserStyleObject,
   getTeamSpaceTotalBudget,
   getTeamSpaceTotalAmountUsed,
+  getRecentTransactions,
   createNewTeamSpace,
   createNewSpendingCategory,
   createNewTransaction,
@@ -147,6 +148,11 @@ app.get("/getTeamSpaceTotalBudget", async (req, res) => {
 app.get("/getTeamSpaceTotalAmountUsed", async (req, res) => {
   let totalAmountUsed = await getTeamSpaceTotalAmountUsed(req.query.teamSpaceID)
   res.send(totalAmountUsed)
+});
+
+app.get("/getRecentTransactions", async (req, res) => {
+  let transactions = await getRecentTransactions(req.query.teamSpaceID)
+  res.send(transactions)
 });
 
 // Dynamo POSTs
