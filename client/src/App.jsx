@@ -68,7 +68,7 @@ const router = createBrowserRouter([
 ])
 
 function App() {
-  if (window.location.pathname === '/login' || window.location.pathname === '/signup' || window.location.pathname === '/404') {
+  if (window.location.pathname === '/login' || window.location.pathname === '/signup' || window.location.pathname === '/register' || window.location.pathname === '/404') {
     return (
       <div className="App">
         <RouterProvider router={router} />
