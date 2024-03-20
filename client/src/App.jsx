@@ -14,6 +14,7 @@ import SignUp from "./pages/SignUp"
 import Register from "./pages/Register"
 import Categories from './pages/Categories';
 import Transactions from './pages/Transactions';
+import Settings from './pages/Settings';
 import PageNotFound from './pages/404';
 
 
@@ -50,6 +51,11 @@ const router = createBrowserRouter([
   {
     path: "/transactions",
     element: <Transactions />,
+    loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? window.location.href = '/register' : null)),
+  },
+  {
+    path: "/settings",
+    element: <Settings />,
     loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? window.location.href = '/register' : null)),
   },
   {

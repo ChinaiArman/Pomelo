@@ -1,6 +1,27 @@
 import { Dropdown } from "flowbite-react";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const NavBar = () => {
+
+  const [isLeader, setIsLeader] = useState(false);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    await axios.get('http://localhost:5000/getTeamSpaceByID', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+      .then(response => {
+        if (response.data.data.teamSpaceLeaderUserID === window.localStorage.getItem("userID")) {
+          setIsLeader(true);
+        } else {
+          setIsLeader(false);
+        }
+      }).catch(error => {
+        console.log(error);
+      });
+  }
 
   const handleLogout = () => {
       window.localStorage.removeItem("userID")
@@ -43,6 +64,8 @@ const NavBar = () => {
 
       <Dropdown label="Settings" inline>
         <Dropdown.Item onClick={() => handleLogout()}>Sign out</Dropdown.Item>
+        {/* if is teamspace leader, show team space settings tab */}
+        {isLeader && <Dropdown.Item href="/settings">Team Space Settings</Dropdown.Item>}
       </Dropdown>
     </div>
   );
