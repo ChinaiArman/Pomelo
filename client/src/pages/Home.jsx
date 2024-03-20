@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { VscDiffAdded } from "react-icons/vsc";
+import { CiEdit } from "react-icons/ci";
 
 
 import InfoCard from '../components/InfoCard';
@@ -8,8 +9,10 @@ import CategoryCard from '../components/CategoryCard';
 import CreateCategoryModal from "../components/CreateCategoryModal";
 import TransactionsTable from '../components/TransactionsTable';
 import AddTransactionModal from '../components/AddTransactionModal';
+import EditTeamSpaceModal from '../components/EditTeamSpaceModal';
 
 const Home = () => {
+    const [teamSpaceName, setTeamSpaceName] = useState('')
     const [totalSpent, setTotalSpent] = useState('');
     const [totalBudget, setTotalBudget] = useState('');
     const [spendingCategories, setSpendingCategories] = useState([]);
@@ -17,12 +20,14 @@ const Home = () => {
 
     const [newSpendingCategory, setNewSpendingCategory] = useState('');
     const [newSpendingCategoryBudgetLimit, setNewSpendingCategoryBudgetLimit] = useState('');
-    const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false);
 
     const [newTransactionName, setNewTransactionName] = useState('');
     const [newTransactionAmount, setNewTransactionAmount] = useState('');
     const [newTransactionSpendingCategoryName, setNewTransactionSpendingCategoryName] = useState('');
+
+    const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false);
     const [isAddTransactionModalOpen, setIsAddTransactionModalOpen] = useState(false);
+    const [isEditTeamSpaceModalOpen, setIsEditTeamSpaceModalOpen] = useState(false);
 
     const [isLeader, setIsLeader] = useState(false);
 
@@ -59,6 +64,7 @@ const Home = () => {
 
         await axios.get('http://localhost:5000/getTeamSpaceByID', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
             .then(response => {
+                setTeamSpaceName(response.data.data.teamSpaceName);
                 if (response.data.data.teamSpaceLeaderUserID === window.localStorage.getItem("userID")) {
                     setIsLeader(true);
                 } else {
@@ -131,12 +137,44 @@ const Home = () => {
       setIsAddTransactionModalOpen(false);
     };
 
+    const openEditTeamSpaceModal = () => {
+      setIsEditTeamSpaceModalOpen(true);
+    };
+
+    const closeEditTeamSpaceModal = () => {
+      setIsEditTeamSpaceModalOpen(false);
+    };
+
 
     return (
       <div className="home flex flex-col items-center justify-center">
+        <div className="flex justify-between items-center">
         <div>
-          <h1>Hello {window.localStorage.getItem("username")}</h1>
+          <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Hello {window.localStorage.getItem("username")}</h1>
+          <h2 className="text-l text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Team Space: {teamSpaceName}</h2>
         </div>
+        {isLeader && (
+          <button 
+          className="bg-gray-500 hover:bg-gray-400 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center mr-2"
+          style={{ position: "absolute", right: 0 }}
+          onClick={openEditTeamSpaceModal}
+          >
+            <span className="flex items-center">
+              <CiEdit className="mr-1" />
+              Edit Team Space
+            </span>
+          </button>
+        )}
+
+        {isEditTeamSpaceModalOpen && (
+          <EditTeamSpaceModal 
+            onClose={closeEditTeamSpaceModal}
+            currentTeamName={teamSpaceName}
+            currentTotalBudget={totalBudget}
+            fetchData={fetchData}
+          />
+        )}
+      </div>
 
         <div className="flex">
           <InfoCard title="Total Budget" value={totalBudget} />
