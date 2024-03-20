@@ -57,11 +57,11 @@ const Transactions = () => {
 
     const openAddTransactionModal = () => {
         setIsAddTransactionModalOpen(true);
-      };
+    };
   
-      const closeAddTransactionModal = () => {
+    const closeAddTransactionModal = () => {
         setIsAddTransactionModalOpen(false);
-      };
+    };
 
     return (
         <div className="transactions">
