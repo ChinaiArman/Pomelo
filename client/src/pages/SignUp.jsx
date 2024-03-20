@@ -7,35 +7,37 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const [verificationCode, setVerificationCode] = useState('');
     const [passwordReqMessage, setPasswordReqMessage] = useState("");
+    const [usernameTakenMessage, setUsernameTakenMessage] = useState("");
     const [step, setStep] = useState(1);
 
     let handleSignUp = async function (event) {
-        event.preventDefault();
+      event.preventDefault();
+      if (await isPasswordValid(password)) {
         await axios.post('http://localhost:5000/signup', {username, email, password})
-            .then(response => {
-                if (
-                  response.data.message && response.data.message.includes(
-                    "Password did not conform with policy"
-                  )
-                ) {
-                  setPasswordReqMessage(
-                    "Password must contain a minimum of 8 letters, with at least 1 uppercase letter, 1 number, 1 symbol"
-                  );
-                  setPassword('')
-                  setUsername('')
-                  setEmail('')
-                } else {
-                    setStep(2);
-                }
-            })
-            .catch(error => {
-                console.log(error)
-            });
-    }
+          .then(response => {
+              if (
+                response.data.message &&
+                response.data.message.includes("User already exists")
+              ) {
+                setUsernameTakenMessage(
+                  "Username has already been taken"
+                );
+              } else {
+                setStep(2);
+              }
+          })
+          .catch(error => {
+              console.log(error)
+          });
+      } else {
+        setPasswordReqMessage(
+          "Password must contain a minimum of 8 letters, with at least 1 uppercase letter, 1 number, 1 symbol"
+        );
+      }
+  }
 
     const isPasswordValid = async function (password) {
-      console.log("here");
-      const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?~`])[A-Za-z\d!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?~`]{8,}$/;
+      const passwordPattern = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
       return passwordPattern.test(password);
     };
 
@@ -116,6 +118,11 @@ const SignUp = () => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                       />
+                      {usernameTakenMessage && (
+                        <div className="bg-red-200 bg-opacity-75 text-red-900 p-3 my-4 rounded-lg px-5 py-2.5">
+                          <p className="text-sm">{usernameTakenMessage}</p>
+                        </div>
+                      )}
                     </div>
                     <div>
                       <label
