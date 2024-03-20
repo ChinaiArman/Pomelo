@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import InfoCard from '../components/InfoCard';
 import CategoryCard from '../components/CategoryCard';
+import CreateCategoryModal from "../components/CreateCategoryModal";
 
 const Home = () => {
     const [totalSpent, setTotalSpent] = useState('');
@@ -11,6 +12,7 @@ const Home = () => {
 
     const [newSpendingCategory, setNewSpendingCategory] = useState('');
     const [newSpendingCategoryBudgetLimit, setNewSpendingCategoryBudgetLimit] = useState('');
+    const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false);
 
     const [newTransactionName, setNewTransactionName] = useState('');
     const [newTransactionAmount, setNewTransactionAmount] = useState('');
@@ -107,12 +109,21 @@ const Home = () => {
         })
     }
 
+    const openCreateCategoryModal = () => {
+      setIsCreateCategoryModalOpen(true);
+    };
+
+    const closeCreateCategoryModal = () => {
+      setIsCreateCategoryModalOpen(false);
+    };
+
+
     return (
       <div className="home flex flex-col items-center justify-center">
         <div>
           <h1>Hello {window.localStorage.getItem("username")}</h1>
         </div>
-        
+
         <div className="flex">
           <InfoCard title="Total Budget" value={totalBudget} />
           <InfoCard title="Amount Used" value={totalSpent} />
@@ -122,35 +133,26 @@ const Home = () => {
             <CategoryCard key={index} category={category} />
           ))}
         </div>
-       
-          <div>
-          <div>
-            <h1>Create Spending Category</h1>
-            <form onSubmit={createNewSpendingCategory}>
-              <div>
-                <label>Name</label>
-                <input
-                  type="text"
-                  placeholder="Enter the name of the spending category"
-                  onChange={(e) => setNewSpendingCategory(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <label>Budget Limt</label>
-                <input
-                  type="text"
-                  placeholder="Enter a budget limit"
-                  onChange={(e) =>
-                    setNewSpendingCategoryBudgetLimit(e.target.value)
-                  }
-                  required
-                />
-              </div>
-              <button>Create Spending Category</button>
-            </form>
-          </div>
-        </div>
+
+        {isLeader && (
+          <button
+            className="bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+            onClick={openCreateCategoryModal}
+          >
+            Create Spending Category
+          </button>
+        )}
+
+        {isCreateCategoryModalOpen && (
+          <CreateCategoryModal
+            onClose={closeCreateCategoryModal}
+            createNewSpendingCategory={createNewSpendingCategory}
+            setNewSpendingCategory={setNewSpendingCategory}
+            setNewSpendingCategoryBudgetLimit={
+              setNewSpendingCategoryBudgetLimit
+            }
+          />
+        )}
         <br></br>
         <br></br>
         <div>
