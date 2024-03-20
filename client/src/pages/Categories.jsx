@@ -80,6 +80,7 @@ const Categories = () => {
             <h1>{spendingCategoryName}</h1>
             <p>Amount Used: {amountUsed}</p>
             <p>Budget Limit: {budgetLimit}</p>
+            <img className="rounded-t-lg" src="https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" alt="" />
             <p>Transactions</p>
             <TransactionsTable transactions={transactions} />
             <button
