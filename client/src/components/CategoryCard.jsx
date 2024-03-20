@@ -2,13 +2,6 @@ import React from "react";
 import { currencyFormatter } from "../utils";
 
 const CategoryCard = ({ category }) => {
-  // return (
-  //   <div classNameName="bg-gray-200 p-4 rounded-md m-2">
-  //     <h3 classNameName="text-lg font-semibold">{category.spendingCategoryName}</h3>
-  //     <p>Budget Limit: {currencyFormatter.format(category.budgetLimit)}</p>
-  //     <p>Amount Used: {currencyFormatter.format(category.amountUsed)}</p>
-  //   </div>
-  // );
   var redirect = "/categories?id=" + category.spendingCategoryID;
   return (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ml-5 mr-5">

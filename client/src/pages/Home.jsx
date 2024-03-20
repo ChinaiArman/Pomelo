@@ -130,7 +130,7 @@ const Home = () => {
           <InfoCard title="Total Budget" value={totalBudget} />
           <InfoCard title="Amount Used" value={totalSpent} />
         </div>
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap items-center justify-center">
           {spendingCategories.map((category, index) => (
             <CategoryCard key={index} category={category} />
           ))}
