@@ -33,6 +33,12 @@ const SignUp = () => {
             });
     }
 
+    const isPasswordValid = async function (password) {
+      console.log("here");
+      const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?~`])[A-Za-z\d!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?~`]{8,}$/;
+      return passwordPattern.test(password);
+    };
+
     let handleVerify = async function (event) {
         event.preventDefault();
         await axios.post('http://localhost:5000/verify', {username, verificationCode})
