@@ -224,7 +224,6 @@ app.post("/login", async (req, res) => {
 
 app.post("/signup", async (req, res) => {
   let response = await signup(req.body.username, req.body.email, req.body.password)
-  console.log(response)
   res.send(response)
 });
 
