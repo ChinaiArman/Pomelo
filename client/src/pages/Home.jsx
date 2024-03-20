@@ -4,6 +4,7 @@ import InfoCard from '../components/InfoCard';
 import CategoryCard from '../components/CategoryCard';
 import CreateCategoryModal from "../components/CreateCategoryModal";
 import TransactionsTable from '../components/TransactionsTable';
+import AddTransactionModal from '../components/AddTransactionModal';
 
 const Home = () => {
     const [totalSpent, setTotalSpent] = useState('');
@@ -18,6 +19,7 @@ const Home = () => {
     const [newTransactionName, setNewTransactionName] = useState('');
     const [newTransactionAmount, setNewTransactionAmount] = useState('');
     const [newTransactionSpendingCategoryName, setNewTransactionSpendingCategoryName] = useState('');
+    const [isAddTransactionModalOpen, setIsAddTransactionModalOpen] = useState(false);
 
     const [isLeader, setIsLeader] = useState(false);
 
@@ -119,6 +121,14 @@ const Home = () => {
       setIsCreateCategoryModalOpen(false);
     };
 
+    const openAddTransactionModal = () => {
+      setIsAddTransactionModalOpen(true);
+    };
+
+    const closeAddTransactionModal = () => {
+      setIsAddTransactionModalOpen(false);
+    };
+
 
     return (
       <div className="home flex flex-col items-center justify-center">
@@ -157,6 +167,22 @@ const Home = () => {
         )}
 
         <TransactionsTable transactions={transactions} />
+        <button
+            className="bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+            onClick={openAddTransactionModal}
+          >
+            Add Transaction
+          </button>
+         {isAddTransactionModalOpen && (
+          <AddTransactionModal 
+            onClose={closeAddTransactionModal}
+            createNewTransaction={createNewTransaction}
+            setNewTransactionName={setNewTransactionName}
+            setNewTransactionAmount={setNewTransactionAmount}
+            setNewTransactionSpendingCategoryName={setNewTransactionSpendingCategoryName}
+            spendingCategories={spendingCategories}
+          />
+         )}
       </div>
     );
 }
