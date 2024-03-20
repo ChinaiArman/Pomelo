@@ -2,7 +2,7 @@ import { Table } from "flowbite-react";
 
 const TransactionsTable = ({ transactions}) => {
     return (
-        <div style={{zIndex: -1}}>
+        <div className="mt-5 mb-5" style={{zIndex: -1}}>
         <Table hoverable>
             <Table.Head>
             <Table.HeadCell>Item</Table.HeadCell>
