@@ -3,6 +3,7 @@ import axios from 'axios';
 import InfoCard from '../components/InfoCard';
 import CategoryCard from '../components/CategoryCard';
 import CreateCategoryModal from "../components/CreateCategoryModal";
+import TransactionsTable from '../components/TransactionsTable';
 
 const Home = () => {
     const [totalSpent, setTotalSpent] = useState('');
@@ -46,6 +47,7 @@ const Home = () => {
             });
         await axios.get('http://localhost:5000/getAllTransactions', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
             .then(response => {
+                console.log('transactions', response.data)
                 setTransactions(response.data.data);
             }).catch(error => {
                 console.log(error);
@@ -153,59 +155,8 @@ const Home = () => {
             }
           />
         )}
-        <br></br>
-        <br></br>
-        <div>
-          <h2>Transactions</h2>
-          <ul>
-            {transactions.map((transaction, index) => {
-              return (
-                <li key={index}>
-                  <p>{transaction.transactionName}</p>
-                  <p>Amount: {transaction.transactionAmount}</p>
-                  <p>Spending Category: {transaction.spendingCategoryName}</p>
-                  <p>User: {transaction.username}</p>
-                  <br></br>
-                </li>
-              );
-            })}
-          </ul>
-          <div>
-            <h1>Create Transaction</h1>
-            <form onSubmit={createNewTransaction}>
-              <div>
-                <label>Spending Category</label>
-                <input
-                  type="text"
-                  placeholder="Enter the name of the spending category"
-                  onChange={(e) =>
-                    setNewTransactionSpendingCategoryName(e.target.value)
-                  }
-                  required
-                />
-              </div>
-              <div>
-                <label>Transaction Name</label>
-                <input
-                  type="text"
-                  placeholder="Enter a transaction name"
-                  onChange={(e) => setNewTransactionName(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <label>Transaction Amount</label>
-                <input
-                  type="text"
-                  placeholder="Enter an amount"
-                  onChange={(e) => setNewTransactionAmount(e.target.value)}
-                  required
-                />
-              </div>
-              <button>Create Transaction</button>
-            </form>
-          </div>
-        </div>
+
+        <TransactionsTable transactions={transactions} />
       </div>
     );
 }
