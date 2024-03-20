@@ -12,6 +12,8 @@ import Home from "./pages/Home"
 import Login from "./pages/Login"
 import SignUp from "./pages/SignUp"
 import Register from "./pages/Register"
+import Categories from './pages/Categories';
+import Transactions from './pages/Transactions';
 
 
 var userID = window.localStorage.getItem("userID")
@@ -39,6 +41,24 @@ const router = createBrowserRouter([
     element: <Register />,
     loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? null : window.location.href = '/')),
   },
+  {
+    path: "/categories",
+    element: <Categories />,
+    loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? window.location.href = '/register' : null)),
+  },
+  {
+    path: "/transactions",
+    element: <Transactions />,
+    loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? window.location.href = '/register' : null)),
+  },
+  {
+    path: "/logout",
+    loader: () => {
+      window.localStorage.removeItem("userID")
+      window.localStorage.removeItem("teamSpaceID")
+      window.location.href = '/login'
+    }
+  }
 ])
 
 function App() {
