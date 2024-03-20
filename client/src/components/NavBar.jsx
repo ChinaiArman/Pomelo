@@ -19,14 +19,26 @@ const NavBar = () => {
   return (
     <div className="bg-gray-100 flex justify-between items-center h-24 w-full mx-auto px-4 text-gray-800">
       <ul className="flex">
-        {navItems.slice(0, -1).map((item) => (
+        {navItems.slice(0, -1).map((item) => {
+          if (item.link === window.location.pathname) {
+            return (
+              <li
+                key={item.id}
+                className="p-4 hover:bg-gray-300 rounded-xl m-2 cursor-pointer duration-300 bg-gray-300"
+              >
+                <a href={item.link}>{item.text}</a>
+              </li>
+            )
+          } else {
+          return (
           <li
             key={item.id}
             className="p-4 hover:bg-gray-300 rounded-xl m-2 cursor-pointer duration-300 hover:text-black"
           >
             <a href={item.link}>{item.text}</a>
           </li>
-        ))}
+        )}
+        })}
       </ul>
 
       <Dropdown label="Settings" inline>
