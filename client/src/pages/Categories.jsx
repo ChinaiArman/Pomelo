@@ -30,9 +30,17 @@ const Categories = () => {
                 }
                 setSpendingCategoryName(response.data.data.spendingCategoryName);
                 setSpendingCategory(response.data.data);
-                setTransactions(response.data.data.transactions);
                 setAmountUsed(response.data.data.amountUsed);
                 setBudgetLimit(response.data.data.budgetLimit);
+            }).catch(error => {
+                console.log(error);
+            });
+        await axios.get('http://localhost:5000/getTransactionsBySpendingCategory', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID"), "spendingCategoryID": spendingCategoryID } })
+            .then(response => {
+                if (response.data.data === null) {
+                    window.location.href = '/404';
+                }
+                setTransactions(response.data.data);
             }).catch(error => {
                 console.log(error);
             });
