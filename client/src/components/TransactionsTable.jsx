@@ -52,16 +52,21 @@ const TransactionsTable = ({ transactions, showEditButton, fetchData }) => {
                             <tr 
                                 key={index}     
                                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                                
                             >
                                 <td className="px-6 py-4">
-                                    {transaction.transactionName}
+                                    <a href={redirect}>
+                                        {transaction.transactionName}
+                                    </a>
                                 </td>
                                 <td className="px-6 py-4">
-                                    {currencyFormatter.format(transaction.transactionAmount)}
+                                    <a href={redirect}>
+                                        {currencyFormatter.format(transaction.transactionAmount)}
+                                    </a>
                                 </td>
                                 <td className="px-6 py-4">
-                                    {transaction.spendingCategoryName}
+                                    <a href={redirect}>
+                                        {transaction.spendingCategoryName}
+                                    </a>
                                 </td>
                                 <td className="px-6 py-4">
                                     {transaction.username}
