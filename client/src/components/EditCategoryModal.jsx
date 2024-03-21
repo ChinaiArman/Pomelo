@@ -31,7 +31,7 @@ const EditCategoryModal = ({onClose, currentCategoryName, currentBudgetLimit, sp
         <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
           <div className="bg-white p-6 rounded-lg mt-1 relative max-w-md w-full">
             <IoCloseSharp className="absolute top-0 right-0 mr-4 mt-4 cursor-pointer"size={35} onClick={onClose}/>
-            <h1 className="mb-4 text-lg font-bold">Edit Team Space</h1>
+            <h1 className="mb-4 text-lg font-bold">Edit Category</h1>
             <form
               onSubmit={(event) => handleSubmit(event)}
               className="flex flex-col gap-4"
@@ -40,7 +40,7 @@ const EditCategoryModal = ({onClose, currentCategoryName, currentBudgetLimit, sp
                 <label className="mb-1 text-sm font-medium">Spending Category Name</label>
                 <input
                   type="text"
-                  placeholder="Enter the name of your Team Space"
+                  placeholder="Enter Spending Category Name"
                   onChange={(e) => setNewCategoryName(e.target.value)}
                   value={newCategoryName}
                   className="border border-gray-300 rounded-lg px-4 py-2 text-sm"
@@ -51,7 +51,7 @@ const EditCategoryModal = ({onClose, currentCategoryName, currentBudgetLimit, sp
                 <label className="mb-1 text-sm font-medium">Category Budget Limit</label>
                 <input
                   type="text"
-                  placeholder="Enter the Team's Total Budget"
+                  placeholder="Enter the Category's Budget Limit"
                   onChange={(e) => setNewBudgetLimit(e.target.value)}
                   value={newBudgetLimit}
                   className="border border-gray-300 rounded-lg px-4 py-2 text-sm"
