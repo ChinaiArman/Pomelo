@@ -123,21 +123,23 @@ const Categories = () => {
             </div>
             
             <img className="rounded-t-lg" src="https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" alt="" />
-            <p>Transactions</p>
-            <TransactionsTable transactions={transactions} />
-            <button
-                className="bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                onClick={openAddTransactionModal}
-                >
-                Add Transaction
-            </button>
-            {isAddTransactionModalOpen && (
-                <CreateTransactionModal 
-                onClose={closeAddTransactionModal}
-                spendingCategories={[spendingCategory]}
-                fetchData={fetchData}
-                />
-            )}
+            <div>
+                <p>Transactions</p>
+                <TransactionsTable transactions={transactions} />
+                <button
+                    className="bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    onClick={openAddTransactionModal}
+                    >
+                    Add Transaction
+                </button>
+                {isAddTransactionModalOpen && (
+                    <CreateTransactionModal 
+                    onClose={closeAddTransactionModal}
+                    spendingCategories={[spendingCategory]}
+                    fetchData={fetchData}
+                    />
+                )}
+            </div>
         </div>
     );
 }
