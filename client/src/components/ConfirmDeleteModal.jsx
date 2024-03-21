@@ -2,7 +2,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useState } from "react";
 import axios from 'axios';
 
-const ConfirmDeleteModal = ({itemToDelete, onClose, type, itemID}) => {
+const ConfirmDeleteModal = ({itemName, onClose, type, itemID}) => {
     
     let deleteSpendingCategory = async function (event) {
         event.preventDefault();
@@ -38,7 +38,7 @@ const ConfirmDeleteModal = ({itemToDelete, onClose, type, itemID}) => {
             </h5>
             </a>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            Are you sure you want to delete {itemToDelete} {type}?
+            Are you sure you want to delete {type}: {itemName} ?
             </p>
             <div className="absolute bottom-0 right-0 flex space-x-2 my-4 mr-4">
             <button

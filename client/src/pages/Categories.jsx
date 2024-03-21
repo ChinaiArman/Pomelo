@@ -144,7 +144,7 @@ const Categories = () => {
             )}
             {isConfirmDeleteModalOpen && (
                 <ConfirmDeleteModal 
-                    itemToDelete={spendingCategoryName}
+                    itemName={spendingCategoryName}
                     onClose={closeConfirmDeleteModal}
                     type="Spending Category"
                     itemID={spendingCategoryID}
