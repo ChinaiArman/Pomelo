@@ -30,6 +30,20 @@ const ConfirmDeleteModal = ({itemName, onClose, type, itemID}) => {
         })
     }
 
+    let removeUserFromTeamSpace = async function (event) {
+        event.preventDefault();
+        await axios.post('http://localhost:5000/removeUserFromTeamSpaceByID', {
+            "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
+            "userID": itemID
+        }).then(response => {
+            console.log(response);
+            window.location.href = window.location.href
+        }).catch(error => {
+            console.log(error);
+        })
+    }
+  
+
     const handleDelete = async function(event) {
         console.log('event', event)
         event.preventDefault();
@@ -39,6 +53,9 @@ const ConfirmDeleteModal = ({itemName, onClose, type, itemID}) => {
                 break;
             case "Transaction Item":
                 await deleteTransaction(event);
+                break;
+            case "User":
+                await removeUserFromTeamSpace(event);
                 break;
             default:
                 break;
