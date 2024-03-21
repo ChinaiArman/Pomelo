@@ -76,7 +76,7 @@ const TransactionsTable = ({ transactions, showEditButton, fetchData }) => {
                                 </td>
                                 {showEditButton && (
                                     <td>
-                                        <CiEdit className="mx-5" size={20} onClick={() => openEditTransactionModal(transaction)} style={{ cursor: "pointer" }}/>
+                                        <CiEdit className="mx-5 cursor-pointer" size={20} onClick={() => openEditTransactionModal(transaction)}/>
                                     </td>
                                 )}
                             </tr>
