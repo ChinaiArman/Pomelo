@@ -1,4 +1,5 @@
 import { Table } from "flowbite-react";
+import { currencyFormatter } from "../utils";
 
 const TransactionsTable = ({ transactions}) => {
     return (
@@ -23,7 +24,7 @@ const TransactionsTable = ({ transactions}) => {
                             style={{ cursor: "pointer" }}
                         >
                             <Table.Cell>{transaction.transactionName}</Table.Cell>
-                            <Table.Cell>{transaction.transactionAmount}</Table.Cell>
+                            <Table.Cell>{currencyFormatter.format(transaction.transactionAmount)}</Table.Cell>
                             <Table.Cell>{transaction.spendingCategoryName}</Table.Cell>
                             <Table.Cell>{transaction.username}</Table.Cell>
                             <Table.Cell>{transaction.transactionDate}</Table.Cell>
