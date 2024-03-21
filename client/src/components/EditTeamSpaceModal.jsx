@@ -2,7 +2,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useState } from 'react';
 import axios from 'axios';
 
-const EditTeamSpaceModal = ({onClose, currentTeamName, currentTotalBudget, fetchData}) => {
+const EditTeamSpaceModal = ({onClose, currentTeamName, currentTotalBudget}) => {
     const [newTeamSpaceName, setNewTeamSpaceName] = useState(currentTeamName);
     const [newTotalBudget, setNewTotalBudget] = useState(currentTotalBudget);
 
@@ -13,7 +13,6 @@ const EditTeamSpaceModal = ({onClose, currentTeamName, currentTotalBudget, fetch
         "newTeamSpaceName": newTeamSpaceName,
         "newTotalBudget": Number(newTotalBudget)
       }).then(response => {
-        fetchData();
       }).catch(error => {
         console.log(error)
       })

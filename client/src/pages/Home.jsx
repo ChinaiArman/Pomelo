@@ -118,7 +118,6 @@ const Home = () => {
         {isCreateCategoryModalOpen && (
           <CreateCategoryModal
             onClose={closeCreateCategoryModal}
-            fetchData={fetchData}
           />
         )}
 
@@ -133,7 +132,6 @@ const Home = () => {
           <CreateTransactionModal 
             onClose={closeAddTransactionModal}
             spendingCategories={spendingCategories}
-            fetchData={fetchData}
           />
          )}
       </div>

@@ -4,7 +4,7 @@ import { CiEdit } from "react-icons/ci";
 import EditTransactionModal from "./EditTransactionModal";
 import { useState } from 'react';
 
-const TransactionsTable = ({ transactions, showEditButton, fetchData }) => {
+const TransactionsTable = ({ transactions, showEditButton }) => {
     const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState(false);
     const [selectedTransaction, setSelectedTransaction] = useState(null);
     
@@ -91,7 +91,6 @@ const TransactionsTable = ({ transactions, showEditButton, fetchData }) => {
                     currentTransactionName={selectedTransaction.transactionName}
                     currentTransactionAmount={selectedTransaction.transactionAmount}
                     transactionID={selectedTransaction.transactionID}
-                    fetchData={fetchData}
                 />
             )}
 

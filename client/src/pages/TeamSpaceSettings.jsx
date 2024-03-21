@@ -81,7 +81,6 @@ const TeamSpaceSettings = () => {
               onClose={closeEditTeamSpaceModal}
               currentTeamName={teamSpaceName}
               currentTotalBudget={totalBudget}
-              fetchData={fetchData}
             />
           )}
         </div>

@@ -2,7 +2,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useState } from 'react';
 import axios from 'axios';
 
-const EditTransactionModal = ({onClose, currentTransactionName, currentTransactionAmount, transactionID, fetchData}) => {
+const EditTransactionModal = ({onClose, currentTransactionName, currentTransactionAmount, transactionID}) => {
     const [newTransactionName, setNewTransactionName] = useState(currentTransactionName);
     const [newTransactionAmount, setNewTransactionAmount] = useState(currentTransactionAmount);
 
@@ -15,7 +15,7 @@ const EditTransactionModal = ({onClose, currentTransactionName, currentTransacti
             "newTransactionAmount": Number(newTransactionAmount)
         }).then(response => {
             console.log(response)
-            fetchData();
+            window.location.href = window.location.href
         }).catch(error => {
             console.log(error)
         })

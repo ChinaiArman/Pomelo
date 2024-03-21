@@ -2,7 +2,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import axios from "axios";
 import { useState } from 'react';
 
-const CreateCategoryModal = ({ onClose, fetchData }) => {
+const CreateCategoryModal = ({ onClose }) => {
   const [newSpendingCategory, setNewSpendingCategory] = useState('');
   const [newSpendingCategoryBudgetLimit, setNewSpendingCategoryBudgetLimit] = useState('');
   
@@ -17,7 +17,7 @@ const CreateCategoryModal = ({ onClose, fetchData }) => {
                     "budgetLimit": Number(newSpendingCategoryBudgetLimit)
                 }).then(response => {
                     console.log(response);
-                    fetchData();
+                    window.location.href = window.location.href
                 }).catch(error => {
                     console.log(error);
                 });

@@ -2,7 +2,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useState } from 'react';
 import axios from 'axios';
 
-const EditCategoryModal = ({onClose, currentCategoryName, currentBudgetLimit, spendingCategoryID, fetchData}) => {
+const EditCategoryModal = ({onClose, currentCategoryName, currentBudgetLimit, spendingCategoryID}) => {
     const [newCategoryName, setNewCategoryName] = useState(currentCategoryName);
     const [newBudgetLimit, setNewBudgetLimit] = useState(currentBudgetLimit);
 

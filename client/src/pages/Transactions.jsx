@@ -53,7 +53,6 @@ const Transactions = () => {
             <TransactionsTable 
                 transactions={transactions}
                 showEditButton={true}
-                fetchData={fetchData}
             />
 
             <button
@@ -66,7 +65,6 @@ const Transactions = () => {
                 <CreateTransactionModal 
                 onClose={closeAddTransactionModal}
                 spendingCategories={spendingCategories}
-                fetchData={fetchData}
                 />
             )}
         </div>
