@@ -119,7 +119,7 @@ const TransactionsTable = ({ transactions, isTransactionsPage }) => {
                 <ConfirmDeleteModal 
                     itemName={selectedTransaction.transactionName}
                     onClose={closeConfirmDeleteModal}
-                    type="Transaction"
+                    type="Transaction Item"
                     itemID={selectedTransaction.transactionID}
                 />
             )}

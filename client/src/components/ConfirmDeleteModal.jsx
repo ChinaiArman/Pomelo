@@ -37,7 +37,7 @@ const ConfirmDeleteModal = ({itemName, onClose, type, itemID}) => {
             case "Spending Category":
                 await deleteSpendingCategory(event);
                 break;
-            case "Transaction":
+            case "Transaction Item":
                 await deleteTransaction(event);
                 break;
             default:
