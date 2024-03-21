@@ -52,7 +52,7 @@ const Transactions = () => {
             <p>Transactions</p>
             <TransactionsTable 
                 transactions={transactions}
-                showEditButton={true}
+                isTransactionsPage={true}
             />
 
             <button

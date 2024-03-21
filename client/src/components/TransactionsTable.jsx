@@ -1,12 +1,14 @@
-import { Table } from "flowbite-react";
+import { useState } from 'react';
 import { currencyFormatter } from "../utils";
 import { CiEdit } from "react-icons/ci";
+import { MdDeleteOutline } from "react-icons/md";
 import EditTransactionModal from "./EditTransactionModal";
-import { useState } from 'react';
+import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 
-const TransactionsTable = ({ transactions, showEditButton }) => {
+const TransactionsTable = ({ transactions, isTransactionsPage }) => {
     const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState(false);
     const [selectedTransaction, setSelectedTransaction] = useState(null);
+    const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] = useState(false);
     
     const openEditTransactionModal = (transaction) => {
         setSelectedTransaction(transaction);
@@ -16,6 +18,15 @@ const TransactionsTable = ({ transactions, showEditButton }) => {
     const closeEditTransactionModal = () => {
         setIsEditTransactionModalOpen(false);
     };
+
+    const openConfirmDeleteModal = (transaction) => {
+        setSelectedTransaction(transaction);
+        setIsConfirmDeleteModalOpen(true)
+    }
+
+    const closeConfirmDeleteModal = () => {
+        setIsConfirmDeleteModalOpen(false)
+    }
 
     return (
         <div className="overflow-x-auto shadow-md sm:rounded-lg">
@@ -37,10 +48,16 @@ const TransactionsTable = ({ transactions, showEditButton }) => {
                         <th scope="col" className="px-6 py-3">
                             Date
                         </th>
-                        {showEditButton && (
-                            <th>
+                        {isTransactionsPage && (
+                            <>
+                             <th scope="col" className="px-6 py-3">
                                 <span className="sr-only">Edit</span>
                             </th>
+                            <th scope="col" className="px-6 py-3">
+                                <span className="sr-only">Delete</span>
+                            </th>
+                            </>
+                            
                         )}
                     </tr>
                 </thead>
@@ -74,10 +91,15 @@ const TransactionsTable = ({ transactions, showEditButton }) => {
                                 <td className="px-6 py-4">
                                     {transaction.transactionDate}
                                 </td>
-                                {showEditButton && (
+                                {isTransactionsPage && (
+                                    <>
                                     <td>
                                         <CiEdit className="mx-5 cursor-pointer" size={20} onClick={() => openEditTransactionModal(transaction)}/>
                                     </td>
+                                    <td>
+                                        <MdDeleteOutline className='mx-5 cursor-pointer' size={20} onClick={() => openConfirmDeleteModal(transaction)}/>
+                                    </td>
+                                    </>
                                 )}
                             </tr>
                         )
@@ -91,6 +113,14 @@ const TransactionsTable = ({ transactions, showEditButton }) => {
                     currentTransactionName={selectedTransaction.transactionName}
                     currentTransactionAmount={selectedTransaction.transactionAmount}
                     transactionID={selectedTransaction.transactionID}
+                />
+            )}
+            {isConfirmDeleteModalOpen && selectedTransaction && (
+                <ConfirmDeleteModal 
+                    itemName={selectedTransaction.transactionName}
+                    onClose={closeConfirmDeleteModal}
+                    type="Transaction"
+                    itemID={selectedTransaction.transactionID}
                 />
             )}
 
