@@ -6,7 +6,6 @@ const CreateTransactionModal = ({ onClose, spendingCategories, fetchData }) => {
   const [newTransactionName, setNewTransactionName] = useState('');
   const [newTransactionAmount, setNewTransactionAmount] = useState('');
   const [newTransactionSpendingCategoryName, setNewTransactionSpendingCategoryName] = useState('');
-  console.log(spendingCategories)
 
   let createNewTransaction = async function (event) {
     event.preventDefault();
