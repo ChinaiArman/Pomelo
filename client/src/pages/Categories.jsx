@@ -163,7 +163,6 @@ const Categories = () => {
                     <CreateTransactionModal 
                     onClose={closeAddTransactionModal}
                     spendingCategories={[spendingCategory]}
-                    fetchData={fetchData}
                     />
                 )}
             </div>
