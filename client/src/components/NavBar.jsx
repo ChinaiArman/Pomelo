@@ -64,18 +64,19 @@ const NavBar = () => {
             })}
             <li>
               <Dropdown label="Settings" inline>
-                <Dropdown.Item onClick={() => handleLogout()}>
-                  <span className="flex items-center">
-                    <MdLogout className='mr-1' size={15}/> 
-                    Sign out
-                  </span>
-                </Dropdown.Item>
                 {isLeader && <Dropdown.Item href="/teamSpaceSettings">
                   <span className="flex items-center">
                       <IoSettingsOutline className='mr-1' size={15}/> 
                       Team Space Settings
                   </span>
-                  </Dropdown.Item>}
+                  </Dropdown.Item>
+                }
+                <Dropdown.Item onClick={() => handleLogout()}>
+                  <span className="flex items-center">
+                    <MdLogout className='mr-1' size={15}/> 
+                    Logout
+                  </span>
+                </Dropdown.Item>
               </Dropdown>
             </li>
           </ul>
