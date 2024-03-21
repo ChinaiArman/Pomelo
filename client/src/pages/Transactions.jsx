@@ -8,9 +8,6 @@ const Transactions = () => {
     const [spendingCategories, setSpendingCategories] = useState([]);
     const [transactions, setTransactions] = useState([]);
 
-    const [newTransactionName, setNewTransactionName] = useState('');
-    const [newTransactionAmount, setNewTransactionAmount] = useState('');
-    const [newTransactionSpendingCategoryName, setNewTransactionSpendingCategoryName] = useState('');
     const [isAddTransactionModalOpen, setIsAddTransactionModalOpen] = useState(false);
 
     useEffect(() => {
@@ -30,29 +27,6 @@ const Transactions = () => {
             }).catch(error => {
                 console.log(error);
             });
-    }
-
-    let createNewTransaction = async function (event) {
-        event.preventDefault();
-        for (let i = 0; i < spendingCategories.length; i++) {
-            if (newTransactionSpendingCategoryName === spendingCategories[i].spendingCategoryName) {
-                var newTransactionSpendingCategoryID = spendingCategories[i].spendingCategoryID;
-            }
-        }
-        await axios.post('http://localhost:5000/createTransaction', {
-            "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
-            "spendingCategoryID": newTransactionSpendingCategoryID,
-            "spendingCategoryName": newTransactionSpendingCategoryName,
-            "userID": window.localStorage.getItem("userID"),
-            "username": window.localStorage.getItem("username"),
-            "transactionName": newTransactionName,
-            "transactionAmount": Number(newTransactionAmount)
-        }).then(response => {
-            console.log(response);
-            fetchData();
-        }).catch(error => {
-            console.log(error);
-        })
     }
 
     const openAddTransactionModal = () => {
@@ -77,13 +51,10 @@ const Transactions = () => {
             {isAddTransactionModalOpen && (
                 <AddTransactionModal 
                 onClose={closeAddTransactionModal}
-                createNewTransaction={createNewTransaction}
-                setNewTransactionName={setNewTransactionName}
-                setNewTransactionAmount={setNewTransactionAmount}
-                setNewTransactionSpendingCategoryName={setNewTransactionSpendingCategoryName}
                 spendingCategories={spendingCategories}
-            />
-         )}
+                fetchData={fetchData}
+                />
+            )}
         </div>
         
     );
