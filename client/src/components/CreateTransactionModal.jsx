@@ -2,7 +2,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import axios from "axios";
 import { useState } from 'react';
 
-const AddTransactionModal = ({ onClose, spendingCategories, fetchData }) => {
+const CreateTransactionModal = ({ onClose, spendingCategories, fetchData }) => {
   const [newTransactionName, setNewTransactionName] = useState('');
   const [newTransactionAmount, setNewTransactionAmount] = useState('');
   const [newTransactionSpendingCategoryName, setNewTransactionSpendingCategoryName] = useState('');
@@ -92,5 +92,5 @@ const AddTransactionModal = ({ onClose, spendingCategories, fetchData }) => {
     );
   };
   
-  export default AddTransactionModal;
+  export default CreateTransactionModal;
   

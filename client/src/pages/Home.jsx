@@ -8,7 +8,7 @@ import InfoCard from '../components/InfoCard';
 import CategoryCard from '../components/CategoryCard';
 import CreateCategoryModal from "../components/CreateCategoryModal";
 import TransactionsTable from '../components/TransactionsTable';
-import AddTransactionModal from '../components/AddTransactionModal';
+import CreateTransactionModal from '../components/CreateTransactionModal';
 import EditTeamSpaceModal from '../components/EditTeamSpaceModal';
 import LatestTransactionsCard from '../components/LatestTransactionsCard';
 
@@ -154,7 +154,7 @@ const Home = () => {
             Add Transaction
           </button>
          {isAddTransactionModalOpen && (
-          <AddTransactionModal 
+          <CreateTransactionModal 
             onClose={closeAddTransactionModal}
             spendingCategories={spendingCategories}
             fetchData={fetchData}

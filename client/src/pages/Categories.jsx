@@ -4,7 +4,7 @@ import axios from 'axios';
 import { CiEdit } from "react-icons/ci";
 
 import TransactionsTable from '../components/TransactionsTable';
-import AddTransactionModal from '../components/AddTransactionModal';
+import CreateTransactionModal from '../components/CreateTransactionModal';
 import InfoCard from '../components/InfoCard';
 import EditCategoryModal from '../components/EditCategoryModal';
 
@@ -123,7 +123,7 @@ const Categories = () => {
                 Add Transaction
             </button>
             {isAddTransactionModalOpen && (
-                <AddTransactionModal 
+                <CreateTransactionModal 
                 onClose={closeAddTransactionModal}
                 spendingCategories={[spendingCategory]}
                 fetchData={fetchData}

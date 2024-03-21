@@ -3,7 +3,7 @@ import axios from 'axios';
 import { CiEdit } from "react-icons/ci";
 
 import TransactionsTable from '../components/TransactionsTable';
-import AddTransactionModal from '../components/AddTransactionModal';
+import CreateTransactionModal from '../components/CreateTransactionModal';
 
 const Transactions = () => {
     const [spendingCategories, setSpendingCategories] = useState([]);
@@ -54,7 +54,7 @@ const Transactions = () => {
                 Add Transaction
             </button>
             {isAddTransactionModalOpen && (
-                <AddTransactionModal 
+                <CreateTransactionModal 
                 onClose={closeAddTransactionModal}
                 spendingCategories={spendingCategories}
                 fetchData={fetchData}
