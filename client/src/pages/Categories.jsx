@@ -59,6 +59,16 @@ const Categories = () => {
             }).catch(error => {
                 console.log(error);
             });
+        await axios.get('http://localhost:5000/getTeamSpaceByUserID', { params: { "userID": window.localStorage.getItem("teamSpaceID") } })
+            .then(response => {
+              console.log(response.data.data)
+              if (response.data.data === null) {
+                    window.localStorage.removeItem("teamSpaceID")
+                    window.location.replace('/register')
+              }
+            }).catch(error => {
+                console.log(error)
+            });
     }
 
     const openEditCategoryModal = () => {
