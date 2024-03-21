@@ -2,6 +2,8 @@ import { Dropdown } from "flowbite-react";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import logo from "../assets/logo_full.png";
+import { MdLogout } from "react-icons/md";
+import { IoSettingsOutline } from "react-icons/io5";
 
 const NavBar = () => {
 
@@ -62,8 +64,18 @@ const NavBar = () => {
             })}
             <li>
               <Dropdown label="Settings" inline>
-                <Dropdown.Item onClick={() => handleLogout()}>Sign out</Dropdown.Item>
-                {isLeader && <Dropdown.Item href="/teamSpaceSettings">Team Space Settings</Dropdown.Item>}
+                <Dropdown.Item onClick={() => handleLogout()}>
+                  <span className="flex items-center">
+                    <MdLogout className='mr-1' size={15}/> 
+                    Sign out
+                  </span>
+                </Dropdown.Item>
+                {isLeader && <Dropdown.Item href="/teamSpaceSettings">
+                  <span className="flex items-center">
+                      <IoSettingsOutline className='mr-1' size={15}/> 
+                      Team Space Settings
+                  </span>
+                  </Dropdown.Item>}
               </Dropdown>
             </li>
           </ul>
