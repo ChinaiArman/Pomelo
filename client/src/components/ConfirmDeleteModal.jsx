@@ -11,7 +11,11 @@ const ConfirmDeleteModal = ({itemName, onClose, type, itemID}) => {
             "spendingCategoryID": itemID
         }).then(response => {
             console.log(response)
-            window.location.replace('/')
+            if (window.location.pathname == '/categories') {
+                window.location.replace('/')
+            } else {
+                window.location.href = window.location.href
+            }
         }).catch(error => {
             console.log(error)
         })

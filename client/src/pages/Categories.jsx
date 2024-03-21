@@ -139,7 +139,6 @@ const Categories = () => {
                     currentCategoryName={spendingCategoryName}
                     currentBudgetLimit={budgetLimit}
                     spendingCategoryID={spendingCategoryID}
-                    fetchData={fetchData}
                 />
             )}
             {isConfirmDeleteModalOpen && (

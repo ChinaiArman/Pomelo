@@ -16,14 +16,14 @@ const TeamSpaceDetailsCard = ({teamSpaceName, totalBudget}) => {
       };
     
     return (
-    <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <div class="flex justify-end px-4 pt-4">
+    <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div className="flex justify-end px-4 pt-4">
         </div>
-        <div class="flex flex-col items-center pb-10">
+        <div className="flex flex-col items-center pb-10">
             <img src={logo} alt="Pomelo Logo" className="mt-2 h-20" />
-            <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{teamSpaceName}</h5>
-            <h4 class="mb-1 text-l font-medium text-gray-600 dark:text-white">Total Budget: {currencyFormatter.format(totalBudget)}</h4>
-            <div class="flex mt-4 md:mt-6">
+            <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{teamSpaceName}</h5>
+            <h4 className="mb-1 text-l font-medium text-gray-600 dark:text-white">Total Budget: {currencyFormatter.format(totalBudget)}</h4>
+            <div className="flex mt-4 md:mt-6">
                 <button 
                     className="bg-gray-500 hover:bg-gray-400 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center mr-2"
                     onClick={openEditTeamSpaceModal}

@@ -3,12 +3,14 @@ import axios from 'axios';
 
 import UserListCard from '../components/UserListCard';
 import TeamSpaceDetailsCard from '../components/TeamSpaceDetailsCard';
+import CategoryListCard from '../components/CategoryListCard';
 
 
 const TeamSpaceSettings = () => {
     const [teamSpaceUsers, setTeamSpaceUsers] = useState([]);
     const [teamSpaceName, setTeamSpaceName] = useState('');
     const [totalBudget, setTotalBudget] = useState('');
+    const [teamSpaceCategories, setTeamSpaceCategories] = useState([]);
 
 
     useEffect(() => {
@@ -30,6 +32,13 @@ const TeamSpaceSettings = () => {
             }).catch(error => {
                 console.log(error);
             });
+            await axios.get('http://localhost:5000/getAllSpendingCategories', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+            .then(response => {
+                let categoryList = response.data.data;
+                setTeamSpaceCategories(categoryList);
+            }).catch(error => {
+                console.log(error);
+            });
     }
 
     return (
@@ -43,6 +52,11 @@ const TeamSpaceSettings = () => {
                 <UserListCard 
                     teamSpaceName={teamSpaceName}
                     userList={teamSpaceUsers}
+                />
+
+                <CategoryListCard 
+                    teamSpaceName={teamSpaceName}
+                    categoryList={teamSpaceCategories}
                 />
             </div>
         </div>
