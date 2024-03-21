@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { CiEdit } from "react-icons/ci";
 import axios from 'axios';
 
-import RemoveUserModal from '../components/RemoveUserModal';
 import EditTeamSpaceModal from '../components/EditTeamSpaceModal';
+import UserListCard from '../components/UserListCard';
 
 
 const TeamSpaceSettings = () => {
@@ -11,7 +11,6 @@ const TeamSpaceSettings = () => {
     const [teamSpaceName, setTeamSpaceName] = useState('');
     const [totalBudget, setTotalBudget] = useState('');
 
-    const [isRemoveUserModalOpen, setIsRemoveUserModalOpen] = useState(false);
     const [isEditTeamSpaceModalOpen, setIsEditTeamSpaceModalOpen] = useState(false);
 
 
@@ -35,13 +34,6 @@ const TeamSpaceSettings = () => {
                 console.log(error);
             });
     }
-    const openRemoveUserModal = () => {
-        setIsRemoveUserModalOpen(true);
-    };
-  
-      const closeRemoveUserModal = () => {
-        setIsRemoveUserModalOpen(false);
-    };
 
     const openEditTeamSpaceModal = () => {
         setIsEditTeamSpaceModalOpen(true);
@@ -53,18 +45,12 @@ const TeamSpaceSettings = () => {
 
     return (
         <div className="team-space-settings">
-            <button
-                className="bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                onClick={openRemoveUserModal}
-                >
-                Remove User
-            </button>
-            {isRemoveUserModalOpen && (
-                <RemoveUserModal 
-                onClose={closeRemoveUserModal}
-                userList={teamSpaceUsers}
+            <div className='flex flex-wrap items-center justify-center mt-5 mb-5'>
+                <UserListCard 
+                    teamSpaceName={teamSpaceName}
+                    userList={teamSpaceUsers}
                 />
-            )}
+            </div>
             <button 
                 className="bg-gray-500 hover:bg-gray-400 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center mr-2"
                 style={{ position: "absolute", right: 0 }}
