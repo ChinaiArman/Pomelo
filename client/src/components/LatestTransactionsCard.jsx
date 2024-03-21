@@ -1,4 +1,5 @@
 import Transactions from "../pages/Transactions";
+import { currencyFormatter } from "../utils";
 
 const LatestTransactionsCard = ({ transactions }) => {
     transactions = transactions.slice(0, 5);
@@ -27,7 +28,7 @@ const LatestTransactionsCard = ({ transactions }) => {
                                     </p>
                                 </div>
                                 <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                    ${transaction.transactionAmount}
+                                    {currencyFormatter.format(transaction.transactionAmount)}
                                 </div>
                             </div>
                         </li>
