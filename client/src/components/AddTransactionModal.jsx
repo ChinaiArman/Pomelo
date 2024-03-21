@@ -6,6 +6,7 @@ const AddTransactionModal = ({ onClose, spendingCategories, fetchData }) => {
   const [newTransactionName, setNewTransactionName] = useState('');
   const [newTransactionAmount, setNewTransactionAmount] = useState('');
   const [newTransactionSpendingCategoryName, setNewTransactionSpendingCategoryName] = useState('');
+  console.log(spendingCategories)
 
   let createNewTransaction = async function (event) {
     event.preventDefault();
@@ -22,9 +23,8 @@ const AddTransactionModal = ({ onClose, spendingCategories, fetchData }) => {
         "username": window.localStorage.getItem("username"),
         "transactionName": newTransactionName,
         "transactionAmount": Number(newTransactionAmount)
-    }).then(response => {
+    }).then(async response => {
         console.log(response);
-        fetchData();
     }).catch(error => {
         console.log(error);
     })
@@ -34,6 +34,7 @@ const AddTransactionModal = ({ onClose, spendingCategories, fetchData }) => {
       event.preventDefault();
       await createNewTransaction(event);
       onClose();
+      window.location.href = window.location.href
     }
   
     return (
