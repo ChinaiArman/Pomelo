@@ -10,6 +10,7 @@ import CreateCategoryModal from "../components/CreateCategoryModal";
 import TransactionsTable from '../components/TransactionsTable';
 import AddTransactionModal from '../components/AddTransactionModal';
 import EditTeamSpaceModal from '../components/EditTeamSpaceModal';
+import LatestTransactionsCard from '../components/LatestTransactionsCard';
 
 const Home = () => {
     const [teamSpaceName, setTeamSpaceName] = useState('')
@@ -145,7 +146,7 @@ const Home = () => {
           />
         )}
 
-        <TransactionsTable transactions={transactions} />
+        <LatestTransactionsCard transactions={transactions} />
         <button
             className="bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
             onClick={openAddTransactionModal}
