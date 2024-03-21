@@ -150,11 +150,11 @@ const Categories = () => {
                 />
             )}
 
-            <div>
+            <div className="transactions flex flex-col items-center justify-center">
                 <p>Transactions</p>
                 <TransactionsTable transactions={transactions} />
                 <button
-                    className="bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    className="mt-4 bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                     onClick={openAddTransactionModal}
                     >
                     Add Transaction
