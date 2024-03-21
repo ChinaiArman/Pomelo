@@ -95,32 +95,32 @@ const Home = () => {
     return (
       <div className="home flex flex-col items-center justify-center">
         <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Hello {window.localStorage.getItem("username")}</h1>
-          <h2 className="text-l text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Team Space: {teamSpaceName}</h2>
-        </div>
-        {isLeader && (
-          <button 
-          className="bg-gray-500 hover:bg-gray-400 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center mr-2"
-          style={{ position: "absolute", right: 0 }}
-          onClick={openEditTeamSpaceModal}
-          >
-            <span className="flex items-center">
-              <CiEdit className="mr-1" />
-              Edit Team Space
-            </span>
-          </button>
-        )}
+          <div>
+            <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Hello {window.localStorage.getItem("username")}</h1>
+            <h2 className="text-l text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">Team Space: {teamSpaceName}</h2>
+          </div>
+          {isLeader && (
+            <button 
+            className="bg-gray-500 hover:bg-gray-400 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center mr-2"
+            style={{ position: "absolute", right: 0 }}
+            onClick={openEditTeamSpaceModal}
+            >
+              <span className="flex items-center">
+                <CiEdit className="mr-1" />
+                Edit Team Space
+              </span>
+            </button>
+          )}
 
-        {isEditTeamSpaceModalOpen && (
-          <EditTeamSpaceModal 
-            onClose={closeEditTeamSpaceModal}
-            currentTeamName={teamSpaceName}
-            currentTotalBudget={totalBudget}
-            fetchData={fetchData}
-          />
-        )}
-      </div>
+          {isEditTeamSpaceModalOpen && (
+            <EditTeamSpaceModal 
+              onClose={closeEditTeamSpaceModal}
+              currentTeamName={teamSpaceName}
+              currentTotalBudget={totalBudget}
+              fetchData={fetchData}
+            />
+          )}
+        </div>
 
         <div className="flex">
           <InfoCard title="Total Budget" value={totalBudget} />

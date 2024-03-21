@@ -2,27 +2,28 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useState } from 'react';
 import axios from 'axios';
 
-const EditTeamSpaceModal = ({onClose, currentTeamName, currentTotalBudget, fetchData}) => {
-    const [newTeamSpaceName, setNewTeamSpaceName] = useState(currentTeamName);
-    const [newTotalBudget, setNewTotalBudget] = useState(currentTotalBudget);
+const EditCategoryModal = ({onClose, currentCategoryName, currentBudgetLimit, spendingCategoryID, fetchData}) => {
+    const [newCategoryName, setNewCategoryName] = useState(currentCategoryName);
+    const [newBudgetLimit, setNewBudgetLimit] = useState(currentBudgetLimit);
 
-    let editTeamSpace = async function (event) {
-      event.preventDefault();
-      await axios.post('http://localhost:5000/editTeamSpace', {
-        "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
-        "newTeamSpaceName": newTeamSpaceName,
-        "newTotalBudget": Number(newTotalBudget)
-      }).then(response => {
-        console.log(response)
-        fetchData();
-      }).catch(error => {
-        console.log(error)
-      })
+    let editSpendingCategory = async function (event) {
+        event.preventDefault();
+        await axios.post('http://localhost:5000/editSpendingCategory', {
+            "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
+            "spendingCategoryID": spendingCategoryID,
+            "newSpendingCategoryName": newCategoryName,
+            "newSpendingCategoryBudgetLimit": Number(newBudgetLimit)
+        }).then(response => {
+            console.log(response)
+            fetchData();
+        }).catch(error => {
+            console.log(error)
+        })
     }
 
     const handleSubmit = async function(event) {
         event.preventDefault();
-        await editTeamSpace(event);
+        await editSpendingCategory(event);
         onClose();
     }
 
@@ -36,23 +37,23 @@ const EditTeamSpaceModal = ({onClose, currentTeamName, currentTotalBudget, fetch
               className="flex flex-col gap-4"
             >
               <div className="flex flex-col">
-                <label className="mb-1 text-sm font-medium">Team Name</label>
+                <label className="mb-1 text-sm font-medium">Spending Category Name</label>
                 <input
                   type="text"
                   placeholder="Enter the name of your Team Space"
-                  onChange={(e) => setNewTeamSpaceName(e.target.value)}
-                  value={newTeamSpaceName}
+                  onChange={(e) => setNewCategoryName(e.target.value)}
+                  value={newCategoryName}
                   className="border border-gray-300 rounded-lg px-4 py-2 text-sm"
                   required
                 />
               </div>
               <div className="flex flex-col">
-                <label className="mb-1 text-sm font-medium">Total Budget</label>
+                <label className="mb-1 text-sm font-medium">Category Budget Limit</label>
                 <input
                   type="text"
                   placeholder="Enter the Team's Total Budget"
-                  onChange={(e) => setNewTotalBudget(e.target.value)}
-                  value={newTotalBudget}
+                  onChange={(e) => setNewBudgetLimit(e.target.value)}
+                  value={newBudgetLimit}
                   className="border border-gray-300 rounded-lg px-4 py-2 text-sm"
                   required
                 />
@@ -64,6 +65,7 @@ const EditTeamSpaceModal = ({onClose, currentTeamName, currentTotalBudget, fetch
           </div>
         </div>
       );
+
 }
 
-export default EditTeamSpaceModal;
+export default EditCategoryModal;
