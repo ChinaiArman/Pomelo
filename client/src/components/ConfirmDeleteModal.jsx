@@ -55,7 +55,7 @@ const ConfirmDeleteModal = ({itemName, onClose, type, itemID}) => {
                         Confirm Delete
                     </h5>
                     <hr className="border-gray-400 my-2" />
-                    <p className="font-normal text-gray-700 dark:text-gray-400">
+                    <p className="py-2 font-normal text-gray-700 dark:text-gray-400">
                         Are you sure you want to delete {type}: <b>{itemName}</b>?
                     </p>
                     <hr className="border-gray-400 my-2" />
