@@ -13,7 +13,6 @@ const EditTeamSpaceModal = ({onClose, currentTeamName, currentTotalBudget, fetch
         "newTeamSpaceName": newTeamSpaceName,
         "newTotalBudget": Number(newTotalBudget)
       }).then(response => {
-        console.log(response)
         fetchData();
       }).catch(error => {
         console.log(error)
@@ -23,6 +22,7 @@ const EditTeamSpaceModal = ({onClose, currentTeamName, currentTotalBudget, fetch
     const handleSubmit = async function(event) {
         event.preventDefault();
         await editTeamSpace(event);
+        window.location.href = window.location.href
         onClose();
     }
 
