@@ -20,7 +20,7 @@ const TeamSpaceDetailsCard = ({teamSpaceName, totalBudget}) => {
         <div class="flex justify-end px-4 pt-4">
         </div>
         <div class="flex flex-col items-center pb-10">
-            <img src={logo} alt="Pomelo Logo" className="mt-2 h-10" />
+            <img src={logo} alt="Pomelo Logo" className="mt-2 h-20" />
             <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{teamSpaceName}</h5>
             <h4 class="mb-1 text-l font-medium text-gray-600 dark:text-white">Total Budget: {currencyFormatter.format(totalBudget)}</h4>
             <div class="flex mt-4 md:mt-6">
