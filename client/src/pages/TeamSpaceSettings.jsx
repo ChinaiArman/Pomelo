@@ -17,7 +17,8 @@ const TeamSpaceSettings = () => {
     const fetchData = async () => {
         await axios.get('http://localhost:5000/getAllTeamSpaceUsers', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
             .then(response => {
-                setTeamSpaceUsers(response.data.data);
+                let userList = response.data.data.filter(user => user.userID !== window.localStorage.getItem("userID"));
+                setTeamSpaceUsers(userList);
             }).catch(error => {
                 console.log(error);
             });
