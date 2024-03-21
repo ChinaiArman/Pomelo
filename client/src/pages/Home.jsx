@@ -18,19 +18,11 @@ const Home = () => {
     const [spendingCategories, setSpendingCategories] = useState([]);
     const [transactions, setTransactions] = useState([]);
 
-    const [newSpendingCategory, setNewSpendingCategory] = useState('');
-    const [newSpendingCategoryBudgetLimit, setNewSpendingCategoryBudgetLimit] = useState('');
-
-    const [newTransactionName, setNewTransactionName] = useState('');
-    const [newTransactionAmount, setNewTransactionAmount] = useState('');
-    const [newTransactionSpendingCategoryName, setNewTransactionSpendingCategoryName] = useState('');
-
     const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false);
     const [isAddTransactionModalOpen, setIsAddTransactionModalOpen] = useState(false);
     const [isEditTeamSpaceModalOpen, setIsEditTeamSpaceModalOpen] = useState(false);
 
     const [isLeader, setIsLeader] = useState(false);
-
 
     useEffect(() => {
         fetchData();
@@ -74,52 +66,6 @@ const Home = () => {
                 console.log(error);
             });
     };
-
-    let createNewSpendingCategory = async function (event) {
-        event.preventDefault();
-        await axios.get('http://localhost:5000/getTeamSpaceByID', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
-            .then(async response => {
-                if (response.data.data.teamSpaceLeaderUserID === window.localStorage.getItem("userID")) {
-                    await axios.post('http://localhost:5000/createSpendingCategory', {
-                        "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
-                        "spendingCategoryName": newSpendingCategory,
-                        "budgetLimit": Number(newSpendingCategoryBudgetLimit)
-                    }).then(response => {
-                        console.log(response);
-                        fetchData();
-                    }).catch(error => {
-                        console.log(error);
-                    });
-                } else {
-                    alert("You are not the leader of this team space")
-                }
-            }).catch(error => {
-                console.log(error);
-            });
-    }
-
-    let createNewTransaction = async function (event) {
-        event.preventDefault();
-        for (let i = 0; i < spendingCategories.length; i++) {
-            if (newTransactionSpendingCategoryName === spendingCategories[i].spendingCategoryName) {
-                var newTransactionSpendingCategoryID = spendingCategories[i].spendingCategoryID;
-            }
-        }
-        await axios.post('http://localhost:5000/createTransaction', {
-            "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
-            "spendingCategoryID": newTransactionSpendingCategoryID,
-            "spendingCategoryName": newTransactionSpendingCategoryName,
-            "userID": window.localStorage.getItem("userID"),
-            "username": window.localStorage.getItem("username"),
-            "transactionName": newTransactionName,
-            "transactionAmount": Number(newTransactionAmount)
-        }).then(response => {
-            console.log(response);
-            fetchData();
-        }).catch(error => {
-            console.log(error);
-        })
-    }
 
     const openCreateCategoryModal = () => {
       setIsCreateCategoryModalOpen(true);
@@ -195,11 +141,7 @@ const Home = () => {
         {isCreateCategoryModalOpen && (
           <CreateCategoryModal
             onClose={closeCreateCategoryModal}
-            createNewSpendingCategory={createNewSpendingCategory}
-            setNewSpendingCategory={setNewSpendingCategory}
-            setNewSpendingCategoryBudgetLimit={
-              setNewSpendingCategoryBudgetLimit
-            }
+            fetchData={fetchData}
           />
         )}
 
@@ -213,11 +155,8 @@ const Home = () => {
          {isAddTransactionModalOpen && (
           <AddTransactionModal 
             onClose={closeAddTransactionModal}
-            createNewTransaction={createNewTransaction}
-            setNewTransactionName={setNewTransactionName}
-            setNewTransactionAmount={setNewTransactionAmount}
-            setNewTransactionSpendingCategoryName={setNewTransactionSpendingCategoryName}
             spendingCategories={spendingCategories}
+            fetchData={fetchData}
           />
          )}
       </div>

@@ -1,7 +1,34 @@
 import { IoCloseSharp } from "react-icons/io5";
+import axios from "axios";
+import { useState } from 'react';
 
-const CreateCategoryModal = ({ onClose, createNewSpendingCategory, setNewSpendingCategory, setNewSpendingCategoryBudgetLimit }) => {
+const CreateCategoryModal = ({ onClose, fetchData }) => {
+  const [newSpendingCategory, setNewSpendingCategory] = useState('');
+  const [newSpendingCategoryBudgetLimit, setNewSpendingCategoryBudgetLimit] = useState('');
   
+  let createNewSpendingCategory = async function (event) {
+    event.preventDefault();
+    await axios.get('http://localhost:5000/getTeamSpaceByID', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+        .then(async response => {
+            if (response.data.data.teamSpaceLeaderUserID === window.localStorage.getItem("userID")) {
+                await axios.post('http://localhost:5000/createSpendingCategory', {
+                    "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
+                    "spendingCategoryName": newSpendingCategory,
+                    "budgetLimit": Number(newSpendingCategoryBudgetLimit)
+                }).then(response => {
+                    console.log(response);
+                    fetchData();
+                }).catch(error => {
+                    console.log(error);
+                });
+            } else {
+                alert("You are not the leader of this team space")
+            }
+        }).catch(error => {
+            console.log(error);
+        });
+}
+
   const handleSubmit = async function(event) {
     event.preventDefault();
     await createNewSpendingCategory(event);

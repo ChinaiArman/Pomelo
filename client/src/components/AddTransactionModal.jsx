@@ -1,6 +1,34 @@
 import { IoCloseSharp } from "react-icons/io5";
+import axios from "axios";
+import { useState } from 'react';
 
-const AddTransactionModal = ({ onClose, createNewTransaction, setNewTransactionName, setNewTransactionAmount, setNewTransactionSpendingCategoryName, spendingCategories }) => {
+const AddTransactionModal = ({ onClose, spendingCategories, fetchData }) => {
+  const [newTransactionName, setNewTransactionName] = useState('');
+  const [newTransactionAmount, setNewTransactionAmount] = useState('');
+  const [newTransactionSpendingCategoryName, setNewTransactionSpendingCategoryName] = useState('');
+
+  let createNewTransaction = async function (event) {
+    event.preventDefault();
+    for (let i = 0; i < spendingCategories.length; i++) {
+        if (newTransactionSpendingCategoryName === spendingCategories[i].spendingCategoryName) {
+            var newTransactionSpendingCategoryID = spendingCategories[i].spendingCategoryID;
+        }
+    }
+    await axios.post('http://localhost:5000/createTransaction', {
+        "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
+        "spendingCategoryID": newTransactionSpendingCategoryID,
+        "spendingCategoryName": newTransactionSpendingCategoryName,
+        "userID": window.localStorage.getItem("userID"),
+        "username": window.localStorage.getItem("username"),
+        "transactionName": newTransactionName,
+        "transactionAmount": Number(newTransactionAmount)
+    }).then(response => {
+        console.log(response);
+        fetchData();
+    }).catch(error => {
+        console.log(error);
+    })
+}
   
     const handleSubmit = async function(event) {
       event.preventDefault();
