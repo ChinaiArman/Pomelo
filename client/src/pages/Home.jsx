@@ -66,6 +66,15 @@ const Home = () => {
             }).catch(error => {
                 console.log(error);
             });
+        await axios.get('http://localhost:5000/getTeamSpaceByUserID', { params: { "userID": window.localStorage.getItem("userID") } })
+            .then(response => {
+                if (response.data.data === null) {
+                    window.localStorage.removeItem("teamSpaceID")
+                    window.location.replace('/register')
+              }
+            }).catch(error => {
+                console.log(error)
+            });
     };
 
     const openCreateCategoryModal = () => {
