@@ -15,7 +15,7 @@ const EditCategoryModal = ({onClose, currentCategoryName, currentBudgetLimit, sp
             "newSpendingCategoryBudgetLimit": Number(newBudgetLimit)
         }).then(response => {
             console.log(response)
-            fetchData();
+            window.location.href = window.location.href
         }).catch(error => {
             console.log(error)
         })
