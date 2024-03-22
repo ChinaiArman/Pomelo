@@ -105,7 +105,7 @@ const Jumbotron = ({ username, transactions, spendingCategory, teamSpaceName, to
                         Spending Categories
                     </a>
                     <h2 className="text-gray-900 dark:text-white text-3xl font-extrabold mb-2">Spending Categories</h2>
-                    <div className="flex flex-wrap justify-center gap-5" id="categories">
+                    <div className="flex flex-wrap justify-center items-center gap-5" id="categories">
                         {spendingCategories.map((category, index) => (
                             <CategoryCard key={index} category={category} />
                         ))}
