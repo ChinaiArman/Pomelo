@@ -50,12 +50,10 @@ const TeamSpaceSettings = () => {
                 />
                 
                 <UserListCard 
-                    teamSpaceName={teamSpaceName}
                     userList={teamSpaceUsers}
                 />
 
                 <CategoryListCard 
-                    teamSpaceName={teamSpaceName}
                     categoryList={teamSpaceCategories}
                 />
             </div>
