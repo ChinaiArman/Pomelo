@@ -102,56 +102,74 @@ const Categories = () => {
     }
 
     return (
-        <div className="categories flex flex-col items-center justify-center">
-            <h1 className="text-4xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                {spendingCategoryName}
-            </h1>
-
-            <div className='flex items-center justify-center'>
-                <InfoCard title="Amount Used" value={amountUsed} />
-                <InfoCard title="Budget Limit" value={budgetLimit} />
-            </div>
-
-            {/* <div className='flex py-8 px-4 max-w-screen-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 md:p-8 mb-8'>
-                <InfoCard budgetTitle="Budget Limit" budgetValue={budgetLimit} amountUsedValue={amountUsed} />
-                <div className="flex items-center justify-center">
-                    <div className="text-center flex-1">
-                        <h3 className="text-gray-900 dark:text-white text-lg font-medium mb-2">Amount Used</h3>
-                        <p className="text-5xl">{currencyFormatter.format(amountUsed)}</p>
+        <div className="categories">
+            <h2 className="flex justify-center text-gray-900 dark:text-white text-3xl font-extrabold mt-5">{spendingCategoryName}</h2>
+            <section className="bg-white dark:bg-gray-900">
+                <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-8">
+                    <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8">
+                        <div className="flex items-center justify-center">
+                            <div className="text-center flex-1">
+                                <h3 className="text-gray-900 dark:text-white text-3xl font-medium mb-2">Amount Used</h3>
+                                <p className="text-9xl">{currencyFormatter.format(amountUsed)}</p>
+                            </div>
+                            <div className="mx-5 h-20 min-h-[1em] w-0.5 bg-gray-300 dark:bg-white/10"></div>
+                            <div className="text-center flex-1">
+                                <h3 className="text-gray-900 dark:text-white text-3xl font-medium mb-">Total Budget</h3>
+                                <p className="text-9xl">{currencyFormatter.format(budgetLimit)}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div className="mx-5 h-20 min-h-[1em] w-0.5 bg-gray-300 dark:bg-white/10"></div>
-                        <div className="text-center flex-1">
-                        <h3 className="text-gray-900 dark:text-white text-lg font-medium mb-">Budget Limit</h3>
-                    <p className="text-5xl">{currencyFormatter.format(budgetLimit)}</p>
+
+                    <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:pt-12 mb-8">
+                        <div className="flex items-center justify-center">
+                            <img className="rounded-t-lg w-960 h-540" src={image} alt="" />
+                        </div>
+                        <div className="flex items-center justify-center">
+                            {isLeader && (
+                                <div className="flex my-5">
+                                    <button
+                                        className="bg-gray-500 hover:bg-gray-400 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center mr-2"
+                                        onClick={openEditCategoryModal}
+                                    >
+                                        <span className="flex items-center">
+                                            <CiEdit className="mr-1" size={20} />
+                                            Edit Category
+                                        </span>
+                                    </button>
+                                    <button
+                                        className="bg-red-500 hover:bg-red-400 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center mr-2"
+                                        onClick={openConfirmDeleteModal}
+                                    >
+                                        <span className="flex items-center">
+                                            <MdDeleteOutline className='mr-1' size={20} />
+                                            Delete Category
+                                        </span>
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                
+                    <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mt-8">
+                        <div className="transactions flex flex-col items-center justify-center">
+                            <h2 className="flex justify-center text-gray-900 dark:text-white text-2xl font-bold mb-5">Transactions</h2>
+                            <TransactionsTable transactions={transactions} />
+                            <button
+                                className="mt-4 bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                onClick={openAddTransactionModal}
+                            >
+                                Add Transaction
+                            </button>
+                            {isAddTransactionModalOpen && (
+                                <CreateTransactionModal
+                                    onClose={closeAddTransactionModal}
+                                    spendingCategories={[spendingCategory]}
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
-            </div> */}
-
-            <img className="rounded-t-lg w-960 h-540" src={image} alt="" />
-
-            {isLeader && (
-                <div className="flex my-5">
-                    <button
-                        className="bg-gray-500 hover:bg-gray-400 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center mr-2"
-                        onClick={openEditCategoryModal}
-                    >
-                        <span className="flex items-center">
-                            <CiEdit className="mr-1" size={20} />
-                            Edit Category
-                        </span>
-                    </button>
-                    <button
-                        className="bg-red-500 hover:bg-red-400 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center mr-2"
-                        onClick={openConfirmDeleteModal}
-                    >
-                        <span className="flex items-center">
-                            <MdDeleteOutline className='mr-1' size={20} />
-                            Delete Category
-                        </span>
-                    </button>
-                </div>
-            )}
-
+            </section>
             {isEditCategoryModalOpen && (
                 <EditCategoryModal
                     onClose={closeEditCategoryModal}
@@ -168,23 +186,6 @@ const Categories = () => {
                     itemID={spendingCategoryID}
                 />
             )}
-
-            <div className="transactions flex flex-col items-center justify-center">
-            <h2 className="flex justify-center text-gray-900 dark:text-white text-2xl font-bold mb-5">Transactions</h2>
-                <TransactionsTable transactions={transactions} />
-                <button
-                    className="mt-4 bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                    onClick={openAddTransactionModal}
-                >
-                    Add Transaction
-                </button>
-                {isAddTransactionModalOpen && (
-                    <CreateTransactionModal
-                        onClose={closeAddTransactionModal}
-                        spendingCategories={[spendingCategory]}
-                    />
-                )}
-            </div>
         </div>
     );
 }
