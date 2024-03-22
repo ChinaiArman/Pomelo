@@ -374,7 +374,7 @@ export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUs
 }
 
 export let createNewSpendingCategory = async function (teamSpaceID, spendingCategoryName, budgetLimit) {
-    await axios.get(`https://source.unsplash.com/1600x900/?${spendingCategoryName}`)
+    await axios.get(`https://source.unsplash.com/1280x720/?${spendingCategoryName}`)
         .then(response => {
             let image = response.request.res.responseUrl ? response.request.res.responseUrl : "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
             let input = {
