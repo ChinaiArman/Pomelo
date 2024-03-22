@@ -3,10 +3,23 @@ import { currencyFormatter } from "../utils";
 
 import LatestTransactionsCard from "./LatestTransactionsCard";
 import CategoryCard from "./CategoryCard";
+import NullSectionCard from "./NullSectionCard";
 
 import logo from "../assets/logo_icon.png";
 
 const Jumbotron = ({ username, transactions, spendingCategory, teamSpaceName }) => {
+    if (spendingCategory === undefined) {
+        var categoryCard = <NullSectionCard header="Oops! Looks like this section is empty!" body="Add a category below to start tracking finances with Pomelo." />
+    } else {
+        var categoryCard = <CategoryCard key="largest-category" category={spendingCategory} />
+    }
+
+    if (transactions.length === 0) {
+        var transactionCard = <NullSectionCard header="Oops! Looks like there have been no recent transactions!" body="Add a transaction to start tracking finances with Pomelo." />
+    } else {
+        var transactionCard = <LatestTransactionsCard transactions={transactions} />
+    }
+
     return (
         <section className="bg-white dark:bg-gray-900">
             <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
@@ -34,7 +47,7 @@ const Jumbotron = ({ username, transactions, spendingCategory, teamSpaceName }) 
                         <h2 className="text-gray-900 dark:text-white text-3xl font-extrabold mb-2">Latest Transactions</h2>
                         <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-4">Here is a look at the most recent transactions from the last 24 hours.</p>
                         <div className="flex flex-col items-center justify-center">
-                            <LatestTransactionsCard transactions={transactions} />
+                            {transactionCard}
                         </div>
                     </div>
                     <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
@@ -47,7 +60,7 @@ const Jumbotron = ({ username, transactions, spendingCategory, teamSpaceName }) 
                         <h2 className="text-gray-900 dark:text-white text-3xl font-extrabold mb-2">Largest Spending Category</h2>
                         <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-4">Here is a look at your team space's largest spending category.</p>
                         <div className="flex flex-col items-center justify-center">
-                            <CategoryCard key="largest-category" category={spendingCategory} />
+                            {categoryCard}
                         </div>
                         <a href="#categories" className="mt-3 text-blue-600 dark:text-blue-500 hover:underline font-medium text-lg inline-flex items-center">See all spending categories
                             <svg className="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
