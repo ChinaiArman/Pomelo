@@ -15,7 +15,7 @@ const Jumbotron = ({ username, transactions, spendingCategory, teamSpaceName }) 
     }
 
     if (transactions.length === 0) {
-        var transactionCard = <NullSectionCard header="Oops! Looks like there have been no recent transactions!" body="Add a transaction to start tracking finances with Pomelo." />
+        var transactionCard = <NullSectionCard header="Oops, We couldn't find any recent transactions..." body="Add a transaction to start tracking finances with Pomelo." />
     } else {
         var transactionCard = <LatestTransactionsCard transactions={transactions} />
     }
