@@ -57,7 +57,7 @@ const Transactions = () => {
                     body="Add a transaction to start tracking finances with Pomelo."
                 />
                 <button
-                    className="mt-4 bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    className="mt-4 bg-theme-mantis hover:bg-theme-mantisdark focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                     onClick={openAddTransactionModal}
                 >
                     Add Transaction
@@ -75,12 +75,12 @@ const Transactions = () => {
     return (
          <>
          <h2 className="flex justify-center text-gray-900 dark:text-white text-3xl font-extrabold mb-5">Transactions</h2>
-         <div className="transactions flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mt-8 mx-auto max-w-screen-xl">
+         <div className="transactions flex flex-col items-center justify-center bg-theme-cornsilk dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mt-8 mx-auto max-w-screen-xl">
          <TransactionsTable
              transactions={transactions}
          />
              <button
-                 className="mt-4 bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                 className="mt-4 bg-theme-mantis hover:bg-theme-mantisdark focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                  onClick={openAddTransactionModal}
              >
                  Add Transaction
