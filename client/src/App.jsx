@@ -83,7 +83,7 @@ function App() {
     )
   } else {
     return (
-      <div className="App">
+      <div className="App flex flex-col h-screen">
         <NavBar />
         <RouterProvider router={router} />
         <Footer />
