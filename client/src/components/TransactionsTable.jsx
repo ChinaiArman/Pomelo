@@ -5,7 +5,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import EditTransactionModal from "./EditTransactionModal";
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 
-const TransactionsTable = ({ transactions, isTransactionsPage }) => {
+const TransactionsTable = ({ transactions }) => {
     const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState(false);
     const [selectedTransaction, setSelectedTransaction] = useState(null);
     const [isConfirmDeleteModalOpen, setIsConfirmDeleteModalOpen] = useState(false);
@@ -51,17 +51,12 @@ const TransactionsTable = ({ transactions, isTransactionsPage }) => {
                         <th scope="col" className="px-6 py-3">
                             Date
                         </th>
-                        {isTransactionsPage && (
-                            <>
-                             <th scope="col" className="px-6 py-3">
-                                <span className="sr-only">Edit</span>
-                            </th>
-                            <th scope="col" className="px-6 py-3">
-                                <span className="sr-only">Delete</span>
-                            </th>
-                            </>
-                            
-                        )}
+                        <th scope="col" className="px-6 py-3">
+                            <span className="sr-only">Edit</span>
+                        </th>
+                        <th scope="col" className="px-6 py-3">
+                            <span className="sr-only">Delete</span>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,16 +94,12 @@ const TransactionsTable = ({ transactions, isTransactionsPage }) => {
                                 <td className="px-6 py-4">
                                     {transaction.transactionDate}
                                 </td>
-                                {isTransactionsPage && (
-                                    <>
-                                    <td>
-                                        <CiEdit className="mx-5 cursor-pointer" size={20} onClick={() => openEditTransactionModal(transaction)}/>
-                                    </td>
-                                    <td>
-                                        <MdDeleteOutline className='mx-5 cursor-pointer' size={20} onClick={() => openConfirmDeleteModal(transaction)}/>
-                                    </td>
-                                    </>
-                                )}
+                                <td>
+                                    <CiEdit className="mx-5 cursor-pointer" size={20} onClick={() => openEditTransactionModal(transaction)}/>
+                                </td>
+                                <td>
+                                    <MdDeleteOutline className='mx-5 cursor-pointer' size={20} onClick={() => openConfirmDeleteModal(transaction)}/>
+                                </td>
                             </tr>
                         )
                     })}
