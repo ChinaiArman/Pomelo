@@ -511,7 +511,6 @@ export let createNewTransaction = async function (teamSpaceID, spendingCategoryI
 }
 
 export let addUserToTeamSpace = async function (teamSpaceJoinCode, userID, username) {
-    console.log(teamSpaceJoinCode, userID, username)
     let input = {
         "userID": userID,
         "username": username,
