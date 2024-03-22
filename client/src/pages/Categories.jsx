@@ -111,7 +111,7 @@ const Categories = () => {
                 <InfoCard title="Budget Limit" value={budgetLimit} />
             </div>
 
-            <img className="rounded-t-lg" src={image} alt="" />
+            <img className="rounded-t-lg w-960 h-540" src={image} alt="" />
 
             {isLeader && (
                 <div className="flex my-5">

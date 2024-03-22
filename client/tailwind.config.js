@@ -7,6 +7,10 @@ export default {
   ],
   theme: {
     extend: {
+      spacing: {
+        '960': '960px',
+        '540': '540px',
+      },
       colors: {
         primary: {
           50: "#eff6ff",
