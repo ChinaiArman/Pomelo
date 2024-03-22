@@ -2,7 +2,8 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useState } from 'react';
 import axios from 'axios';
 
-const EditTransactionModal = ({onClose, currentTransactionName, currentTransactionAmount, transactionID}) => {
+const EditTransactionModal = ({onClose, currentTransactionName, currentTransactionAmount, transactionID, oldImage}) => {
+    const oldTransactionName = currentTransactionName
     const [newTransactionName, setNewTransactionName] = useState(currentTransactionName);
     const [newTransactionAmount, setNewTransactionAmount] = useState(currentTransactionAmount);
 
@@ -11,8 +12,10 @@ const EditTransactionModal = ({onClose, currentTransactionName, currentTransacti
         await axios.post('http://localhost:5000/editTransaction', {
             "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
             "transactionID": transactionID,
+            "oldTransactionName": oldTransactionName,
             "newTransactionName": newTransactionName,
-            "newTransactionAmount": Number(newTransactionAmount)
+            "newTransactionAmount": Number(newTransactionAmount),
+            "oldImage": oldImage
         }).then(response => {
             console.log(response)
             window.location.href = window.location.href

@@ -112,6 +112,7 @@ const TransactionsTable = ({ transactions }) => {
                     currentTransactionName={selectedTransaction.transactionName}
                     currentTransactionAmount={selectedTransaction.transactionAmount}
                     transactionID={selectedTransaction.transactionID}
+                    oldImage={selectedTransaction.styles.image}
                 />
             )}
             {isConfirmDeleteModalOpen && selectedTransaction && (

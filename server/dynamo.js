@@ -1217,89 +1217,99 @@ export let editSpendingCategory = async function (teamSpaceID, spendingCategoryI
     })
 }
 
-export let editTransaction = async function (teamSpaceID, transactionID, newtransactionName, newtransactionAmount) {
-    let paramsOne = {
-        TableName: TABLENAME,
-        FilterExpression: "teamSpaceID = :teamSpaceID",
-        ExpressionAttributeValues: {
-            ":teamSpaceID": teamSpaceID
+export let editTransaction = async function (teamSpaceID, transactionID, oldTransactionName, newtransactionName, newtransactionAmount, oldImage) {
+    await axios.get(`https://api.unsplash.com/search/photos/?query=${newtransactionName.replace(" ", "-")}&orientation=squarish&client_id=${UNSPLASHED_ACCESS_KEY}`)
+    .then(response => {
+        let randInt = randomInt(0, response.data.results.length)
+        if (oldTransactionName !== newtransactionName) {
+            var newImage = response.data.results[randInt].urls.regular ? response.data.results[randInt].urls.regular : "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
+        } else {
+            var newImage = oldImage
         }
-    }
-    return new Promise((resolve, reject) => {
-        dynamoDB.scan(paramsOne, (err, data) => {
-            if (err) {
-                let response = {
-                    "status": 401,
-                    "message": err.message,
-                    "data": null
-                }
-                resolve(response)
-            } else {
-                let spendingCategories = data.Items[0].spendingCategories
-                for (let i = 0; i < spendingCategories.length; i++) {
-                    let transactions = spendingCategories[i].transactions
-                    for (let j = 0; j < transactions.length; j++) {
-                        if (transactions[j].transactionID === transactionID) {
-                            let costDifference = transactions[j].transactionAmount - newtransactionAmount
-                            let paramsTwo = {
-                                TableName: TABLENAME,
-                                Key: {
-                                    "teamSpaceID": teamSpaceID
-                                },
-                                UpdateExpression: "SET spendingCategories[" + i + "].transactions[" + j + "].transactionName = :newtransactionName, spendingCategories[" + i + "].transactions[" + j + "].transactionAmount = :newtransactionAmount",
-                                ExpressionAttributeValues: {
-                                    ":newtransactionName": newtransactionName,
-                                    ":newtransactionAmount": newtransactionAmount
+        let paramsOne = {
+            TableName: TABLENAME,
+            FilterExpression: "teamSpaceID = :teamSpaceID",
+            ExpressionAttributeValues: {
+                ":teamSpaceID": teamSpaceID
+            }
+        }
+        return new Promise((resolve, reject) => {
+            dynamoDB.scan(paramsOne, (err, data) => {
+                if (err) {
+                    let response = {
+                        "status": 401,
+                        "message": err.message,
+                        "data": null
+                    }
+                    resolve(response)
+                } else {
+                    let spendingCategories = data.Items[0].spendingCategories
+                    for (let i = 0; i < spendingCategories.length; i++) {
+                        let transactions = spendingCategories[i].transactions
+                        for (let j = 0; j < transactions.length; j++) {
+                            if (transactions[j].transactionID === transactionID) {
+                                let costDifference = transactions[j].transactionAmount - newtransactionAmount
+                                let paramsTwo = {
+                                    TableName: TABLENAME,
+                                    Key: {
+                                        "teamSpaceID": teamSpaceID
+                                    },
+                                    UpdateExpression: "SET spendingCategories[" + i + "].transactions[" + j + "].transactionName = :newtransactionName, spendingCategories[" + i + "].transactions[" + j + "].transactionAmount = :newtransactionAmount, spendingCategories[" + i + "].transactions[" + j + "].styles = :newStyles",
+                                    ExpressionAttributeValues: {
+                                        ":newtransactionName": newtransactionName,
+                                        ":newtransactionAmount": newtransactionAmount,
+                                        ":newStyles": {"image": newImage}
+                                    }
                                 }
+                                dynamoDB.update(paramsTwo, (err, data) => {
+                                    if (err) {
+                                        let response = {
+                                            "status": 401,
+                                            "message": err.message,
+                                            "data": null
+                                        }
+                                        resolve(response)
+                                    } else {
+                                        let paramsThree = {
+                                            TableName: TABLENAME,
+                                            Key: {
+                                                "teamSpaceID": teamSpaceID
+                                            },
+                                            UpdateExpression: "SET spendingCategories[" + i + "].amountUsed = spendingCategories[" + i + "].amountUsed - :costDifference",
+                                            ExpressionAttributeValues: {
+                                                ":costDifference": costDifference,
+                                            }
+                                        }
+                                        dynamoDB.update(paramsThree, (err, data) => {
+                                            if (err) {
+                                                let response = {
+                                                    "status": 401,
+                                                    "message": err.message,
+                                                    "data": null
+                                                }
+                                                resolve(response)
+                                            } else {
+                                                let response = {
+                                                    "status": 202,
+                                                    "message": "Success",
+                                                    "data": null
+                                                }
+                                                resolve(response)
+                                            }
+                                        })
+                                    }
+                                })
                             }
-                            dynamoDB.update(paramsTwo, (err, data) => {
-                                if (err) {
-                                    let response = {
-                                        "status": 401,
-                                        "message": err.message,
-                                        "data": null
-                                    }
-                                    resolve(response)
-                                } else {
-                                    let paramsThree = {
-                                        TableName: TABLENAME,
-                                        Key: {
-                                            "teamSpaceID": teamSpaceID
-                                        },
-                                        UpdateExpression: "SET spendingCategories[" + i + "].amountUsed = spendingCategories[" + i + "].amountUsed - :costDifference",
-                                        ExpressionAttributeValues: {
-                                            ":costDifference": costDifference,
-                                        }
-                                    }
-                                    dynamoDB.update(paramsThree, (err, data) => {
-                                        if (err) {
-                                            let response = {
-                                                "status": 401,
-                                                "message": err.message,
-                                                "data": null
-                                            }
-                                            resolve(response)
-                                        } else {
-                                            let response = {
-                                                "status": 202,
-                                                "message": "Success",
-                                                "data": null
-                                            }
-                                            resolve(response)
-                                        }
-                                    })
-                                }
-                            })
                         }
                     }
+                    let response = {
+                        "status": 402,
+                        "message": "An unexpected error occurred.",
+                        "data": null
+                    }
+                    resolve(response)
                 }
-                let response = {
-                    "status": 402,
-                    "message": "An unexpected error occurred.",
-                    "data": null
-                }
-                resolve(response)
-            }
+            })
         })
     })
 }

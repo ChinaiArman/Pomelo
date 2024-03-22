@@ -212,7 +212,7 @@ app.post("/editSpendingCategory", async (req, res) => {
 });
 
 app.post("/editTransaction", async (req, res) => {
-  let response = await editTransaction(req.body.teamSpaceID, req.body.transactionID, req.body.newTransactionName, req.body.newTransactionAmount)
+  let response = await editTransaction(req.body.teamSpaceID, req.body.transactionID, req.body.oldTransactionName, req.body.newTransactionName, req.body.newTransactionAmount, req.body.oldImage)
   res.send(response);
 });
 
