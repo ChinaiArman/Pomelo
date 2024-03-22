@@ -17,6 +17,7 @@ import Transactions from './pages/Transactions';
 import TeamSpaceSettings from './pages/TeamSpaceSettings';
 import PageNotFound from './pages/404';
 import './font.css'
+import Landing from './pages/Landing';
 
 
 var userID = window.localStorage.getItem("userID")
@@ -60,6 +61,11 @@ const router = createBrowserRouter([
     loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? window.location.href = '/register' : null)),
   },
   {
+    path: "/landing",
+    element: <Landing />,
+    loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? window.location.href = '/register' : null)),
+  },
+  {
     path: "*",
     element: <PageNotFound />,
     loader: () => null,
@@ -71,7 +77,7 @@ const router = createBrowserRouter([
       window.localStorage.removeItem("teamSpaceID")
       window.location.href = '/login'
     }
-  }
+  },
 ])
 
 function App() {
