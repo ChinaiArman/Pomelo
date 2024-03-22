@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from 'react';
 import { currencyFormatter } from "../utils";
 
 import LatestTransactionsCard from "./LatestTransactionsCard";
@@ -7,8 +8,20 @@ import NullSectionCard from "./NullSectionCard";
 import InfoCard from "./InfoCard";
 
 import logo from "../assets/logo_icon.png";
+import CreateCategoryModal from "./CreateCategoryModal";
+import { VscDiffAdded } from "react-icons/vsc";
 
-const Jumbotron = ({ username, transactions, spendingCategory, teamSpaceName, totalBudget, totalSpent }) => {
+const Jumbotron = ({ username, transactions, spendingCategory, teamSpaceName, totalBudget, totalSpent, spendingCategories, isLeader }) => {
+    const [isCreateCategoryModalOpen, setIsCreateCategoryModalOpen] = useState(false);
+
+    const openCreateCategoryModal = () => {
+        setIsCreateCategoryModalOpen(true);
+      };
+    
+      const closeCreateCategoryModal = () => {
+        setIsCreateCategoryModalOpen(false);
+      };
+
     if (spendingCategory === undefined) {
         var categoryCard = <NullSectionCard header="Oops! Looks like this section is empty!" body="Add a category below to start tracking finances with Pomelo." />
     } else {
@@ -20,6 +33,7 @@ const Jumbotron = ({ username, transactions, spendingCategory, teamSpaceName, to
     } else {
         var transactionCard = <LatestTransactionsCard transactions={transactions} />
     }
+    
     return (
         <section className="bg-white dark:bg-gray-900">
             <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
@@ -82,6 +96,30 @@ const Jumbotron = ({ username, transactions, spendingCategory, teamSpaceName, to
                         </a>
                     </div>
                 </div>
+                
+                <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mt-8">
+                    <a href="#categories" className="bg-purple-100 text-purple-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-purple-400 mb-2">
+                        <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 4 1 8l4 4m10-8 4 4-4 4M11 1 9 15" />
+                        </svg>
+                        Spending Categories
+                    </a>
+                    <h2 className="text-gray-900 dark:text-white text-3xl font-extrabold mb-2">Spending Categories</h2>
+                    <div className="flex flex-wrap justify-center gap-5" id="categories">
+                        {spendingCategories.map((category, index) => (
+                            <CategoryCard key={index} category={category} />
+                        ))}
+                        {isLeader && (
+                            <div className="bg-white border border-gray-200 rounded-lg shadow m-5 dark:bg-gray-800 dark:border-gray-700 h-36 w-36 flex items-center justify-center cursor-pointer" onClick={openCreateCategoryModal}>
+                                <VscDiffAdded size={80} />
+                            </div>
+                        )}
+                    </div>
+                    {isCreateCategoryModalOpen && (
+                        <CreateCategoryModal onClose={closeCreateCategoryModal} />
+                    )}
+                </div>
+
             </div>
         </section>
     );
