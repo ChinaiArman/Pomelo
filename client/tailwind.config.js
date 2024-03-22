@@ -28,10 +28,14 @@ export default {
           950: "#172554",
         },
         theme: {
-          cornsilk: "#FCF0D0",
-          coral: "#ED7B62",
-          ecru: "#DFBC71",
+          floralwhite: "#FFFBF3",
           oldlace: "#FCF6E8",
+          cornsilk: "#FCF0D0",
+          vanilla: "#F1DEA9",
+          coral: "#ED7B62",
+          bittersweet: "#ED6461",
+          ecru: "#DFBC71",
+          ecrudark: "#CEB172",
           mantis: "#74BC5F",
           mantisdark: "#246C0E",
         }

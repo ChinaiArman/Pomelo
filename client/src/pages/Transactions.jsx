@@ -50,7 +50,7 @@ const Transactions = () => {
 
     if (transactions.length === 0) {
         return (
-            <div className="transactions flex flex-col items-center justify-cente">
+            <div className="transactions flex flex-col items-center justify-center bg-theme-cornsilk dark:bg-gray-800 border border-theme-cornsilk dark:border-gray-700 rounded-lg p-8 md:p-12 mt-8 mx-auto max-w-screen-xl">
                 <h2 className="flex justify-center text-gray-900 dark:text-white text-3xl font-extrabold mb-5">Transactions</h2>
                 <NullSectionCard
                     header="Oops, We couldn't find any transactions..."
@@ -75,7 +75,7 @@ const Transactions = () => {
     return (
          <>
          <h2 className="flex justify-center text-gray-900 dark:text-white text-3xl font-extrabold mb-5">Transactions</h2>
-         <div className="transactions flex flex-col items-center justify-center bg-theme-cornsilk dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mt-8 mx-auto max-w-screen-xl">
+         <div className="transactions flex flex-col items-center justify-center bg-theme-cornsilk dark:bg-gray-800 border border-theme-cornsilk dark:border-gray-700 rounded-lg p-8 md:p-12 mt-8 mx-auto max-w-screen-xl">
          <TransactionsTable
              transactions={transactions}
          />
