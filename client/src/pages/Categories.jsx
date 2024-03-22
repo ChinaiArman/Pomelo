@@ -18,6 +18,8 @@ const Categories = () => {
     const [amountUsed, setAmountUsed] = useState([]);
     const [budgetLimit, setBudgetLimit] = useState([]);
     const [spendingCategoryName, setSpendingCategoryName] = useState([]);
+    const [image, setImage] = useState("https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg");
+
 
     const [isAddTransactionModalOpen, setIsAddTransactionModalOpen] = useState(false);
     const [isEditCategoryModalOpen, setIsEditCategoryModalOpen] = useState(false);
@@ -39,6 +41,7 @@ const Categories = () => {
                 setSpendingCategory(response.data.data);
                 setAmountUsed(response.data.data.amountUsed);
                 setBudgetLimit(response.data.data.budgetLimit);
+                setImage(response.data.data.styles.image);
             }).catch(error => {
                 console.log(error);
             });
@@ -67,7 +70,7 @@ const Categories = () => {
                 if (response.data.data === null) {
                     window.localStorage.removeItem("teamSpaceID")
                     window.location.replace('/register')
-              }
+                }
             }).catch(error => {
                 console.log(error)
             });
@@ -76,15 +79,15 @@ const Categories = () => {
     const openEditCategoryModal = () => {
         setIsEditCategoryModalOpen(true);
     };
-  
-      const closeEditCategoryModal = () => {
+
+    const closeEditCategoryModal = () => {
         setIsEditCategoryModalOpen(false);
     };
 
     const openAddTransactionModal = () => {
         setIsAddTransactionModalOpen(true);
     };
-  
+
     const closeAddTransactionModal = () => {
         setIsAddTransactionModalOpen(false);
     };
@@ -99,42 +102,42 @@ const Categories = () => {
 
     return (
         <div className="categories flex flex-col items-center justify-center">
-                <h1 className="text-4xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                        {spendingCategoryName}
-                </h1>
+            <h1 className="text-4xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                {spendingCategoryName}
+            </h1>
 
             <div className='flex items-center justify-center'>
                 <InfoCard title="Amount Used" value={amountUsed} />
                 <InfoCard title="Budget Limit" value={budgetLimit} />
             </div>
-            
-            <img className="rounded-t-lg" src="https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" alt="" />
+
+            <img className="rounded-t-lg" src={image} alt="" />
 
             {isLeader && (
                 <div className="flex my-5">
-                    <button 
+                    <button
                         className="bg-gray-500 hover:bg-gray-400 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center mr-2"
                         onClick={openEditCategoryModal}
                     >
                         <span className="flex items-center">
-                            <CiEdit className="mr-1" size={20}/>
+                            <CiEdit className="mr-1" size={20} />
                             Edit Category
                         </span>
                     </button>
-                    <button 
+                    <button
                         className="bg-red-500 hover:bg-red-400 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center mr-2"
                         onClick={openConfirmDeleteModal}
                     >
                         <span className="flex items-center">
-                            <MdDeleteOutline className='mr-1' size={20}/>
+                            <MdDeleteOutline className='mr-1' size={20} />
                             Delete Category
                         </span>
-                     </button>
-                 </div>
+                    </button>
+                </div>
             )}
 
             {isEditCategoryModalOpen && (
-                <EditCategoryModal 
+                <EditCategoryModal
                     onClose={closeEditCategoryModal}
                     currentCategoryName={spendingCategoryName}
                     currentBudgetLimit={budgetLimit}
@@ -142,7 +145,7 @@ const Categories = () => {
                 />
             )}
             {isConfirmDeleteModalOpen && (
-                <ConfirmDeleteModal 
+                <ConfirmDeleteModal
                     itemName={spendingCategoryName}
                     onClose={closeConfirmDeleteModal}
                     type="Spending Category"
@@ -156,13 +159,13 @@ const Categories = () => {
                 <button
                     className="mt-4 bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                     onClick={openAddTransactionModal}
-                    >
+                >
                     Add Transaction
                 </button>
                 {isAddTransactionModalOpen && (
-                    <CreateTransactionModal 
-                    onClose={closeAddTransactionModal}
-                    spendingCategories={[spendingCategory]}
+                    <CreateTransactionModal
+                        onClose={closeAddTransactionModal}
+                        spendingCategories={[spendingCategory]}
                     />
                 )}
             </div>
