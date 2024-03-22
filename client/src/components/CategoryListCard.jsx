@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
+import { TbCategoryPlus } from "react-icons/tb";
 
 import ConfirmDeleteModal from "./ConfirmDeleteModal";
 import { currencyFormatter } from '../utils';
 import EditCategoryModal from './EditCategoryModal';
 
 
-const CategoryListCard = ({teamSpaceName, categoryList}) => {
+const CategoryListCard = ({categoryList}) => {
     const [selectedCategory, setSelectedCategory] = useState(null);
 
     const [isEditCategoryModalOpen, setIsEditCategoryModalOpen] = useState(false);
@@ -34,7 +35,12 @@ const CategoryListCard = ({teamSpaceName, categoryList}) => {
     return (
     <div className="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
         <div className="flex items-center justify-between mb-4">
-            <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">{teamSpaceName}: Spending Categories</h5>
+            <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">
+                <span className='flex items-center'>
+                    <TbCategoryPlus className='mr-2' size={20} />
+                    Spending Categories
+                </span>
+            </h5>
         </div>
         <div className="flow-root">
             <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
