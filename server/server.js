@@ -207,7 +207,7 @@ app.post("/editTeamSpace", async (req, res) => {
 });
 
 app.post("/editSpendingCategory", async (req, res) => {
-  let response = await editSpendingCategory(req.body.teamSpaceID, req.body.spendingCategoryID, req.body.newSpendingCategoryName, req.body.newSpendingCategoryBudgetLimit)
+  let response = await editSpendingCategory(req.body.teamSpaceID, req.body.spendingCategoryID, req.body.oldSpendingCategoryName, req.body.newSpendingCategoryName, req.body.newSpendingCategoryBudgetLimit, req.body.oldImage)
   res.send(response);
 });
 

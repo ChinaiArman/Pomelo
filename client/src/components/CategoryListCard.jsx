@@ -69,6 +69,7 @@ const CategoryListCard = ({categoryList}) => {
                                     currentCategoryName={selectedCategory.spendingCategoryName}
                                     currentBudgetLimit={selectedCategory.budgetLimit}
                                     spendingCategoryID={selectedCategory.spendingCategoryID}
+                                    oldImage={selectedCategory.styles.image}
                                 />
                             )}
                             {isConfirmDeleteModalOpen && selectedCategory && (

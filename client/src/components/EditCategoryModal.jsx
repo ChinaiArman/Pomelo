@@ -2,7 +2,8 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useState } from 'react';
 import axios from 'axios';
 
-const EditCategoryModal = ({onClose, currentCategoryName, currentBudgetLimit, spendingCategoryID}) => {
+const EditCategoryModal = ({onClose, currentCategoryName, currentBudgetLimit, spendingCategoryID, oldImage}) => {
+    const oldCategoryName = currentCategoryName;
     const [newCategoryName, setNewCategoryName] = useState(currentCategoryName);
     const [newBudgetLimit, setNewBudgetLimit] = useState(currentBudgetLimit);
 
@@ -11,8 +12,10 @@ const EditCategoryModal = ({onClose, currentCategoryName, currentBudgetLimit, sp
         await axios.post('http://localhost:5000/editSpendingCategory', {
             "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
             "spendingCategoryID": spendingCategoryID,
+            "oldSpendingCategoryName": oldCategoryName,
             "newSpendingCategoryName": newCategoryName,
-            "newSpendingCategoryBudgetLimit": Number(newBudgetLimit)
+            "newSpendingCategoryBudgetLimit": Number(newBudgetLimit),
+            "oldImage": oldImage
         }).then(response => {
             console.log(response)
             window.location.href = window.location.href

@@ -176,6 +176,7 @@ const Categories = () => {
                     currentCategoryName={spendingCategoryName}
                     currentBudgetLimit={budgetLimit}
                     spendingCategoryID={spendingCategoryID}
+                    oldImage={spendingCategory.styles.image}
                 />
             )}
             {isConfirmDeleteModalOpen && (

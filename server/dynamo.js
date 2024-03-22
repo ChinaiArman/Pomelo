@@ -1155,64 +1155,74 @@ export let getUserStyleObject = async function (userID) {
     })
 }
 
-export let editSpendingCategory = async function (teamSpaceID, spendingCategoryID, newSpendingCategoryName, newSpendingCategoryBudgetLimit) {
-    let paramsOne = {
-        TableName: TABLENAME,
-        FilterExpression: "teamSpaceID = :teamSpaceID",
-        ExpressionAttributeValues: {
-            ":teamSpaceID": teamSpaceID
+export let editSpendingCategory = async function (teamSpaceID, spendingCategoryID, oldSpendingCategoryName, newSpendingCategoryName, newSpendingCategoryBudgetLimit, oldImage) {
+    await axios.get(`https://api.unsplash.com/search/photos/?query=${newSpendingCategoryName.replace(" ", "-")}&orientation=landscape&client_id=${UNSPLASHED_ACCESS_KEY}`)
+    .then(response => {
+        let randInt = randomInt(0, response.data.results.length)
+        if (oldSpendingCategoryName !== newSpendingCategoryName) {
+            var newImage = response.data.results[randInt].urls.regular ? response.data.results[randInt].urls.regular : "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
+        } else {
+            var newImage = oldImage
         }
-    }
-    return new Promise((resolve, reject) => {
-        dynamoDB.scan(paramsOne, (err, data) => {
-            if (err) {
-                let response = {
-                    "status": 401,
-                    "message": err.message,
-                    "data": null
-                }
-                resolve(response)
-            } else {
-                let spendingCategories = data.Items[0].spendingCategories
-                for (let i = 0; i < spendingCategories.length; i++) {
-                    if (spendingCategories[i].spendingCategoryID === spendingCategoryID) {
-                        let paramsTwo = {
-                            TableName: TABLENAME,
-                            Key: {
-                                "teamSpaceID": teamSpaceID
-                            },
-                            UpdateExpression: "SET spendingCategories[" + i + "].budgetLimit = :newBudgetLimit, spendingCategories[" + i + "].spendingCategoryName = :newName",
-                            ExpressionAttributeValues: {
-                                ":newBudgetLimit": newSpendingCategoryBudgetLimit,
-                                ":newName": newSpendingCategoryName
-                            }
-                        }
-                        dynamoDB.update(paramsTwo, (err, data) => {
-                            if (err) {
-                                let response = {
-                                    "status": 401,
-                                    "message": err.message,
-                                    "data": null
-                                }
-                                resolve(response)
-                            } else {
-                                let response = {
-                                    "status": 202,
-                                    "message": "Success",
-                                    "data": null
-                                }
-                                resolve(response)
-                            }
-                        })
-                    }
-                }
-                let response = {
-                    "status": 402,
-                    "message": "An unexpected error occurred.",
-                    "data": null
-                }
-                resolve(response)
+        let paramsOne = {
+            TableName: TABLENAME,
+            FilterExpression: "teamSpaceID = :teamSpaceID",
+            ExpressionAttributeValues: {
+                ":teamSpaceID": teamSpaceID
             }
+        }
+        return new Promise((resolve, reject) => {
+            dynamoDB.scan(paramsOne, (err, data) => {
+                if (err) {
+                    let response = {
+                        "status": 401,
+                        "message": err.message,
+                        "data": null
+                    }
+                    resolve(response)
+                } else {
+                    let spendingCategories = data.Items[0].spendingCategories
+                    for (let i = 0; i < spendingCategories.length; i++) {
+                        if (spendingCategories[i].spendingCategoryID === spendingCategoryID) {
+                            let paramsTwo = {
+                                TableName: TABLENAME,
+                                Key: {
+                                    "teamSpaceID": teamSpaceID
+                                },
+                                UpdateExpression: "SET spendingCategories[" + i + "].budgetLimit = :newBudgetLimit, spendingCategories[" + i + "].spendingCategoryName = :newName, spendingCategories[" + i + "].styles = :newStyles",
+                                ExpressionAttributeValues: {
+                                    ":newBudgetLimit": newSpendingCategoryBudgetLimit,
+                                    ":newName": newSpendingCategoryName,
+                                    ":newStyles": {"image": newImage}
+                                }
+                            }
+                            dynamoDB.update(paramsTwo, (err, data) => {
+                                if (err) {
+                                    let response = {
+                                        "status": 401,
+                                        "message": err.message,
+                                        "data": null
+                                    }
+                                    resolve(response)
+                                } else {
+                                    let response = {
+                                        "status": 202,
+                                        "message": "Success",
+                                        "data": null
+                                    }
+                                    resolve(response)
+                                }
+                            })
+                        }
+                    }
+                    let response = {
+                        "status": 402,
+                        "message": "An unexpected error occurred.",
+                        "data": null
+                    }
+                    resolve(response)
+                }
+            })
         })
     })
 }
