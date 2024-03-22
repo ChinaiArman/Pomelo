@@ -10,6 +10,8 @@ export default {
       spacing: {
         '960': '960px',
         '540': '540px',
+        '318': '318px',
+        '212': '212px',
       },
       colors: {
         primary: {
