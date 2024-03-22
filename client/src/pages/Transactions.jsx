@@ -4,6 +4,7 @@ import { CiEdit } from "react-icons/ci";
 
 import TransactionsTable from '../components/TransactionsTable';
 import CreateTransactionModal from '../components/CreateTransactionModal';
+import NullSectionCard from '../components/NullSectionCard';
 
 const Transactions = () => {
     const [spendingCategories, setSpendingCategories] = useState([]);
@@ -33,7 +34,7 @@ const Transactions = () => {
                 if (response.data.data === null) {
                     window.localStorage.removeItem("teamSpaceID")
                     window.location.replace('/register')
-              }
+                }
             }).catch(error => {
                 console.log(error)
             });
@@ -42,33 +43,57 @@ const Transactions = () => {
     const openAddTransactionModal = () => {
         setIsAddTransactionModalOpen(true);
     };
-  
+
     const closeAddTransactionModal = () => {
         setIsAddTransactionModalOpen(false);
     };
 
+    if (transactions.length === 0) {
+        return (
+            <div className="transactions flex flex-col items-center justify-cente">
+                <p>Transactions</p>
+                <NullSectionCard
+                    header="Oops, We couldn't find any transactions..."
+                    body="Add a transaction to start tracking finances with Pomelo."
+                />
+                <button
+                    className="mt-4 bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    onClick={openAddTransactionModal}
+                >
+                    Add Transaction
+                </button>
+                {isAddTransactionModalOpen && (
+                    <CreateTransactionModal
+                        onClose={closeAddTransactionModal}
+                        spendingCategories={spendingCategories}
+                    />
+                )}
+            </div>
+        );
+    }
+
     return (
         <div className="transactions flex flex-col items-center justify-cente">
             <p>Transactions</p>
-            <TransactionsTable 
+            <TransactionsTable
                 transactions={transactions}
                 isTransactionsPage={true}
             />
 
             <button
-            className="mt-4 bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-            onClick={openAddTransactionModal}
+                className="mt-4 bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                onClick={openAddTransactionModal}
             >
                 Add Transaction
             </button>
             {isAddTransactionModalOpen && (
-                <CreateTransactionModal 
-                onClose={closeAddTransactionModal}
-                spendingCategories={spendingCategories}
+                <CreateTransactionModal
+                    onClose={closeAddTransactionModal}
+                    spendingCategories={spendingCategories}
                 />
             )}
         </div>
-        
+
     );
 }
 
