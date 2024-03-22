@@ -51,7 +51,7 @@ const Transactions = () => {
     if (transactions.length === 0) {
         return (
             <div className="transactions flex flex-col items-center justify-cente">
-                <p>Transactions</p>
+                <h2 className="flex justify-center text-gray-900 dark:text-white text-3xl font-extrabold mb-5">Transactions</h2>
                 <NullSectionCard
                     header="Oops, We couldn't find any transactions..."
                     body="Add a transaction to start tracking finances with Pomelo."
