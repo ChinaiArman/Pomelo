@@ -121,7 +121,7 @@ let getTeamSpaceID = async function (userID) {
                   Don’t have an account yet?{" "}
                   <a
                     href="/signup"
-                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                    className="font-medium text-theme-mantis hover:underline dark:text-primary-500"
                   >
                     Sign up
                   </a>
