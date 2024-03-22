@@ -9,33 +9,33 @@ const Login = () => {
   let handleLogin = async function (event) {
     event.preventDefault();
     await axios.post('http://localhost:5000/login', { username, password })
-        .then(async response => {
-            window.localStorage.setItem("userID", response.data.data.userID)
-            window.localStorage.setItem("username", username)
-            if (response.data.status == 201) {
-                await getTeamSpaceID(response.data.data.userID)
-            } else {
-                setErrorMessage('Invalid username or password. Please try again.');
-                setUsername('');
-                setPassword('');
-            }
-        })
-        .catch(error => { console.log(error) });
-}
+      .then(async response => {
+        if (response.data.status == 201) {
+          await getTeamSpaceID(response.data.data.userID)
+          window.localStorage.setItem("userID", response.data.data.userID)
+          window.localStorage.setItem("username", username)
+        } else {
+          setErrorMessage('Invalid username or password. Please try again.');
+          setUsername('');
+          setPassword('');
+        }
+      })
+      .catch(error => { console.log(error) });
+  }
 
-let getTeamSpaceID = async function (userID) {
-  await axios.get('http://localhost:5000/getTeamSpaceByUserID', { params: { "userID": userID } })
+  let getTeamSpaceID = async function (userID) {
+    await axios.get('http://localhost:5000/getTeamSpaceByUserID', { params: { "userID": userID } })
       .then(response => {
-          if (response.data.status == 201 && response.data.data.teamSpaceID != null) {
-              window.localStorage.setItem("teamSpaceID", response.data.data.teamSpaceID)
-              window.location.replace('/')
-          } else {
-              window.location.replace('/register')
-          }
+        if (response.data.status == 201 && response.data.data.teamSpaceID != null) {
+          window.localStorage.setItem("teamSpaceID", response.data.data.teamSpaceID)
+          window.location.replace('/')
+        } else {
+          window.location.replace('/register')
+        }
       }).catch(error => {
-          console.log(error)
+        console.log(error)
       });
-}
+  }
 
   return (
     <>
