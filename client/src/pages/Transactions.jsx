@@ -51,7 +51,7 @@ const Transactions = () => {
     if (transactions.length === 0) {
         return (
             <div className="transactions flex flex-col items-center justify-cente">
-                <p>Transactions</p>
+                <h2 className="flex justify-center text-gray-900 dark:text-white text-3xl font-extrabold mb-5">Transactions</h2>
                 <NullSectionCard
                     header="Oops, We couldn't find any transactions..."
                     body="Add a transaction to start tracking finances with Pomelo."
@@ -78,7 +78,6 @@ const Transactions = () => {
          <div className="transactions flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mt-8 mx-auto max-w-screen-xl">
          <TransactionsTable
              transactions={transactions}
-             isTransactionsPage={true}
          />
              <button
                  className="mt-4 bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"

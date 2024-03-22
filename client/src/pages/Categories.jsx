@@ -170,7 +170,7 @@ const Categories = () => {
             )}
 
             <div className="transactions flex flex-col items-center justify-center">
-                <p>Transactions</p>
+            <h2 className="flex justify-center text-gray-900 dark:text-white text-2xl font-bold mb-5">Transactions</h2>
                 <TransactionsTable transactions={transactions} />
                 <button
                     className="mt-4 bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
