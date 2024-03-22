@@ -96,7 +96,14 @@ const Home = () => {
       <div className="flex">
         {/* <InfoCard title="Total Budget" value={totalBudget} />
         <InfoCard title="Amount Used" value={totalSpent} /> */}
-        <Jumbotron username={window.localStorage.getItem("username")} transactions={transactions} spendingCategory={largestSpendingCategory} teamSpaceName={teamSpaceName} />
+        <Jumbotron 
+          username={window.localStorage.getItem("username")} 
+          transactions={transactions} 
+          spendingCategory={largestSpendingCategory} 
+          teamSpaceName={teamSpaceName} 
+          totalBudget={totalBudget}
+          totalSpent={totalSpent}
+        />
       </div>
       <div className="flex flex-wrap items-center justify-center mt-5 mb-5" id="categories">
         {spendingCategories.map((category, index) => (

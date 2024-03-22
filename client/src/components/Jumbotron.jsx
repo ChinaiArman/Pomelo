@@ -4,10 +4,11 @@ import { currencyFormatter } from "../utils";
 import LatestTransactionsCard from "./LatestTransactionsCard";
 import CategoryCard from "./CategoryCard";
 import NullSectionCard from "./NullSectionCard";
+import InfoCard from "./InfoCard";
 
 import logo from "../assets/logo_icon.png";
 
-const Jumbotron = ({ username, transactions, spendingCategory, teamSpaceName }) => {
+const Jumbotron = ({ username, transactions, spendingCategory, teamSpaceName, totalBudget, totalSpent }) => {
     if (spendingCategory === undefined) {
         var categoryCard = <NullSectionCard header="Oops! Looks like this section is empty!" body="Add a category below to start tracking finances with Pomelo." />
     } else {
@@ -32,9 +33,22 @@ const Jumbotron = ({ username, transactions, spendingCategory, teamSpaceName }) 
                         </svg>
                     </a>
                 </div>
-                <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8">
 
+                <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8">
+                    {/* <InfoCard budgetTitle="Total Budget" budgetValue={totalBudget} amountUsedValue={totalSpent} /> */}
+                    <div className="flex items-center justify-center">
+                        <div className="text-center flex-1">
+                            <h3 className="text-gray-900 dark:text-white text-3xl font-medium mb-2">Amount Used</h3>
+                            <p className="text-9xl">{currencyFormatter.format(totalSpent)}</p>
+                        </div>
+                        <div className="mx-5 h-20 min-h-[1em] w-0.5 bg-gray-300 dark:bg-white/10"></div>
+                        <div className="text-center flex-1">
+                            <h3 className="text-gray-900 dark:text-white text-3xl font-medium mb-">Total Budget</h3>
+                            <p className="text-9xl">{currencyFormatter.format(totalBudget)}</p>
+                        </div>
+                    </div>
                 </div>
+                
                 <div className="grid md:grid-cols-2 gap-8 justify-center mt-8">
                     <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 justify-center items-center">
                         <a href="#" className="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 mb-2">

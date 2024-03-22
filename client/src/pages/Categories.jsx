@@ -9,6 +9,7 @@ import CreateTransactionModal from '../components/CreateTransactionModal';
 import InfoCard from '../components/InfoCard';
 import EditCategoryModal from '../components/EditCategoryModal';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
+import { currencyFormatter } from '../utils';
 
 const Categories = () => {
     const [searchParams] = useSearchParams();
@@ -110,6 +111,21 @@ const Categories = () => {
                 <InfoCard title="Amount Used" value={amountUsed} />
                 <InfoCard title="Budget Limit" value={budgetLimit} />
             </div>
+
+            {/* <div className='flex py-8 px-4 max-w-screen-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 md:p-8 mb-8'>
+                <InfoCard budgetTitle="Budget Limit" budgetValue={budgetLimit} amountUsedValue={amountUsed} />
+                <div className="flex items-center justify-center">
+                    <div className="text-center flex-1">
+                        <h3 className="text-gray-900 dark:text-white text-lg font-medium mb-2">Amount Used</h3>
+                        <p className="text-5xl">{currencyFormatter.format(amountUsed)}</p>
+                    </div>
+                    <div className="mx-5 h-20 min-h-[1em] w-0.5 bg-gray-300 dark:bg-white/10"></div>
+                        <div className="text-center flex-1">
+                        <h3 className="text-gray-900 dark:text-white text-lg font-medium mb-">Budget Limit</h3>
+                    <p className="text-5xl">{currencyFormatter.format(budgetLimit)}</p>
+                    </div>
+                </div>
+            </div> */}
 
             <img className="rounded-t-lg w-960 h-540" src={image} alt="" />
 
