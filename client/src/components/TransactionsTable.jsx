@@ -34,6 +34,9 @@ const TransactionsTable = ({ transactions, isTransactionsPage }) => {
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" className="px-6 py-3">
+                            Image
+                        </th>
+                        <th scope="col" className="px-6 py-3">
                             Item
                         </th>
                         <th scope="col" className="px-6 py-3">
@@ -70,6 +73,11 @@ const TransactionsTable = ({ transactions, isTransactionsPage }) => {
                                 key={index}     
                                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
                             >
+                                <td className="px-6 py-4">
+                                    <a href={redirect}>
+                                        <img className="w-8 h-8 rounded-full" src={transaction.styles.image} alt="image" />
+                                    </a>
+                                </td>
                                 <td className="px-6 py-4">
                                     <a href={redirect}>
                                         {transaction.transactionName}

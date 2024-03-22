@@ -422,98 +422,104 @@ export let createNewSpendingCategory = async function (teamSpaceID, spendingCate
 }
 
 export let createNewTransaction = async function (teamSpaceID, spendingCategoryID, spendingCategoryName, userID, username, transactionName, transactionAmount) {
-    let paramsOne = {
-        TableName: TABLENAME,
-        FilterExpression: "teamSpaceID = :teamSpaceID",
-        ExpressionAttributeValues: {
-            ":teamSpaceID": teamSpaceID
-        }
-    }
-
-    let input = {
-        "transactionDate": new Date().toDateString(),
-        "transactionName": transactionName,
-        "userID": userID,
-        "username": username,
-        "spendingCategoryID": spendingCategoryID,
-        "spendingCategoryName": spendingCategoryName,
-        "transactionID": "T" + crypto.randomBytes(4).toString('hex'),
-        "transactionAmount": transactionAmount,
-        "styles": {}
-    }
-    return new Promise((resolve, reject) => {
-        dynamoDB.scan(paramsOne, (err, data) => {
-            if (err) {
-                let response = {
-                    "status": 401,
-                    "message": err.message,
-                    "data": null,
-                }
-                resolve(response)
-            } else {
-                let spendingCategories = data.Items[0].spendingCategories
-                for (let i = 0; i < spendingCategories.length; i++) {
-                    if (spendingCategories[i].spendingCategoryID === spendingCategoryID) {
-                        let paramsTwo = {
-                            TableName: TABLENAME,
-                            Key: {
-                                "teamSpaceID": teamSpaceID
-                            },
-                            UpdateExpression: "SET spendingCategories[" + i + "].transactions = list_append(spendingCategories[" + i + "].transactions, :transaction)",
-                            ExpressionAttributeValues: {
-                                ":transaction": [input]
-                            }
-                        }
-                        dynamoDB.update(paramsTwo, (err, data) => {
-                            if (err) {
-                                let response = {
-                                    "status": 401,
-                                    "message": err.message,
-                                    "data": null
-                                }
-                                resolve(response)
-                            } else {
-                                let paramsThree = {
-                                    TableName: TABLENAME,
-                                    Key: {
-                                        "teamSpaceID": teamSpaceID
-                                    },
-                                    UpdateExpression: "SET spendingCategories[" + i + "].amountUsed = spendingCategories[" + i + "].amountUsed + :transactionAmount",
-                                    ExpressionAttributeValues: {
-                                        ":transactionAmount": transactionAmount
-                                    }
-                                }
-                                dynamoDB.update(paramsThree, (err, data) => {
-                                    if (err) {
-                                        let response = {
-                                            "status": 401,
-                                            "message": err.message,
-                                            "data": null
-                                        }
-                                        resolve(response)
-                                    } else {
-                                        let response = {
-                                            "status": 201,
-                                            "message": "Success",
-                                            "data": {
-                                                "transactionID": input.transactionID,
-                                            }
-                                        }
-                                        resolve(response)
-                                    }
-                                })
-                            }
-                        })
-                    }
-                }
-                let response = {
-                    "status": 402,
-                    "message": "An unexpected error occurred.",
-                    "data": null
-                }
-                resolve(response)
+    await axios.get(`https://source.unsplash.com/1600x900/?${transactionName}`)
+    .then(response => {
+        let image = response.request.res.responseUrl ? response.request.res.responseUrl : "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
+        let paramsOne = {
+            TableName: TABLENAME,
+            FilterExpression: "teamSpaceID = :teamSpaceID",
+            ExpressionAttributeValues: {
+                ":teamSpaceID": teamSpaceID
             }
+        }
+
+        let input = {
+            "transactionDate": new Date().toDateString(),
+            "transactionName": transactionName,
+            "userID": userID,
+            "username": username,
+            "spendingCategoryID": spendingCategoryID,
+            "spendingCategoryName": spendingCategoryName,
+            "transactionID": "T" + crypto.randomBytes(4).toString('hex'),
+            "transactionAmount": transactionAmount,
+            "styles": {"image": image}
+        }
+        return new Promise((resolve, reject) => {
+            dynamoDB.scan(paramsOne, (err, data) => {
+                if (err) {
+                    let response = {
+                        "status": 401,
+                        "message": err.message,
+                        "data": null,
+                    }
+                    resolve(response)
+                } else {
+                    let spendingCategories = data.Items[0].spendingCategories
+                    for (let i = 0; i < spendingCategories.length; i++) {
+                        if (spendingCategories[i].spendingCategoryID === spendingCategoryID) {
+                            let paramsTwo = {
+                                TableName: TABLENAME,
+                                Key: {
+                                    "teamSpaceID": teamSpaceID
+                                },
+                                UpdateExpression: "SET spendingCategories[" + i + "].transactions = list_append(spendingCategories[" + i + "].transactions, :transaction)",
+                                ExpressionAttributeValues: {
+                                    ":transaction": [input]
+                                }
+                            }
+                            dynamoDB.update(paramsTwo, (err, data) => {
+                                if (err) {
+                                    let response = {
+                                        "status": 401,
+                                        "message": err.message,
+                                        "data": null
+                                    }
+                                    resolve(response)
+                                } else {
+                                    let paramsThree = {
+                                        TableName: TABLENAME,
+                                        Key: {
+                                            "teamSpaceID": teamSpaceID
+                                        },
+                                        UpdateExpression: "SET spendingCategories[" + i + "].amountUsed = spendingCategories[" + i + "].amountUsed + :transactionAmount",
+                                        ExpressionAttributeValues: {
+                                            ":transactionAmount": transactionAmount
+                                        }
+                                    }
+                                    dynamoDB.update(paramsThree, (err, data) => {
+                                        if (err) {
+                                            let response = {
+                                                "status": 401,
+                                                "message": err.message,
+                                                "data": null
+                                            }
+                                            resolve(response)
+                                        } else {
+                                            let response = {
+                                                "status": 201,
+                                                "message": "Success",
+                                                "data": {
+                                                    "transactionID": input.transactionID,
+                                                }
+                                            }
+                                            resolve(response)
+                                        }
+                                    })
+                                }
+                            })
+                        }
+                    }
+                    let response = {
+                        "status": 402,
+                        "message": "An unexpected error occurred.",
+                        "data": null
+                    }
+                    resolve(response)
+                }
+            })
         })
+    }).catch(error => {
+        console.log(error)
     })
 }
 
