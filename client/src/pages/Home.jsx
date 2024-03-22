@@ -1,8 +1,14 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Jumbotron from '../components/Jumbotron';
+import Landing from './Landing';
+import NavBar from '../components/NavBar';
+import Footer from '../components/Footer';
 
 const Home = () => {
+  if (!window.localStorage.getItem("userID")) {
+    return <Landing />;
+  }
   const [teamSpaceName, setTeamSpaceName] = useState('')
   const [totalSpent, setTotalSpent] = useState('');
   const [totalBudget, setTotalBudget] = useState('');
@@ -74,20 +80,24 @@ const Home = () => {
   };
 
   return (
-    <div className="home flex flex-col items-center justify-center">
+    <div>
+      <NavBar />
+      <div className="home flex flex-col items-center justify-center">
 
-      <div className="flex">
-        <Jumbotron 
-          username={window.localStorage.getItem("username")} 
-          transactions={transactions} 
-          spendingCategory={largestSpendingCategory} 
-          teamSpaceName={teamSpaceName} 
-          totalBudget={totalBudget}
-          totalSpent={totalSpent}
-          spendingCategories={spendingCategories}
-          isLeader={isLeader}
-        />
+        <div className="flex">
+          <Jumbotron
+            username={window.localStorage.getItem("username")}
+            transactions={transactions}
+            spendingCategory={largestSpendingCategory}
+            teamSpaceName={teamSpaceName}
+            totalBudget={totalBudget}
+            totalSpent={totalSpent}
+            spendingCategories={spendingCategories}
+            isLeader={isLeader}
+          />
+        </div>
       </div>
+      <Footer />
     </div>
   );
 }

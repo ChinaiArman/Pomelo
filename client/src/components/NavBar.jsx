@@ -30,7 +30,7 @@ const NavBar = () => {
     window.localStorage.removeItem("userID")
     window.localStorage.removeItem("username");
     window.localStorage.removeItem("teamSpaceID");
-    window.location.replace('/login')
+    window.location.replace('/')
   }
 
   const navItems = [
@@ -66,14 +66,14 @@ const NavBar = () => {
               <Dropdown label="Settings" inline className="bg-theme-oldlace shadow">
                 {isLeader && <Dropdown.Item href="/teamSpaceSettings">
                   <span className="flex items-center">
-                      <IoSettingsOutline className='mr-1' size={15}/> 
-                      Team Space Settings
+                    <IoSettingsOutline className='mr-1' size={15} />
+                    Team Space Settings
                   </span>
-                  </Dropdown.Item>
+                </Dropdown.Item>
                 }
                 <Dropdown.Item onClick={() => handleLogout()}>
                   <span className="flex items-center">
-                    <MdLogout className='mr-1' size={15}/> 
+                    <MdLogout className='mr-1' size={15} />
                     Logout
                   </span>
                 </Dropdown.Item>

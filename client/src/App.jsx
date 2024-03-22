@@ -28,7 +28,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-    loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? window.location.href = '/register' : null)),
   },
   {
     path: "/login",
@@ -43,27 +42,22 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
-    loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? null : window.location.href = '/')),
+    loader: () => (!userID ? window.location.href = '/' : (!teamSpaceID ? null : window.location.href = '/')),
   },
   {
     path: "/categories",
     element: <Categories />,
-    loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? window.location.href = '/register' : null)),
+    loader: () => (!userID ? window.location.href = '/' : (!teamSpaceID ? window.location.href = '/register' : null)),
   },
   {
     path: "/transactions",
     element: <Transactions />,
-    loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? window.location.href = '/register' : null)),
+    loader: () => (!userID ? window.location.href = '/' : (!teamSpaceID ? window.location.href = '/register' : null)),
   },
   {
     path: "/teamSpaceSettings",
     element: <TeamSpaceSettings />,
-    loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? window.location.href = '/register' : null)),
-  },
-  {
-    path: "/landing",
-    element: <Landing />,
-    loader: () => (!userID ? window.location.href = '/login' : (!teamSpaceID ? window.location.href = '/register' : null)),
+    loader: () => (!userID ? window.location.href = '/' : (!teamSpaceID ? window.location.href = '/register' : null)),
   },
   {
     path: "*",
@@ -75,13 +69,13 @@ const router = createBrowserRouter([
     loader: () => {
       window.localStorage.removeItem("userID")
       window.localStorage.removeItem("teamSpaceID")
-      window.location.href = '/login'
+      window.location.href = '/'
     }
   },
 ])
 
 function App() {
-  if (window.location.pathname === '/login' || window.location.pathname === '/signup' || window.location.pathname === '/register' || window.location.pathname === '/404') {
+  if (window.location.pathname === '/login' || window.location.pathname === '/signup' || window.location.pathname === '/register' || window.location.pathname === '/404' || window.location.pathname === '/') {
     return (
       <div className="App">
         <RouterProvider router={router} />
