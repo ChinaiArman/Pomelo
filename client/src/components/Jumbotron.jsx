@@ -111,7 +111,7 @@ const Jumbotron = ({ username, transactions, spendingCategory, teamSpaceName, to
                             <CategoryCard key={index} category={category} />
                         ))}
                         {isLeader && (
-                            <div className="bg-white border border-theme-cornsilk rounded-lg shadow m-5 dark:bg-gray-800 dark:border-gray-700 h-36 w-36 flex items-center justify-center cursor-pointer" onClick={openCreateCategoryModal}>
+                            <div className="bg-theme-oldlace border-theme-cornsilk rounded-lg shadow m-5 dark:bg-gray-800 dark:border-gray-700 h-36 w-36 flex items-center justify-center cursor-pointer" onClick={openCreateCategoryModal}>
                                 <VscDiffAdded size={80} />
                             </div>
                         )}
