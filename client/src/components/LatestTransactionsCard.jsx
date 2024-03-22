@@ -4,7 +4,7 @@ import { currencyFormatter } from "../utils";
 const LatestTransactionsCard = ({ transactions }) => {
     transactions = transactions.slice(0, 5);
     return (
-        <div className="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-full max-w-md p-4 bg-theme-oldlace border border-theme-oldlace rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
             <div className="flex items-center justify-between mb-4">
                 <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Latest Transactions</h5>
                 <a href="/transactions" className="text-sm font-medium text-theme-mantis hover:underline dark:text-blue-500">
