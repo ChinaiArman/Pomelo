@@ -31,7 +31,7 @@ const TransactionsTable = ({ transactions }) => {
     return (
         <div className="overflow-x-auto shadow-md sm:rounded-lg w-full items-center justify-center">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-theme-oldlace dark:bg-gray-700 dark:text-gray-400 text-center">
+                <thead className="text-xs text-gray-700 uppercase bg-theme-vanilla dark:bg-gray-700 dark:text-gray-400 text-center">
                     <tr>
                         <th scope="col" className="px-6 py-3">
                             Image
@@ -66,7 +66,7 @@ const TransactionsTable = ({ transactions }) => {
                         return (
                             <tr 
                                 key={index}     
-                                className="bg-theme-oldlace border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                                className="bg-theme-oldlace border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-theme-floralwhite dark:hover:bg-gray-600 text-center"
                             >
                                 <td className="px-6 py-4 flex justify-center">
                                     <a href={redirect}>

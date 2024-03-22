@@ -37,7 +37,7 @@ const CreateCategoryModal = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
-      <div className="bg-white p-6 rounded-lg mt-1 relative max-w-md w-full">
+      <div className="bg-theme-cornsilk p-6 rounded-lg mt-1 relative max-w-md w-full">
         <IoCloseSharp className="absolute top-0 right-0 mr-4 mt-4 cursor-pointer"size={35} onClick={onClose}/>
         <h1 className="mb-4 text-lg font-bold">Create Spending Category</h1>
         <form
@@ -50,7 +50,7 @@ const CreateCategoryModal = ({ onClose }) => {
               type="text"
               placeholder="Enter the name of the spending category"
               onChange={(e) => setNewSpendingCategory(e.target.value)}
-              className="border border-gray-300 rounded-lg px-4 py-2 text-sm"
+              className="border border-gray-300 rounded-lg px-4 py-2 text-sm bg-theme-oldlace focus:border-theme-mantis focus:ring-theme-mantisdark"
               required
             />
           </div>
@@ -62,11 +62,11 @@ const CreateCategoryModal = ({ onClose }) => {
               onChange={(e) =>
                 setNewSpendingCategoryBudgetLimit(e.target.value)
               }
-              className="border border-gray-300 rounded-lg px-4 py-2 text-sm"
+              className="border border-gray-300 rounded-lg px-4 py-2 text-sm bg-theme-oldlace focus:border-theme-mantis focus:ring-theme-mantisdark"
               required
             />
           </div>
-          <button className="bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+          <button className="bg-theme-mantis hover:bg-theme-mantisdark focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
             Create Spending Category
           </button>
         </form>

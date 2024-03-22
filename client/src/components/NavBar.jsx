@@ -63,7 +63,7 @@ const NavBar = () => {
               }
             })}
             <li>
-              <Dropdown label="Settings" inline>
+              <Dropdown label="Settings" inline className="bg-theme-oldlace shadow">
                 {isLeader && <Dropdown.Item href="/teamSpaceSettings">
                   <span className="flex items-center">
                       <IoSettingsOutline className='mr-1' size={15}/> 

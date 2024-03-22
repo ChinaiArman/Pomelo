@@ -9,7 +9,7 @@ const CategoryCard = ({ category }) => {
   }
   var redirect = "/categories?id=" + category.spendingCategoryID;
   return (
-    <div className="max-w-xs bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-5">
+    <div className="max-w-xs bg-theme-oldlace border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-5">
       <a href={redirect}>
         <img className="rounded-t-lg w-318 h-212" src={image} alt="" />
       </a>

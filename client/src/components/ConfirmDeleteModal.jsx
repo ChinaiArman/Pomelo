@@ -69,7 +69,7 @@ const ConfirmDeleteModal = ({itemName, onClose, type, itemID}) => {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
-            <div className="flex max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 relative">
+            <div className="flex max-w-sm p-6 bg-theme-cornsilk border border-theme-cornsilk rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 relative">
                 <IoCloseSharp className="absolute top-0 right-0 mr-4 mt-4 cursor-pointer"size={20} onClick={onClose}/>
                 <div className="flex flex-col relative">
                     <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -82,13 +82,13 @@ const ConfirmDeleteModal = ({itemName, onClose, type, itemID}) => {
                     <hr className="border-gray-400 my-2" />
                     <div className="flex space-x-2 justify-end">
                         <button
-                            className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400"
+                            className="px-4 py-2 bg-theme-ecru text-gray-800 rounded-lg hover:bg-theme-ecrudark"
                             onClick={onClose}
                         >
                             Cancel
                         </button>
                         <button
-                            className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                            className="px-4 py-2 bg-theme-coral text-white rounded-lg hover:bg-theme-bittersweet"
                             onClick={(event) => handleDelete(event)}
                         >
                             Delete

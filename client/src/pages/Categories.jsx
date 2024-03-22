@@ -106,7 +106,7 @@ const Categories = () => {
             <h2 className="flex justify-center text-gray-900 dark:text-white text-3xl font-extrabold mt-5">{spendingCategoryName}</h2>
             <section>
                 <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-8">
-                    <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8">
+                    <div className="bg-theme-cornsilk dark:bg-gray-800 border border-theme-cornsilk dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8">
                         <div className="flex items-center justify-center">
                             <div className="text-center flex-1">
                                 <h3 className="text-gray-900 dark:text-white text-3xl font-medium mb-2">Amount Used</h3>
@@ -120,7 +120,7 @@ const Categories = () => {
                         </div>
                     </div>
 
-                    <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:pt-12 mb-8">
+                    <div className="bg-theme-cornsilk dark:bg-gray-800 border border-theme-cornsilk dark:border-gray-700 rounded-lg p-8 md:pt-12 mb-8">
                         <div className="flex items-center justify-center">
                             <img className="rounded-t-lg w-960 h-540" src={image} alt="" />
                         </div>
@@ -128,7 +128,7 @@ const Categories = () => {
                             {isLeader && (
                                 <div className="flex my-5">
                                     <button
-                                        className="bg-gray-500 hover:bg-gray-400 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center mr-2"
+                                        className="bg-theme-mantis hover:bg-theme-mantisdark focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center mr-2"
                                         onClick={openEditCategoryModal}
                                     >
                                         <span className="flex items-center">
@@ -137,7 +137,7 @@ const Categories = () => {
                                         </span>
                                     </button>
                                     <button
-                                        className="bg-red-500 hover:bg-red-400 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center mr-2"
+                                        className="bg-theme-coral hover:bg-theme-bittersweet focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center mr-2"
                                         onClick={openConfirmDeleteModal}
                                     >
                                         <span className="flex items-center">
@@ -150,12 +150,12 @@ const Categories = () => {
                         </div>
                     </div>
                 
-                    <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mt-8">
+                    <div className="bg-theme-cornsilk dark:bg-gray-800 border border-theme-cornsilk dark:border-gray-700 rounded-lg p-8 md:p-12 mt-8">
                         <div className="transactions flex flex-col items-center justify-center">
                             <h2 className="flex justify-center text-gray-900 dark:text-white text-2xl font-bold mb-5">Transactions</h2>
                             <TransactionsTable transactions={transactions} />
                             <button
-                                className="mt-4 bg-primary-500 hover:bg-primary-700 focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                className="mt-4 bg-theme-mantis hover:bg-theme-mantisdark focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                                 onClick={openAddTransactionModal}
                             >
                                 Add Transaction
