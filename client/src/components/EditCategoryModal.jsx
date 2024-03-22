@@ -18,7 +18,6 @@ const EditCategoryModal = ({onClose, currentCategoryName, currentBudgetLimit, sp
             "oldImage": oldImage
         }).then(response => {
             console.log(response)
-            window.location.href = window.location.href
         }).catch(error => {
             console.log(error)
         })
@@ -27,6 +26,7 @@ const EditCategoryModal = ({onClose, currentCategoryName, currentBudgetLimit, sp
     const handleSubmit = async function(event) {
         event.preventDefault();
         await editSpendingCategory(event);
+        window.location.href = window.location.href
         onClose();
     }
 

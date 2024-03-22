@@ -48,7 +48,7 @@ const CategoryListCard = ({categoryList}) => {
                     <li key={index} className="py-3 sm:py-4">
                         <div className="flex items-center">
                             <div className="flex-shrink-0">
-                            <img className="w-8 h-8 rounded-t-sm" src="https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" alt=""></img>
+                            <img className="w-12 h-7 rounded-t-sm" src={category.styles.image} alt=""></img>
                             </div>
                             <div className="flex-1 min-w-0 ms-4">
                                 <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
