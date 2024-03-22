@@ -420,8 +420,13 @@ export let createNewSpendingCategory = async function (teamSpaceID, spendingCate
                     }
                 })
             })
-        }).catch(error => {
-            console.log(error)
+        }).catch(err => {
+            let response = {
+                "status": 401,
+                "message": err.message,
+                "data": null
+            }
+            resolve(response)
         })
 }
 
@@ -523,8 +528,13 @@ export let createNewTransaction = async function (teamSpaceID, spendingCategoryI
                 }
             })
         })
-    }).catch(error => {
-        console.log(error)
+    }).catch(err => {
+        let response = {
+            "status": 401,
+            "message": err.message,
+            "data": null
+        }
+        resolve(response)
     })
 }
 
