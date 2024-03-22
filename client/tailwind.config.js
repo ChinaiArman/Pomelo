@@ -26,7 +26,8 @@ export default {
           beige: "#FCF0D0",
           brown: "#DFBC71",
           lightbeige: "#FCF6E8",
-          green: "#74BC5F"
+          mantis: "#74BC5F",
+          mantisdark: "#246C0E",
         }
       },
     },

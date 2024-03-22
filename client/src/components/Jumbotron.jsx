@@ -19,7 +19,6 @@ const Jumbotron = ({ username, transactions, spendingCategory, teamSpaceName }) 
     } else {
         var transactionCard = <LatestTransactionsCard transactions={transactions} />
     }
-
     return (
         <section className="bg-white dark:bg-gray-900">
             <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
