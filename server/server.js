@@ -173,6 +173,7 @@ app.post("/createTransaction", async (req, res) => {
 
 app.post("/addUserToTeamSpace", async (req, res) => {
   let response = await addUserToTeamSpace(req.body.teamSpaceJoinCode, req.body.userID, req.body.username);
+  console.log(response);
   res.send(response);
 });
 

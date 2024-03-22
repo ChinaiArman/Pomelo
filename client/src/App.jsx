@@ -16,6 +16,7 @@ import Categories from './pages/Categories';
 import Transactions from './pages/Transactions';
 import TeamSpaceSettings from './pages/TeamSpaceSettings';
 import PageNotFound from './pages/404';
+import './font.css'
 
 
 var userID = window.localStorage.getItem("userID")
