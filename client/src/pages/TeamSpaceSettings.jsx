@@ -29,6 +29,9 @@ const TeamSpaceSettings = () => {
             .then(response => {
                 setTeamSpaceName(response.data.data.teamSpaceName);
                 setTotalBudget(response.data.data.totalBudget);
+                if (response.data.data.teamSpaceLeaderUserID !== window.localStorage.getItem("userID")) {
+                    window.location.href = '/404';
+                }
             }).catch(error => {
                 console.log(error);
             });
