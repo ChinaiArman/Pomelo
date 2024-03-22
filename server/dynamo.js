@@ -3,6 +3,7 @@ dotenv.config()
 
 import crypto from "crypto"
 import pkg from 'aws-sdk'
+import axios from "axios"
 const { config, DynamoDB } = pkg
 
 
@@ -373,45 +374,51 @@ export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUs
 }
 
 export let createNewSpendingCategory = async function (teamSpaceID, spendingCategoryName, budgetLimit) {
-    let input = {
-        "spendingCategoryID": "C" + crypto.randomBytes(4).toString('hex'),
-        "spendingCategoryName": spendingCategoryName,
-        "amountUsed": 0,
-        "budgetLimit": budgetLimit,
-        "transactions": [],
-        "styles": {}
-    }
-    let params = {
-        TableName: TABLENAME,
-        Key: {
-            "teamSpaceID": teamSpaceID
-        },
-        UpdateExpression: "SET spendingCategories = list_append(spendingCategories, :category)",
-        ExpressionAttributeValues: {
-            ":category": [input]
-        }
-    }
-    return new Promise((resolve, reject) => {
-        dynamoDB.update(params, (err, data) => {
-            if (err) {
-                let response = {
-                    "status": 401,
-                    "message": err.message,
-                    "data": null
-                }
-                resolve(response)
-            } else {
-                let response = {
-                    "status": 201,
-                    "message": "Success",
-                    "data": {
-                        "spendingCategoryID": input.spendingCategoryID,
-                    }
-                }
-                resolve(response)
+    await axios.get(`https://source.unsplash.com/1600x900/?${spendingCategoryName}`)
+        .then(response => {
+            let image = response.request.res.responseUrl ? response.request.res.responseUrl : "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
+            let input = {
+                "spendingCategoryID": "C" + crypto.randomBytes(4).toString('hex'),
+                "spendingCategoryName": spendingCategoryName,
+                "amountUsed": 0,
+                "budgetLimit": budgetLimit,
+                "transactions": [],
+                "styles": { "image": image }
             }
+            let params = {
+                TableName: TABLENAME,
+                Key: {
+                    "teamSpaceID": teamSpaceID
+                },
+                UpdateExpression: "SET spendingCategories = list_append(spendingCategories, :category)",
+                ExpressionAttributeValues: {
+                    ":category": [input]
+                }
+            }
+            return new Promise((resolve, reject) => {
+                dynamoDB.update(params, (err, data) => {
+                    if (err) {
+                        let response = {
+                            "status": 401,
+                            "message": err.message,
+                            "data": null
+                        }
+                        resolve(response)
+                    } else {
+                        let response = {
+                            "status": 201,
+                            "message": "Success",
+                            "data": {
+                                "spendingCategoryID": input.spendingCategoryID,
+                            }
+                        }
+                        resolve(response)
+                    }
+                })
+            })
+        }).catch(error => {
+            console.log(error)
         })
-    })
 }
 
 export let createNewTransaction = async function (teamSpaceID, spendingCategoryID, spendingCategoryName, userID, username, transactionName, transactionAmount) {
@@ -543,36 +550,36 @@ export let addUserToTeamSpace = async function (teamSpaceJoinCode, userID, usern
                     resolve(response)
                 } else {
                     var teamSpaceID = data.Items[0].teamSpaceID
-                let paramsTwo = {
-                    TableName: TABLENAME,
-                    Key: {
-                        "teamSpaceID": data.Items[0].teamSpaceID
-                    },
-                    UpdateExpression: "SET userList = list_append(userList, :userList)",
-                    ExpressionAttributeValues: {
-                        ":userList": [input]
-                    }
-                }
-                dynamoDB.update(paramsTwo, (err, data) => {
-                    if (err) {
-                        let response = {
-                            "status": 401,
-                            "message": err.message,
-                            "data": null
+                    let paramsTwo = {
+                        TableName: TABLENAME,
+                        Key: {
+                            "teamSpaceID": data.Items[0].teamSpaceID
+                        },
+                        UpdateExpression: "SET userList = list_append(userList, :userList)",
+                        ExpressionAttributeValues: {
+                            ":userList": [input]
                         }
-                        resolve(response)
-                    } else {
-                        let response = {
-                            "status": 201,
-                            "message": "Success",
-                            "data": {
-                                "teamSpaceID": teamSpaceID,
-
+                    }
+                    dynamoDB.update(paramsTwo, (err, data) => {
+                        if (err) {
+                            let response = {
+                                "status": 401,
+                                "message": err.message,
+                                "data": null
                             }
+                            resolve(response)
+                        } else {
+                            let response = {
+                                "status": 201,
+                                "message": "Success",
+                                "data": {
+                                    "teamSpaceID": teamSpaceID,
+
+                                }
+                            }
+                            resolve(response)
                         }
-                        resolve(response)
-                    }
-                })
+                    })
                 }
             }
         })
