@@ -4,13 +4,15 @@ import { currencyFormatter } from "../utils";
 import LatestTransactionsCard from "./LatestTransactionsCard";
 import CategoryCard from "./CategoryCard";
 
+import logo from "../assets/logo_icon.png";
+
 const Jumbotron = ({ username, transactions, spendingCategory, teamSpaceName }) => {
     return (
         <section className="bg-white dark:bg-gray-900">
             <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
                 <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8">
                     <h1 className="text-gray-900 dark:text-white text-3xl md:text-5xl font-extrabold mb-2">Hello {username}!</h1>
-                    <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">Welcome to <b>{teamSpaceName}</b>. Below is a summary of your latest transactions and your spending categories</p>
+                    <p className="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">Welcome to <span><img src={logo} className="h-7 inline"></img></span><b>{teamSpaceName}</b>. Below is a summary of your latest transactions and your spending categories</p>
                     <a href="#categories" className="inline-flex justify-center items-center py-2.5 px-5 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                         See spending categories
                         <svg className="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
@@ -18,7 +20,10 @@ const Jumbotron = ({ username, transactions, spendingCategory, teamSpaceName }) 
                         </svg>
                     </a>
                 </div>
-                <div className="grid md:grid-cols-2 gap-8 justify-center">
+                <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8">
+
+                </div>
+                <div className="grid md:grid-cols-2 gap-8 justify-center mt-8">
                     <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 justify-center items-center">
                         <a href="#" className="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 mb-2">
                             <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
