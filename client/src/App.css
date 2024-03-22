@@ -4,6 +4,10 @@
   margin: 0 auto;
 }
 
+html {
+  background-color: #FCF6E8;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

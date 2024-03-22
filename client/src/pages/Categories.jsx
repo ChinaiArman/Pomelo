@@ -104,7 +104,7 @@ const Categories = () => {
     return (
         <div className="categories">
             <h2 className="flex justify-center text-gray-900 dark:text-white text-3xl font-extrabold mt-5">{spendingCategoryName}</h2>
-            <section className="bg-white dark:bg-gray-900">
+            <section>
                 <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-8">
                     <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8">
                         <div className="flex items-center justify-center">
