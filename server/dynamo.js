@@ -1,7 +1,7 @@
 import dotenv from "dotenv"
 dotenv.config()
 
-import crypto from "crypto"
+import crypto, { randomInt } from "crypto"
 import pkg from 'aws-sdk'
 import axios from "axios"
 const { config, DynamoDB } = pkg
@@ -16,6 +16,9 @@ let awsConfig = {
 config.update(awsConfig)
 const TABLENAME = "TeamSpaces"
 let dynamoDB = new DynamoDB.DocumentClient();
+
+const UNSPLASHED_ACCESS_KEY = process.env.UNSPLASHED_ACCESS_KEY
+const UNSPLASHED_SECRET_KEY = process.env.UNSPLASHED_SECRET_KEY
 
 
 export let getAllTeamSpaces = async function () {
@@ -374,9 +377,10 @@ export let createNewTeamSpace = async function (teamSpaceName, teamSpaceLeaderUs
 }
 
 export let createNewSpendingCategory = async function (teamSpaceID, spendingCategoryName, budgetLimit) {
-    await axios.get(`https://source.unsplash.com/1600x900/?${spendingCategoryName}`)
+    await axios.get(`https://api.unsplash.com/search/photos/?query=${spendingCategoryName.replace(" ", "-")}&orientation=landscape&client_id=${UNSPLASHED_ACCESS_KEY}`)
         .then(response => {
-            let image = response.request.res.responseUrl ? response.request.res.responseUrl : "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
+            let randInt = randomInt(0, response.data.results.length)
+            let image = response.data.results[randInt].urls.regular ? response.data.results[randInt].urls.regular : "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
             let input = {
                 "spendingCategoryID": "C" + crypto.randomBytes(4).toString('hex'),
                 "spendingCategoryName": spendingCategoryName,
@@ -422,9 +426,10 @@ export let createNewSpendingCategory = async function (teamSpaceID, spendingCate
 }
 
 export let createNewTransaction = async function (teamSpaceID, spendingCategoryID, spendingCategoryName, userID, username, transactionName, transactionAmount) {
-    await axios.get(`https://source.unsplash.com/1600x900/?${transactionName}`)
+    await axios.get(`https://api.unsplash.com/search/photos/?query=${transactionName.replace(" ", "-")}&orientation=squarish&client_id=${UNSPLASHED_ACCESS_KEY}`)
     .then(response => {
-        let image = response.request.res.responseUrl ? response.request.res.responseUrl : "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
+        let randInt = randomInt(0, response.data.results.length)
+        let image = response.data.results[randInt].urls.regular ? response.data.results[randInt].urls.regular : "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
         let paramsOne = {
             TableName: TABLENAME,
             FilterExpression: "teamSpaceID = :teamSpaceID",
