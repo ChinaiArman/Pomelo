@@ -53,7 +53,8 @@ const EditCategoryModal = ({onClose, currentCategoryName, currentBudgetLimit, sp
               <div className="flex flex-col">
                 <label className="mb-1 text-sm font-medium">Category Budget Limit</label>
                 <input
-                  type="text"
+                  type="number"
+                  step="0.01"
                   placeholder="Enter the Category's Budget Limit"
                   onChange={(e) => setNewBudgetLimit(e.target.value)}
                   value={newBudgetLimit}

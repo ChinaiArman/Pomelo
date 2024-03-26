@@ -48,7 +48,8 @@ const EditTeamSpaceModal = ({onClose, currentTeamName, currentTotalBudget}) => {
               <div className="flex flex-col">
                 <label className="mb-1 text-sm font-medium">Total Budget</label>
                 <input
-                  type="text"
+                  type="number"
+                  step="0.01"
                   placeholder="Enter the Team's Total Budget"
                   onChange={(e) => setNewTotalBudget(e.target.value)}
                   value={newTotalBudget}

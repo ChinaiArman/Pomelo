@@ -57,7 +57,8 @@ const CreateCategoryModal = ({ onClose }) => {
           <div className="flex flex-col">
             <label className="mb-1 text-sm font-medium">Budget Limit</label>
             <input
-              type="text"
+              type="number"
+              step="0.01"
               placeholder="Enter a budget limit"
               onChange={(e) =>
                 setNewSpendingCategoryBudgetLimit(e.target.value)

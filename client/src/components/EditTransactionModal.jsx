@@ -53,7 +53,8 @@ const EditTransactionModal = ({onClose, currentTransactionName, currentTransacti
               <div className="flex flex-col">
                 <label className="mb-1 text-sm font-medium">Transaction Amount</label>
                 <input
-                  type="text"
+                  type="number"
+                  step="0.01"
                   placeholder="Enter the transaction amount"
                   onChange={(e) => setNewTransactionAmount(e.target.value)}
                   value={newTransactionAmount}

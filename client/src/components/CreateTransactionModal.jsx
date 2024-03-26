@@ -73,7 +73,8 @@ const CreateTransactionModal = ({ onClose, spendingCategories }) => {
             <div className="flex flex-col">
               <label className="mb-1 text-sm font-medium">Transaction Item Amount/Cost</label>
               <input
-                type="text"
+                type="number"
+                step="0.01"
                 placeholder="Enter item amount/cost"
                 onChange={(e) =>
                     setNewTransactionAmount(e.target.value)
