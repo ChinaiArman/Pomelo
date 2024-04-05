@@ -1,4 +1,4 @@
-# POMELO
+![POMELO](https://github.com/ChinaiArman/COMP3962_Term_Project/blob/main/client/src/assets/logo_full.png)
 
 ## COMP 3962 Term Project
 
