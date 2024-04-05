@@ -2,6 +2,8 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useState } from 'react';
 import axios from 'axios';
 
+const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
 const EditTransactionModal = ({onClose, currentTransactionName, currentTransactionAmount, transactionID, oldImage}) => {
     const oldTransactionName = currentTransactionName
     const [newTransactionName, setNewTransactionName] = useState(currentTransactionName);
@@ -9,7 +11,7 @@ const EditTransactionModal = ({onClose, currentTransactionName, currentTransacti
 
     let editTransaction = async function (event) {
         event.preventDefault();
-        await axios.post('http://localhost:5000/editTransaction', {
+        await axios.post(`${BASE_SERVER_URL}/editTransaction`, {
             "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
             "transactionID": transactionID,
             "oldTransactionName": oldTransactionName,

@@ -2,13 +2,15 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useState } from 'react';
 import axios from 'axios';
 
+const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
 const EditTeamSpaceModal = ({onClose, currentTeamName, currentTotalBudget}) => {
     const [newTeamSpaceName, setNewTeamSpaceName] = useState(currentTeamName);
     const [newTotalBudget, setNewTotalBudget] = useState(currentTotalBudget);
 
     let editTeamSpace = async function (event) {
       event.preventDefault();
-      await axios.post('http://localhost:5000/editTeamSpace', {
+      await axios.post(`${BASE_SERVER_URL}/editTeamSpace`, {
         "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
         "newTeamSpaceName": newTeamSpaceName,
         "newTotalBudget": Number(newTotalBudget)

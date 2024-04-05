@@ -2,6 +2,8 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useState } from 'react';
 import axios from 'axios';
 
+const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
 const EditCategoryModal = ({onClose, currentCategoryName, currentBudgetLimit, spendingCategoryID, oldImage}) => {
     const oldCategoryName = currentCategoryName;
     const [newCategoryName, setNewCategoryName] = useState(currentCategoryName);
@@ -9,7 +11,7 @@ const EditCategoryModal = ({onClose, currentCategoryName, currentBudgetLimit, sp
 
     let editSpendingCategory = async function (event) {
         event.preventDefault();
-        await axios.post('http://localhost:5000/editSpendingCategory', {
+        await axios.post(`${BASE_SERVER_URL}/editSpendingCategory`, {
             "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
             "spendingCategoryID": spendingCategoryID,
             "oldSpendingCategoryName": oldCategoryName,

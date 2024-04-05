@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
 const Register = () => {
     const [teamSpaceName, setTeamSpaceName] = useState('');
     const [teamSpaceJoinCode, setTeamSpaceJoinCode] = useState('');
@@ -8,7 +10,7 @@ const Register = () => {
 
     let handleCreateTeamSpace = async function (event) {
         event.preventDefault();
-        await axios.post('http://localhost:5000/createTeamSpace', {teamSpaceName, teamSpaceLeaderUserID: window.localStorage.getItem("userID"), teamSpaceLeaderUsername: window.localStorage.getItem("username")})
+        await axios.post(`${BASE_SERVER_URL}/createTeamSpace`, {teamSpaceName, teamSpaceLeaderUserID: window.localStorage.getItem("userID"), teamSpaceLeaderUsername: window.localStorage.getItem("username")})
             .then(response => {
                 window.localStorage.setItem("teamSpaceID", response.data.data.teamSpaceID)
                 window.location.replace('/')
@@ -20,7 +22,7 @@ const Register = () => {
 
     let handleJoinTeamSpace = async function (event) {
         event.preventDefault();
-        await axios.post('http://localhost:5000/addUserToTeamSpace', {teamSpaceJoinCode, userID: window.localStorage.getItem("userID"), username: window.localStorage.getItem("username")})
+        await axios.post(`${BASE_SERVER_URL}/addUserToTeamSpace`, {teamSpaceJoinCode, userID: window.localStorage.getItem("userID"), username: window.localStorage.getItem("username")})
             .then(response => {
               if (response.data.status == 201) {
                 window.localStorage.setItem("teamSpaceID", response.data.data.teamSpaceID)

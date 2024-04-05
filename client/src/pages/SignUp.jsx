@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
 const SignUp = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -13,7 +15,7 @@ const SignUp = () => {
     let handleSignUp = async function (event) {
       event.preventDefault();
       if (await isPasswordValid(password)) {
-        await axios.post('http://localhost:5000/signup', {username, email, password})
+        await axios.post(`${BASE_SERVER_URL}/signup`, {username, email, password})
           .then(response => {
               if (
                 response.data.message &&
@@ -43,7 +45,7 @@ const SignUp = () => {
 
     let handleVerify = async function (event) {
         event.preventDefault();
-        await axios.post('http://localhost:5000/verify', {username, verificationCode})
+        await axios.post(`${BASE_SERVER_URL}/verify`, {username, verificationCode})
             .then(async response => {
                 if (response.data.status == 202) {
                     handleLogin(event)
@@ -56,7 +58,7 @@ const SignUp = () => {
 
     let handleLogin = async function (event) {
         event.preventDefault();
-        await axios.post('http://localhost:5000/login', { username, password })
+        await axios.post(`${BASE_SERVER_URL}/login`, { username, password })
             .then(async response => {
                 window.localStorage.setItem("userID", response.data.data.userID)
                 window.localStorage.setItem("username", username)
@@ -71,7 +73,7 @@ const SignUp = () => {
     }
 
     let getTeamSpaceID = async function (userID) {
-        await axios.get('http://localhost:5000/getTeamSpaceByUserID', { params: { "userID": userID } })
+        await axios.get(`${BASE_SERVER_URL}/getTeamSpaceByUserID`, { params: { "userID": userID } })
             .then(response => {
                 if (response.data.status == 201 && response.data.data.teamSpaceID != null) {
                     window.localStorage.setItem("teamSpaceID", response.data.data.teamSpaceID)

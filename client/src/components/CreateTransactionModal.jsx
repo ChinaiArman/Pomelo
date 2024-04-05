@@ -2,6 +2,8 @@ import { IoCloseSharp } from "react-icons/io5";
 import axios from "axios";
 import { useState } from 'react';
 
+const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
 const CreateTransactionModal = ({ onClose, spendingCategories }) => {
   const [newTransactionName, setNewTransactionName] = useState('');
   const [newTransactionAmount, setNewTransactionAmount] = useState('');
@@ -14,7 +16,7 @@ const CreateTransactionModal = ({ onClose, spendingCategories }) => {
             var newTransactionSpendingCategoryID = spendingCategories[i].spendingCategoryID;
         }
     }
-    await axios.post('http://localhost:5000/createTransaction', {
+    await axios.post(`${BASE_SERVER_URL}/createTransaction`, {
         "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
         "spendingCategoryID": newTransactionSpendingCategoryID,
         "spendingCategoryName": newTransactionSpendingCategoryName,

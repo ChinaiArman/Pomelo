@@ -5,6 +5,8 @@ import UserListCard from '../components/UserListCard';
 import TeamSpaceDetailsCard from '../components/TeamSpaceDetailsCard';
 import CategoryListCard from '../components/CategoryListCard';
 
+const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
 
 const TeamSpaceSettings = () => {
     const [teamSpaceUsers, setTeamSpaceUsers] = useState([]);
@@ -18,14 +20,14 @@ const TeamSpaceSettings = () => {
     }, []);
 
     const fetchData = async () => {
-        await axios.get('http://localhost:5000/getAllTeamSpaceUsers', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+        await axios.get(`${BASE_SERVER_URL}/getAllTeamSpaceUsers`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
             .then(response => {
                 let userList = response.data.data.filter(user => user.userID !== window.localStorage.getItem("userID"));
                 setTeamSpaceUsers(userList);
             }).catch(error => {
                 console.log(error);
             });
-        await axios.get('http://localhost:5000/getTeamSpaceByID', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+        await axios.get(`${BASE_SERVER_URL}/getTeamSpaceByID`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
             .then(response => {
                 setTeamSpaceName(response.data.data.teamSpaceName);
                 setTotalBudget(response.data.data.totalBudget);
@@ -35,7 +37,7 @@ const TeamSpaceSettings = () => {
             }).catch(error => {
                 console.log(error);
             });
-            await axios.get('http://localhost:5000/getAllSpendingCategories', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+            await axios.get(`${BASE_SERVER_URL}/getAllSpendingCategories`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
             .then(response => {
                 let categoryList = response.data.data;
                 setTeamSpaceCategories(categoryList);

@@ -6,6 +6,8 @@ import TransactionsTable from '../components/TransactionsTable';
 import CreateTransactionModal from '../components/CreateTransactionModal';
 import NullSectionCard from '../components/NullSectionCard';
 
+const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
 const Transactions = () => {
     const [spendingCategories, setSpendingCategories] = useState([]);
     const [transactions, setTransactions] = useState([]);
@@ -17,19 +19,19 @@ const Transactions = () => {
     }, []);
 
     const fetchData = async () => {
-        await axios.get('http://localhost:5000/getAllTransactions', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+        await axios.get(`${BASE_SERVER_URL}/getAllTransactions`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
             .then(response => {
                 setTransactions(response.data.data);
             }).catch(error => {
                 console.log(error);
             });
-        await axios.get('http://localhost:5000/getAllSpendingCategories', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+        await axios.get(`${BASE_SERVER_URL}/getAllSpendingCategories`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
             .then(response => {
                 setSpendingCategories(response.data.data);
             }).catch(error => {
                 console.log(error);
             });
-        await axios.get('http://localhost:5000/getTeamSpaceByUserID', { params: { "userID": window.localStorage.getItem("userID") } })
+        await axios.get(`${BASE_SERVER_URL}/getTeamSpaceByUserID`, { params: { "userID": window.localStorage.getItem("userID") } })
             .then(response => {
                 if (response.data.data === null) {
                     window.localStorage.removeItem("teamSpaceID")

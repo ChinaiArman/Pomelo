@@ -5,6 +5,8 @@ import EditTeamSpaceModal from "./EditTeamSpaceModal";
 import { currencyFormatter } from '../utils';
 import logo from "../assets/logo_icon.png";
 
+const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
 const TeamSpaceDetailsCard = ({teamSpaceName, totalBudget}) => {
     const [isEditTeamSpaceModalOpen, setIsEditTeamSpaceModalOpen] = useState(false);
     const [joinCode, setJoinCode] = useState('');
@@ -14,7 +16,7 @@ const TeamSpaceDetailsCard = ({teamSpaceName, totalBudget}) => {
     })
 
     const getJoinCode = async function() {
-      await axios.get('http://localhost:5000/getJoinCode', {
+      await axios.get(`${BASE_SERVER_URL}/getJoinCode`, {
         params: {"teamSpaceID": window.localStorage.getItem("teamSpaceID")}
       }).then(response => {
         setJoinCode(response.data.data);
@@ -37,7 +39,7 @@ const TeamSpaceDetailsCard = ({teamSpaceName, totalBudget}) => {
             <img src={logo} alt="Pomelo Logo" className="mt-2 h-20" />
             <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{teamSpaceName}</h5>
             <h4 className="mb-1 text-l font-medium text-gray-600 dark:text-white">Total Budget: {currencyFormatter.format(totalBudget)}</h4>
-            <span className="flex items-center my-2">
+            <span className="flex items-center my-1">
               <h4 className="mb-1 mr-2 text-base font-medium text-gray-600 dark:text-white">Team Join Code: </h4>
               <input
                 type="text"

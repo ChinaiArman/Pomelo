@@ -11,6 +11,8 @@ import EditCategoryModal from '../components/EditCategoryModal';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import { currencyFormatter } from '../utils';
 
+const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
 const Categories = () => {
     const [searchParams] = useSearchParams();
     const spendingCategoryID = searchParams.get("id");
@@ -33,7 +35,7 @@ const Categories = () => {
     }, []);
 
     const fetchData = async () => {
-        await axios.get('http://localhost:5000/getSpendingCategoryByID', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID"), "spendingCategoryID": spendingCategoryID } })
+        await axios.get(`${BASE_SERVER_URL}/getSpendingCategoryByID`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID"), "spendingCategoryID": spendingCategoryID } })
             .then(response => {
                 if (response.data.data === null) {
                     window.location.href = '/404';
@@ -46,7 +48,7 @@ const Categories = () => {
             }).catch(error => {
                 console.log(error);
             });
-        await axios.get('http://localhost:5000/getTransactionsBySpendingCategory', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID"), "spendingCategoryID": spendingCategoryID } })
+        await axios.get(`${BASE_SERVER_URL}/getTransactionsBySpendingCategory`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID"), "spendingCategoryID": spendingCategoryID } })
             .then(response => {
                 if (response.data.data === null) {
                     window.location.href = '/404';
@@ -56,7 +58,7 @@ const Categories = () => {
                 console.log(error);
             });
 
-        await axios.get('http://localhost:5000/getTeamSpaceByID', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+        await axios.get(`${BASE_SERVER_URL}/getTeamSpaceByID`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
             .then(response => {
                 if (response.data.data.teamSpaceLeaderUserID === window.localStorage.getItem("userID")) {
                     setIsLeader(true);
@@ -66,7 +68,7 @@ const Categories = () => {
             }).catch(error => {
                 console.log(error);
             });
-        await axios.get('http://localhost:5000/getTeamSpaceByUserID', { params: { "userID": window.localStorage.getItem("userID") } })
+        await axios.get(`${BASE_SERVER_URL}/getTeamSpaceByUserID`, { params: { "userID": window.localStorage.getItem("userID") } })
             .then(response => {
                 if (response.data.data === null) {
                     window.localStorage.removeItem("teamSpaceID")

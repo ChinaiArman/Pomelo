@@ -2,11 +2,13 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useState } from "react";
 import axios from 'axios';
 
+const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
 const ConfirmDeleteModal = ({itemName, onClose, type, itemID}) => {
     
     let deleteSpendingCategory = async function (event) {
         event.preventDefault();
-        await axios.post('http://localhost:5000/deleteSpendingCategory', {
+        await axios.post(`${BASE_SERVER_URL}/deleteSpendingCategory`, {
             "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
             "spendingCategoryID": itemID
         }).then(response => {
@@ -23,7 +25,7 @@ const ConfirmDeleteModal = ({itemName, onClose, type, itemID}) => {
 
     let deleteTransaction = async function (event) {
         event.preventDefault();
-        await axios.post('http://localhost:5000/deleteTransaction', {
+        await axios.post(`${BASE_SERVER_URL}/deleteTransaction`, {
             "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
             "transactionID": itemID
         }).then(response => {
@@ -36,7 +38,7 @@ const ConfirmDeleteModal = ({itemName, onClose, type, itemID}) => {
 
     let removeUserFromTeamSpace = async function (event) {
         event.preventDefault();
-        await axios.post('http://localhost:5000/removeUserFromTeamSpaceByID', {
+        await axios.post(`${BASE_SERVER_URL}/removeUserFromTeamSpaceByID`, {
             "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
             "userID": itemID
         }).then(response => {

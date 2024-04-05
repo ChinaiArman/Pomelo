@@ -5,6 +5,8 @@ import Landing from './Landing';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
+const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
 const Home = () => {
   if (!window.localStorage.getItem("userID")) {
     return <Landing />;
@@ -25,19 +27,19 @@ const Home = () => {
   }, []);
 
   const fetchData = async () => {
-    await axios.get('http://localhost:5000/getTeamSpaceTotalBudget', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+    await axios.get(`${BASE_SERVER_URL}/getTeamSpaceTotalBudget`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
       .then(response => {
         setTotalBudget(response.data.data.totalBudget);
       }).catch(error => {
         console.log(error);
       });
-    await axios.get('http://localhost:5000/getTeamSpaceTotalAmountUsed', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+    await axios.get(`${BASE_SERVER_URL}/getTeamSpaceTotalAmountUsed`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
       .then(response => {
         setTotalSpent(response.data.data.totalAmountUsed);
       }).catch(error => {
         console.log(error);
       });
-    await axios.get('http://localhost:5000/getAllSpendingCategories', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+    await axios.get(`${BASE_SERVER_URL}/getAllSpendingCategories`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
       .then(response => {
         setSpendingCategories(response.data.data);
         let currLargest = response.data.data[0];
@@ -50,14 +52,14 @@ const Home = () => {
       }).catch(error => {
         console.log(error);
       });
-    await axios.get('http://localhost:5000/getRecentTransactions', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+    await axios.get(`${BASE_SERVER_URL}/getRecentTransactions`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
       .then(response => {
         setTransactions(response.data.data.recentTransactions);
       }).catch(error => {
         console.log(error);
       });
 
-    await axios.get('http://localhost:5000/getTeamSpaceByID', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+    await axios.get(`${BASE_SERVER_URL}/getTeamSpaceByID`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
       .then(response => {
         setTeamSpaceName(response.data.data.teamSpaceName);
         if (response.data.data.teamSpaceLeaderUserID === window.localStorage.getItem("userID")) {
@@ -68,7 +70,7 @@ const Home = () => {
       }).catch(error => {
         console.log(error);
       });
-    await axios.get('http://localhost:5000/getTeamSpaceByUserID', { params: { "userID": window.localStorage.getItem("userID") } })
+    await axios.get(`${BASE_SERVER_URL}/getTeamSpaceByUserID`, { params: { "userID": window.localStorage.getItem("userID") } })
       .then(response => {
         if (response.data.data === null) {
           window.localStorage.removeItem("teamSpaceID")

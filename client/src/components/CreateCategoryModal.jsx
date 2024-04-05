@@ -2,16 +2,18 @@ import { IoCloseSharp } from "react-icons/io5";
 import axios from "axios";
 import { useState } from 'react';
 
+const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
 const CreateCategoryModal = ({ onClose }) => {
   const [newSpendingCategory, setNewSpendingCategory] = useState('');
   const [newSpendingCategoryBudgetLimit, setNewSpendingCategoryBudgetLimit] = useState('');
   
   let createNewSpendingCategory = async function (event) {
     event.preventDefault();
-    await axios.get('http://localhost:5000/getTeamSpaceByID', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+    await axios.get(`${BASE_SERVER_URL}/getTeamSpaceByID`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
         .then(async response => {
             if (response.data.data.teamSpaceLeaderUserID === window.localStorage.getItem("userID")) {
-                await axios.post('http://localhost:5000/createSpendingCategory', {
+                await axios.post(`${BASE_SERVER_URL}/createSpendingCategory`, {
                     "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
                     "spendingCategoryName": newSpendingCategory,
                     "budgetLimit": Number(newSpendingCategoryBudgetLimit)

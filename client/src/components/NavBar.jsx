@@ -5,6 +5,8 @@ import logo from "../assets/logo_full.png";
 import { MdLogout } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 
+const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
 const NavBar = () => {
 
   const [isLeader, setIsLeader] = useState(false);
@@ -14,7 +16,7 @@ const NavBar = () => {
   }, []);
 
   const fetchData = async () => {
-    await axios.get('http://localhost:5000/getTeamSpaceByID', { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+    await axios.get(`${BASE_SERVER_URL}/getTeamSpaceByID`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
       .then(response => {
         if (response.data.data.teamSpaceLeaderUserID === window.localStorage.getItem("userID")) {
           setIsLeader(true);
