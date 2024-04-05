@@ -1,6 +1,26 @@
-# COMP3962_Term_Project
+# POMELO
 
-How to use:
+## COMP 3962 Term Project
+
+POMELO is a web application that allows teams to manage their budgets and expenses. After signing up, team leaders can create team spaces for their team members for everyone to contribute, create and log expenses.
+
+### Team Members:
+
+* Arman Chinai
+* Lex Wong
+* Natalie Yu
+
+### Technologies Used:
+
+* Amazon Cognito
+* AWS Elastic Beanstalk
+* EJS
+* HTML, CSS, JavaScript
+* Node.js
+* Tailwind CSS
+* Vite
+
+### How to use:
 
 1. Clone the project
 2. New terminal > ```cd client``` then ```npm i```
