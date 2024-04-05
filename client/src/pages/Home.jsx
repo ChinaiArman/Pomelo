@@ -5,7 +5,9 @@ import Landing from './Landing';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
-const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+const BASE_SERVER_URL = "https://cors-anywhere.herokuapp.com/http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
+axios.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
 
 const Home = () => {
   if (!window.localStorage.getItem("userID")) {

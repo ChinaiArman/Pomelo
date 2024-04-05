@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+const BASE_SERVER_URL = "https://cors-anywhere.herokuapp.com/http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
+axios.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
 
 const Login = () => {
   const [username, setUsername] = useState('');

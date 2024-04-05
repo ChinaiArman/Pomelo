@@ -5,7 +5,9 @@ import UserListCard from '../components/UserListCard';
 import TeamSpaceDetailsCard from '../components/TeamSpaceDetailsCard';
 import CategoryListCard from '../components/CategoryListCard';
 
-const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+const BASE_SERVER_URL = "https://cors-anywhere.herokuapp.com/http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
+axios.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
 
 
 const TeamSpaceSettings = () => {
@@ -37,7 +39,7 @@ const TeamSpaceSettings = () => {
             }).catch(error => {
                 console.log(error);
             });
-            await axios.get(`${BASE_SERVER_URL}/getAllSpendingCategories`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
+        await axios.get(`${BASE_SERVER_URL}/getAllSpendingCategories`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
             .then(response => {
                 let categoryList = response.data.data;
                 setTeamSpaceCategories(categoryList);
@@ -49,16 +51,16 @@ const TeamSpaceSettings = () => {
     return (
         <div className="team-space-settings">
             <div className='flex flex-col flex-wrap items-center justify-center mt-5 mb-5 space-y-5'>
-                <TeamSpaceDetailsCard 
+                <TeamSpaceDetailsCard
                     teamSpaceName={teamSpaceName}
                     totalBudget={totalBudget}
                 />
-                
-                <UserListCard 
+
+                <UserListCard
                     userList={teamSpaceUsers}
                 />
 
-                <CategoryListCard 
+                <CategoryListCard
                     categoryList={teamSpaceCategories}
                 />
             </div>
