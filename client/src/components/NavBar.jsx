@@ -5,7 +5,9 @@ import logo from "../assets/logo_full.png";
 import { MdLogout } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
 
-const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+const BASE_SERVER_URL = "https://cors-anywhere.herokuapp.com/http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+
+axios.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
 
 const NavBar = () => {
 
