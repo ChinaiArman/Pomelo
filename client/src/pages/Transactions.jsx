@@ -6,7 +6,7 @@ import TransactionsTable from '../components/TransactionsTable';
 import CreateTransactionModal from '../components/CreateTransactionModal';
 import NullSectionCard from '../components/NullSectionCard';
 
-const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+const BASE_SERVER_URL = "https://pomelo-server.vercel.app/";
 
 const Transactions = () => {
     const [spendingCategories, setSpendingCategories] = useState([]);
@@ -75,26 +75,26 @@ const Transactions = () => {
     }
 
     return (
-         <>
-         <h2 className="flex justify-center text-gray-900 dark:text-white text-3xl font-extrabold mb-5">Transactions</h2>
-         <div className="transactions flex flex-col items-center justify-center bg-theme-cornsilk dark:bg-gray-800 border border-theme-cornsilk dark:border-gray-700 rounded-lg p-8 md:p-12 mt-8 mx-auto max-w-screen-xl">
-         <TransactionsTable
-             transactions={transactions}
-         />
-             <button
-                 className="mt-4 bg-theme-mantis hover:bg-theme-mantisdark focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                 onClick={openAddTransactionModal}
-             >
-                 Add Transaction
-             </button>
-             {isAddTransactionModalOpen && (
-                 <CreateTransactionModal
-                     onClose={closeAddTransactionModal}
-                     spendingCategories={spendingCategories}
-                 />
-             )}
-         </div>
-         </>
+        <>
+            <h2 className="flex justify-center text-gray-900 dark:text-white text-3xl font-extrabold mb-5">Transactions</h2>
+            <div className="transactions flex flex-col items-center justify-center bg-theme-cornsilk dark:bg-gray-800 border border-theme-cornsilk dark:border-gray-700 rounded-lg p-8 md:p-12 mt-8 mx-auto max-w-screen-xl">
+                <TransactionsTable
+                    transactions={transactions}
+                />
+                <button
+                    className="mt-4 bg-theme-mantis hover:bg-theme-mantisdark focus:ring-4 px-5 py-2.5 rounded-lg text-sm text-white font-medium text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    onClick={openAddTransactionModal}
+                >
+                    Add Transaction
+                </button>
+                {isAddTransactionModalOpen && (
+                    <CreateTransactionModal
+                        onClose={closeAddTransactionModal}
+                        spendingCategories={spendingCategories}
+                    />
+                )}
+            </div>
+        </>
     );
 }
 

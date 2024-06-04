@@ -11,7 +11,7 @@ import EditCategoryModal from '../components/EditCategoryModal';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import { currencyFormatter } from '../utils';
 
-const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+const BASE_SERVER_URL = "https://pomelo-server.vercel.app/";
 
 const Categories = () => {
     const [searchParams] = useSearchParams();
@@ -151,7 +151,7 @@ const Categories = () => {
                             )}
                         </div>
                     </div>
-                
+
                     <div className="bg-theme-cornsilk dark:bg-gray-800 border border-theme-cornsilk dark:border-gray-700 rounded-lg p-8 md:p-12 mt-8">
                         <div className="transactions flex flex-col items-center justify-center">
                             <h2 className="flex justify-center text-gray-900 dark:text-white text-2xl font-bold mb-5">Transactions</h2>

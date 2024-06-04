@@ -2,36 +2,36 @@ import { IoCloseSharp } from "react-icons/io5";
 import axios from "axios";
 import { useState } from 'react';
 
-const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+const BASE_SERVER_URL = "https://pomelo-server.vercel.app/";
 
 const CreateCategoryModal = ({ onClose }) => {
   const [newSpendingCategory, setNewSpendingCategory] = useState('');
   const [newSpendingCategoryBudgetLimit, setNewSpendingCategoryBudgetLimit] = useState('');
-  
+
   let createNewSpendingCategory = async function (event) {
     event.preventDefault();
     await axios.get(`${BASE_SERVER_URL}/getTeamSpaceByID`, { params: { "teamSpaceID": window.localStorage.getItem("teamSpaceID") } })
-        .then(async response => {
-            if (response.data.data.teamSpaceLeaderUserID === window.localStorage.getItem("userID")) {
-                await axios.post(`${BASE_SERVER_URL}/createSpendingCategory`, {
-                    "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
-                    "spendingCategoryName": newSpendingCategory,
-                    "budgetLimit": Number(newSpendingCategoryBudgetLimit)
-                }).then(response => {
-                    console.log(response);
-                    window.location.href = window.location.href
-                }).catch(error => {
-                    console.log(error);
-                });
-            } else {
-                alert("You are not the leader of this team space")
-            }
-        }).catch(error => {
+      .then(async response => {
+        if (response.data.data.teamSpaceLeaderUserID === window.localStorage.getItem("userID")) {
+          await axios.post(`${BASE_SERVER_URL}/createSpendingCategory`, {
+            "teamSpaceID": window.localStorage.getItem("teamSpaceID"),
+            "spendingCategoryName": newSpendingCategory,
+            "budgetLimit": Number(newSpendingCategoryBudgetLimit)
+          }).then(response => {
+            console.log(response);
+            window.location.href = window.location.href
+          }).catch(error => {
             console.log(error);
-        });
-}
+          });
+        } else {
+          alert("You are not the leader of this team space")
+        }
+      }).catch(error => {
+        console.log(error);
+      });
+  }
 
-  const handleSubmit = async function(event) {
+  const handleSubmit = async function (event) {
     event.preventDefault();
     await createNewSpendingCategory(event);
     onClose();
@@ -40,7 +40,7 @@ const CreateCategoryModal = ({ onClose }) => {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
       <div className="bg-theme-cornsilk p-6 rounded-lg mt-1 relative max-w-md w-full">
-        <IoCloseSharp className="absolute top-0 right-0 mr-4 mt-4 cursor-pointer"size={35} onClick={onClose}/>
+        <IoCloseSharp className="absolute top-0 right-0 mr-4 mt-4 cursor-pointer" size={35} onClick={onClose} />
         <h1 className="mb-4 text-lg font-bold">Create Spending Category</h1>
         <form
           onSubmit={(event) => handleSubmit(event)}

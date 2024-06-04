@@ -2,10 +2,10 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useState } from "react";
 import axios from 'axios';
 
-const BASE_SERVER_URL = "http://comp-3962-term-project-refactore-env.eba-dxvdjjmk.us-west-2.elasticbeanstalk.com";
+const BASE_SERVER_URL = "https://pomelo-server.vercel.app/";
 
-const ConfirmDeleteModal = ({itemName, onClose, type, itemID}) => {
-    
+const ConfirmDeleteModal = ({ itemName, onClose, type, itemID }) => {
+
     let deleteSpendingCategory = async function (event) {
         event.preventDefault();
         await axios.post(`${BASE_SERVER_URL}/deleteSpendingCategory`, {
@@ -48,9 +48,9 @@ const ConfirmDeleteModal = ({itemName, onClose, type, itemID}) => {
             console.log(error);
         })
     }
-  
 
-    const handleDelete = async function(event) {
+
+    const handleDelete = async function (event) {
         console.log('event', event)
         event.preventDefault();
         switch (type) {
@@ -72,7 +72,7 @@ const ConfirmDeleteModal = ({itemName, onClose, type, itemID}) => {
     return (
         <div className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm flex justify-center items-center">
             <div className="flex max-w-sm p-6 bg-theme-cornsilk border border-theme-cornsilk rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 relative">
-                <IoCloseSharp className="absolute top-0 right-0 mr-4 mt-4 cursor-pointer"size={20} onClick={onClose}/>
+                <IoCloseSharp className="absolute top-0 right-0 mr-4 mt-4 cursor-pointer" size={20} onClick={onClose} />
                 <div className="flex flex-col relative">
                     <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                         Confirm Delete
@@ -95,7 +95,7 @@ const ConfirmDeleteModal = ({itemName, onClose, type, itemID}) => {
                         >
                             Delete
                         </button>
-                </div>
+                    </div>
                 </div>
             </div>
         </div>
