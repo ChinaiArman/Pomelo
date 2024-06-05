@@ -56,6 +56,12 @@ Pomelo is a full stack website that allows users to create and manage budgets fo
 * [![React][React]][React-url]
 * [![Tailwind][Tailwind]][Tailwind-url]
 
+### Currently Hosted With
+
+* [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+
+(previously on AWS Beanstalk)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- DEVELOPER TEAM -->
