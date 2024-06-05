@@ -10,15 +10,7 @@ const Login = () => {
 
   let handleLogin = async function (event) {
     event.preventDefault();
-    let headers = {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*', // Allow CORS
-      'Access-Control-Allow-Credentials': true, // Allow CORS
-      'Access-Control-Allow-Methods': 'GET,OPTIONS,PATCH,DELETE,POST,PUT', // Allow CORS
-      'Access-Control-Allow-Headers': 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version', // Allow CORS
-    }
-    await axios.post(`${BASE_SERVER_URL}/login`, { username, password }, { headers: headers })
-      // await axios.post(`${BASE_SERVER_URL}/login`, { username, password })
+    await axios.post(`${BASE_SERVER_URL}/login`, { username, password })
       .then(async response => {
         if (response.data.status == 201) {
           await getTeamSpaceID(response.data.data.userID)

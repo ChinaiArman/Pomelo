@@ -2,7 +2,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import axios from "axios";
 import { useState } from 'react';
 
-const BASE_SERVER_URL = "https://pomelo-server.vercel.app/";
+const BASE_SERVER_URL = "https://pomelo-server.vercel.app";
 
 const CreateTransactionModal = ({ onClose, spendingCategories }) => {
   const [newTransactionName, setNewTransactionName] = useState('');
