@@ -47,7 +47,16 @@ const app = express();
 import cors from 'cors'
 app.use(cors())
 
-const allowCors = fn => async (req, res) => {
+import bodyParser from "body-parser"
+import { all } from "axios";
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
+
+const PORT = 5000;
+
+
+const newAllowCors = fn => async (req, res) => {
   res.setHeader('Access-Control-Allow-Credentials', true)
   res.setHeader('Access-Control-Allow-Origin', '*')
   // another common pattern
@@ -69,15 +78,7 @@ const handler = (req, res) => {
   res.end(d.toString())
 }
 
-module.exports = allowCors(handler)
-
-
-import bodyParser from "body-parser"
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-
-
-const PORT = 5000;
+export let allowCors = newAllowCors(handler)
 
 
 // Dynamo GETs
