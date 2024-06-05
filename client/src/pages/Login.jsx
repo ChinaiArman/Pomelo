@@ -28,7 +28,10 @@ const Login = () => {
           setPassword('');
         }
       })
-      .catch(error => { console.log(error) });
+      .catch(error => {
+        console.log("Error!")
+        console.log(error)
+      });
   }
 
   let getTeamSpaceID = async function (userID) {
