@@ -221,11 +221,14 @@ app.post("/editTransaction", async (req, res) => {
 app.post("/login", async (req, res) => {
   // res.setHeader('Access-Control-Allow-Origin', '*')
   // another common pattern
+  console.log("there")
   res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
   if (req.method === 'OPTIONS') {
+    console.log("anywhere")
     res.status(200).end()
     return
   }
+  console.log("here")
   let response = await login(req.body.username, req.body.password)
   res.send(response)
 });
