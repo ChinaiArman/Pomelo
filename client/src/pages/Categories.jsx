@@ -11,7 +11,7 @@ import EditCategoryModal from '../components/EditCategoryModal';
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal';
 import { currencyFormatter } from '../utils';
 
-const BASE_SERVER_URL = "http://pomelo-server.vercel.app/";
+const BASE_SERVER_URL = "https://pomelo-server.vercel.app/";
 
 const Categories = () => {
     const [searchParams] = useSearchParams();

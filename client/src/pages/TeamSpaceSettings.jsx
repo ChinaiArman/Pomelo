@@ -5,7 +5,7 @@ import UserListCard from '../components/UserListCard';
 import TeamSpaceDetailsCard from '../components/TeamSpaceDetailsCard';
 import CategoryListCard from '../components/CategoryListCard';
 
-const BASE_SERVER_URL = "http://pomelo-server.vercel.app/";
+const BASE_SERVER_URL = "https://pomelo-server.vercel.app/";
 
 
 const TeamSpaceSettings = () => {

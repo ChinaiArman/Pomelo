@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const BASE_SERVER_URL = "http://pomelo-server.vercel.app/";
+const BASE_SERVER_URL = "https://pomelo-server.vercel.app/";
 
 const Login = () => {
   const [username, setUsername] = useState('');

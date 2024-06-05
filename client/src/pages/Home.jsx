@@ -5,7 +5,7 @@ import Landing from './Landing';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
 
-const BASE_SERVER_URL = "http://pomelo-server.vercel.app/";
+const BASE_SERVER_URL = "https://pomelo-server.vercel.app/";
 
 const Home = () => {
   if (!window.localStorage.getItem("userID")) {

@@ -5,7 +5,7 @@ import EditTeamSpaceModal from "./EditTeamSpaceModal";
 import { currencyFormatter } from '../utils';
 import logo from "../assets/logo_icon.png";
 
-const BASE_SERVER_URL = "http://pomelo-server.vercel.app/";
+const BASE_SERVER_URL = "https://pomelo-server.vercel.app/";
 
 const TeamSpaceDetailsCard = ({ teamSpaceName, totalBudget }) => {
   const [isEditTeamSpaceModalOpen, setIsEditTeamSpaceModalOpen] = useState(false);

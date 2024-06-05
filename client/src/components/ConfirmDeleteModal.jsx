@@ -2,7 +2,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useState } from "react";
 import axios from 'axios';
 
-const BASE_SERVER_URL = "http://pomelo-server.vercel.app/";
+const BASE_SERVER_URL = "https://pomelo-server.vercel.app/";
 
 const ConfirmDeleteModal = ({ itemName, onClose, type, itemID }) => {
 

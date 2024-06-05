@@ -6,7 +6,7 @@ import TransactionsTable from '../components/TransactionsTable';
 import CreateTransactionModal from '../components/CreateTransactionModal';
 import NullSectionCard from '../components/NullSectionCard';
 
-const BASE_SERVER_URL = "http://pomelo-server.vercel.app/";
+const BASE_SERVER_URL = "https://pomelo-server.vercel.app/";
 
 const Transactions = () => {
     const [spendingCategories, setSpendingCategories] = useState([]);
