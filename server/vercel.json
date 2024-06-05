@@ -31,7 +31,7 @@
     ],
     "redirects": [
         {
-            "source": "/.*",
+            "source": "/(.*)",
             "destination": "index.js",
             "statusCode": 301
         }
