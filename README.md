@@ -18,7 +18,7 @@
   <p align="center">
     A full stack website leveraging NodeJS + AWS services to create a RESTful API and a React + Tailwind frontend to deliver a team-focused budgeting app for small projects and events.
     <br>
-    <a href="http://pomelo-client.s3-website-us-west-2.amazonaws.com/"><strong>View the deployed website »</strong></a>
+    <a href="https://pomelo-client.vercel.app/"><strong>View the deployed website »</strong></a>
   </p>
 </div>
 
@@ -76,7 +76,7 @@ Natalie Yu:
 Project Link:
 
 [![GitHub][github-shield]][project-github]
-[![Deployed Website](https://img.shields.io/badge/Deployed%20Website-4053D6?style=for-the-badge&logo=amazon-aws&logoColor=white)](http://pomelo-client.s3-website-us-west-2.amazonaws.com/)
+[![Deployed Website](https://img.shields.io/badge/Deployed%20Website-4053D6?style=for-the-badge&logo=amazon-aws&logoColor=white)](https://pomelo-client.vercel.app/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
