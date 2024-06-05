@@ -28,5 +28,12 @@
                 }
             ]
         }
+    ],
+    "redirects": [
+        {
+            "source": "/.*",
+            "destination": "index.js",
+            "statusCode": 301
+        }
     ]
 }
