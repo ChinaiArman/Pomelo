@@ -100,7 +100,7 @@ Thank you for your continued support throughout the project!
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[product-screenshot]: resources\preview.png
+[product-screenshot]: https://raw.githubusercontent.com/ChinaiArman/Pomelo/refs/heads/main/resources/preview.png
 [contributors-shield]: https://img.shields.io/github/contributors/chinaiarman/Pomelo.svg?style=for-the-badge
 [contributors-url]: https://github.com/ChinaiArman/Pomelo/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/ChinaiArman/Pomelo.svg?style=for-the-badge
