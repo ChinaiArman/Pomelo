@@ -1,4 +1,5 @@
 <!-- DOCUMENT HEADER -->
+
 <a name="readme-top"></a>
 
 [![Contributors][contributors-shield]][contributors-url]
@@ -36,6 +37,7 @@
 </details>
 
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 ![Product Name Screen Shot][product-screenshot]
@@ -46,23 +48,24 @@ Pomelo is a full stack website that allows users to create and manage budgets fo
 
 ### Built With
 
-* [![NodeJS][NodeJS]][NodeJS-url]
-* [![DynamoDB][DynamoDB]][DynamoDB-url]
-* [![S3][S3]][S3-url]
-* [![Beanstalk][Beanstalk]][Beanstalk-url]
-* [![Cogito][Cogito]][Cogito-url]
-* [![React][React]][React-url]
-* [![Tailwind][Tailwind]][Tailwind-url]
+- [![NodeJS][NodeJS]][NodeJS-url]
+- [![DynamoDB][DynamoDB]][DynamoDB-url]
+- [![S3][S3]][S3-url]
+- [![Beanstalk][Beanstalk]][Beanstalk-url]
+- [![Cogito][Cogito]][Cogito-url]
+- [![React][React]][React-url]
+- [![Tailwind][Tailwind]][Tailwind-url]
 
 ### Currently Hosted With
 
-* [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+- [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 
 (previously on AWS Beanstalk)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- DEVELOPER TEAM -->
+
 ## Developer Team
 
 Arman Chinai:
@@ -85,9 +88,10 @@ Project Link:
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ACKNOWLEDGMENTS -->
+
 ## Acknowledgments
 
-* Frederic Guo, Cloud Computing Instructor
+- Frederic Guo, Cloud Computing Instructor
 
 Thank you for your continued support throughout the project!
 
@@ -95,6 +99,7 @@ Thank you for your continued support throughout the project!
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [product-screenshot]: resources\preview.png
 [contributors-shield]: https://img.shields.io/github/contributors/chinaiarman/Pomelo.svg?style=for-the-badge
 [contributors-url]: https://github.com/ChinaiArman/Pomelo/graphs/contributors
