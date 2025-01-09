@@ -17,8 +17,6 @@
 
   <p align="center">
     A full stack website leveraging NodeJS + AWS services to create a RESTful API and a React + Tailwind frontend to deliver a team-focused budgeting app for small projects and events.
-    <br>
-    <a href="https://pomelo-client.vercel.app/"><strong>View the deployed website »</strong></a>
   </p>
 </div>
 
